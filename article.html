@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoisebitcoin - Article</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoisebitcoin</h1>
+            <div class="price-ticker">BTC: $00,000</div>
+        </header>
+        <div class="article-content">
+            <h2 id="article-title"></h2>
+            <p id="article-body"></p>
+            <div class="meta" id="article-meta"></div>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoisebitcoin</p>
+        </footer>
+    </div>
+    <script>
+        // Populate article content dynamically
+        const slug = window.location.pathname.split('/').pop();
+        fetch(`/api/article/${slug}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('article-title').textContent = data.title;
+                document.getElementById('article-body').textContent = data.body;
+                document.getElementById('article-meta').innerHTML = `
+                    <span>${data.source}</span> | <span>${data.date}</span> | <span>By ${data.author}</span> | <span class="category">${data.category}</span>
+                `;
+            })
+            .catch(error => console.error('Error loading article:', error));
+    </script>
+</body>
+</html>
