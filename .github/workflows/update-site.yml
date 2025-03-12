@@ -2,6 +2,7 @@ name: Update Site
 on:
   schedule:
     - cron: '0 * * * *'  # Runs every hour
+  workflow_dispatch:     # Adds manual trigger
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run script
-        run: node fetch-articles.js
+        run: node index.js
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
