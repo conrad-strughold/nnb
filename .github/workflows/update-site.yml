@@ -20,8 +20,9 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git pull origin main --rebase  # Fetch and rebase local changes on top of remote
           git add public/
           git commit -m "Update site" || echo "No changes to commit"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the built-in token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
