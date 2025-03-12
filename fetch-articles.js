@@ -99,6 +99,22 @@ async function fetchTweets() {
     return allTweets;
 }
 
+async function getExistingArticles(articlesDir) {
+    const existingArticles = new Map();
+    try {
+        const files = await fs.readdir(articlesDir);
+        for (const file of files) {
+            if (file.endsWith('.html')) {
+                const slug = file.replace('.html', '');
+                existingArticles.set(slug, true);
+            }
+        }
+    } catch (error) {
+        console.error('Error reading existing articles:', error);
+    }
+    return existingArticles;
+}
+
 async function fetchArticlesAndPodcasts() {
     const feeds = [
         { url: 'https://cointelegraph.com/rss/tag/bitcoin', type: 'article', category: 'news' },
@@ -118,8 +134,12 @@ async function fetchArticlesAndPodcasts() {
     const indexPath = path.join(__dirname, 'public', 'index.html');
     await fs.mkdir(articlesDir, { recursive: true });
 
+    // Get existing articles cache
+    const existingArticles = await getExistingArticles(articlesDir);
+
     const bitcoinPrice = await fetchBitcoinPrice();
-    const allTweets = await fetchTweets();
+    // Comment out tweet fetching
+    // const allTweets = await fetchTweets();
 
     const bitcoinKeywords = ['bitcoin', 'btc'];
     const altcoinKeywords = ['ethereum', 'eth', 'ripple', 'xrp', 'cardano', 'ada', 'litecoin', 'ltc', 'binance', 'bnb', 'solana', 'sol', 'polkadot', 'dot', 'dogecoin', 'doge'];
@@ -135,6 +155,27 @@ async function fetchArticlesAndPodcasts() {
             for (const item of feedData.items) {
                 const title = (item.title || '').toLowerCase();
                 const excerpt = (item.contentSnippet || item.content || item.description || '').toLowerCase();
+                const slug = title.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+                // Skip if article already exists
+                if (existingArticles.has(slug)) {
+                    console.log(`Skipping existing article: ${slug}`);
+                    
+                    // Add to allItems so it still appears in the index
+                    allItems.push({
+                        slug,
+                        title: item.title,
+                        excerpt: item.contentSnippet || item.content || item.description || 'No excerpt available',
+                        source: feedData.title || 'Unknown Source',
+                        date: item.pubDate || new Date().toISOString().split('T')[0],
+                        dateObj: item.pubDate ? new Date(item.pubDate) : new Date(),
+                        author: item.creator || 'Unknown Author',
+                        category: feed.category,
+                        type: feed.type,
+                        link: item.link
+                    });
+                    continue;
+                }
 
                 let includeItem = false;
 
@@ -148,7 +189,6 @@ async function fetchArticlesAndPodcasts() {
                 }
 
                 if (includeItem) {
-                    const slug = title.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
                     const itemHtml = generateItemHtml(item, feed.type, feedData.title, item.link, bitcoinPrice);
                     await fs.writeFile(path.join(articlesDir, `${slug}.html`), itemHtml);
                     console.log(`Generated ${feed.type}: ${slug}.html`);
@@ -177,7 +217,7 @@ async function fetchArticlesAndPodcasts() {
     const newsItems = allItems.filter(item => item.category === 'news');
     const inDepthItems = allItems.filter(item => item.category === 'in-depth');
 
-    const indexHtml = generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice);
+    const indexHtml = generateIndexHtml(newsItems, inDepthItems, [], bitcoinPrice); // Pass empty array instead of allTweets
     await fs.writeFile(indexPath, indexHtml);
     console.log(`Generated index.html with ${newsItems.length} news and ${inDepthItems.length} in-depth items`);
 }
@@ -332,6 +372,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
                     </article>
                 `).join('')}
             </div>
+            <!-- Comment out tweet column
             <div class="column-right">
                 <h2>Tweets</h2>
                 ${allTweets.map(tweet => `
@@ -341,6 +382,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
                     </div>
                 `).join('')}
             </div>
+            -->
         </main>
         <button id="show-more">Show More</button>
         <footer>
