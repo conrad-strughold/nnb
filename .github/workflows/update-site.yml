@@ -23,3 +23,5 @@ jobs:
           git add public/
           git commit -m "Update site" || echo "No changes to commit"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the built-in token
