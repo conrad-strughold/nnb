@@ -1,15 +1,12 @@
 name: Update and Deploy Site
-
 on:
   schedule:
     - cron: '0 * * * *'  # Runs every hour
-  workflow_dispatch:
-
+  workflow_dispatch:     # Manual trigger for testing
 permissions:
-  contents: write
-
+  contents: write       # Allows pushing to gh-pages
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -21,18 +18,9 @@ jobs:
         run: npm install
       - name: Run script
         run: node fetch-articles.js
-      - name: Build site
-        run: npm run build  # Adjust if needed
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: public
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-pages-artifact@v1
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages      # Deploy to gh-pages branch
+          folder: public        # Deploy contents of public/ folder
+          clean: true           # Remove old files from gh-pages
