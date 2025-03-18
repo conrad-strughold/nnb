@@ -2,7 +2,7 @@ name: Update and Deploy Site
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Runs every hour
+    - cron: '*/5 * * * *'
   workflow_dispatch:     # Manual trigger for testing
 
 jobs:
