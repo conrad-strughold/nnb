@@ -22,24 +22,17 @@ jobs:
       - name: Run script
         run: node fetch-articles.js
       - name: Build site
-        run: npm run build   # Adjust if your build command is different
+        run: npm run build  # Adjust if your build command is different
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: site-artifact
           path: public
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: site-artifact
+        uses: actions/download-pages-artifact@v1
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
