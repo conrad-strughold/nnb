@@ -3,7 +3,7 @@ name: Update and Deploy Site
 on:
   schedule:
     - cron: '0 * * * *'  # Runs every hour
-  workflow_dispatch:     # Allows manual trigger
+  workflow_dispatch:     # Manual trigger for testing
 
 permissions:
   contents: write       # Allows pushing to gh-pages
@@ -22,11 +22,12 @@ jobs:
       - name: Run script
         run: node fetch-articles.js
       - name: Build site
-        run: npm run build   # Use your build command (if different, adjust here)
+        run: npm run build   # Adjust if your build command is different
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          path: public      # Folder containing your built site
+          name: site-artifact
+          path: public
 
   deploy:
     needs: build
@@ -36,7 +37,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Download artifact
-        uses: actions/download-pages-artifact@v1
+        uses: actions/download-artifact@v2
+        with:
+          name: site-artifact
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
