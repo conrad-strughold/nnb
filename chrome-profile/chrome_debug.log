@@ -1,8 +1,8 @@
-[18260:12552:0312/154606.524:INFO:chrome_browser_cloud_management_controller.cc(196)] No machine level policy manager exists.
-[18488:13792:0312/154606.826:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)
-[18488:13792:0312/154606.829:ERROR:direct_composition_support.cc(1122)] QueryInterface to IDCompositionDevice4 failed: No such interface supported (0x80004002)
-[6488:17252:0312/154607.720:INFO:peer_connection_dependency_factory.cc(802)] Running WebRTC with a combined Network and Worker thread.
-[6488:17252:0312/154609.506:WARNING:codec.cc(386)] Explicitly added H264 constrained baseline to list of supported formats.
-[18260:12552:0312/154610.804:INFO:CONSOLE(0)] "Access to script at 'https://abs.twimg.com/responsive-web/client-web/bundle.Payments.undefineda.js' from origin 'https://x.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.", source: https://x.com/BitcoinPierre (0)
-[8568:8108:0312/154613.326:WARNING:sqlite_persistent_store_backend_base.cc(198)] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:248 to client_task_runner_.
-[8568:8108:0312/154613.326:WARNING:sqlite_persistent_store_backend_base.cc(198)] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:248 to client_task_runner_.
+[18140:14836:0319/142754.183:INFO:chrome_browser_cloud_management_controller.cc(196)] No machine level policy manager exists.
+[8236:16504:0319/142754.551:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)
+[8236:16504:0319/142754.551:ERROR:direct_composition_support.cc(1122)] QueryInterface to IDCompositionDevice4 failed: No such interface supported (0x80004002)
+[12948:22592:0319/142755.219:INFO:peer_connection_dependency_factory.cc(802)] Running WebRTC with a combined Network and Worker thread.
+[12948:22592:0319/142756.866:WARNING:codec.cc(386)] Explicitly added H264 constrained baseline to list of supported formats.
+[18140:14836:0319/142757.979:INFO:CONSOLE(0)] "Access to script at 'https://abs.twimg.com/responsive-web/client-web/bundle.Payments.undefineda.js' from origin 'https://x.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.", source: https://x.com/BitcoinPierre (0)
+[15032:21276:0319/142800.510:WARNING:sqlite_persistent_store_backend_base.cc(198)] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:248 to client_task_runner_.
+[15032:21276:0319/142800.510:WARNING:sqlite_persistent_store_backend_base.cc(198)] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:248 to client_task_runner_.

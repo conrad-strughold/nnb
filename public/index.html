@@ -16,8 +16,7 @@
         main { display: flex; gap: 20px; margin-top: 20px; }
         .column-left { width: 25%; }
         .column-middle { width: 50%; }
-        /* Updated tweet column: now scrolls like the other columns */
-        .column-right { width: 25%; background-color: #1f1f1f; padding: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        /* .column-right { width: 25%; background-color: #1f1f1f; padding: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); } */
         h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 10px; background: linear-gradient(to right, #ff9800 0%, #fff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
         article { background-color: #1f1f1f; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         article:hover { border-left: 2px solid #ff9800; padding-left: 13px; }
@@ -33,11 +32,11 @@
         .hidden { display: none; }
         button { background-color: #ff9800; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-size: 14px; font-family: 'Roboto', sans-serif; border-radius: 5px; margin-top: 10px; transition: background-color 0.3s; }
         button:hover { background-color: #e68900; }
-        .tweet { margin-bottom: 15px; }
-        .tweet-username { color: #ff9800; font-size: 14px; font-weight: bold; }
-        .tweet-username a { color: #ff9800; text-decoration: none; }
-        .tweet-username a:hover { text-decoration: underline; }
-        .tweet-text { color: #aaa; font-size: 12px; }
+        /* .tweet { margin-bottom: 15px; } */
+        /* .tweet-username { color: #ff9800; font-size: 14px; font-weight: bold; } */
+        /* .tweet-username a { color: #ff9800; text-decoration: none; } */
+        /* .tweet-username a:hover { text-decoration: underline; } */
+        /* .tweet-text { color: #aaa; font-size: 12px; } */
         footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
         @media (max-width: 768px) { main { flex-direction: column; } .column-left, .column-middle, .column-right { width: 100%; } }
     </style>
@@ -46,157 +45,162 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $00,000</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$83,221.00</span></div>
         </header>
         <main>
             <div class="column-left">
                 <h2>Latest News</h2>
                 
                     <article>
-                        <h3><a href="/articles/the-united-states-must-embrace-bitcoin-now-a-recap-of-bitcoin-for-america.html">The United States Must Embrace Bitcoin Now: A Recap Of Bitcoin For America</a></h3>
+                        <h3><a href="/articles/bitcoin-is-just-seeing-a-normal-correction-cycle-peak-is-yet-to-come-analysts.html"> Bitcoin is just seeing a ‘normal correction,’ cycle peak is yet to come: Analysts </a></h3>
+                        <p>Bitcoin’s correction from its January peak is a typical cycle pullback and is not out of the ordinar...</p>
+                        <div class="meta">
+                            <span class="meta-source">Cointelegraph.com News</span> |
+                            <span class="meta-date">Wed, 19 Mar 2025 05:43:53 +0000</span>
+                            | <span class="meta-author">By Cointelegraph by Ciaran Lyons</span>
+                        </div>
+                    </article>
+                
+                    <article>
+                        <h3><a href="/articles/minnesota-senator-proposes-bitcoin-act-after-going-from-skeptic-to-believer.html"> Minnesota senator proposes Bitcoin Act after going from skeptic to believer </a></h3>
+                        <p>Minnesota state Senator Jeremy Miller has introduced the Minnesota Bitcoin Act, which he drafted aft...</p>
+                        <div class="meta">
+                            <span class="meta-source">Cointelegraph.com News</span> |
+                            <span class="meta-date">Wed, 19 Mar 2025 02:49:28 +0000</span>
+                            | <span class="meta-author">By Cointelegraph by Ciaran Lyons</span>
+                        </div>
+                    </article>
+                
+                    <article>
+                        <h3><a href="/articles/trump-administration-eyes-massive-bitcoin-accumulation-says-executive-director.html">Trump Administration Eyes Massive Bitcoin Accumulation, Says Executive Director</a></h3>
                         <p>Bitcoin Magazine
 
-The United States Must Embrace Bitcoin Now: A Recap Of Bitcoin For America
-Speaker...</p>
+Trump Administration Eyes Massive Bitcoin Accumulation, Says Executive Director
+At...</p>
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Tue, 11 Mar 2025 22:58:28 +0000</span>
+                            <span class="meta-date">Tue, 18 Mar 2025 18:07:23 +0000</span>
+                            | <span class="meta-author">By Nik</span>
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/ecb-prepping-the-ground-for-digital-euro-launch.html">ECB Prepping the Ground for Digital Euro Launch</a></h3>
+                        <p>Bitcoin Magazine
+
+ECB Prepping the Ground for Digital Euro Launch
+Christine Lagarde, President of th...</p>
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">Tue, 18 Mar 2025 16:00:21 +0000</span>
+                            | <span class="meta-author">By Efrat Fenigson</span>
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/dmnd-to-launch-first-stratum-v2-bitcoin-mining-pool-and-closes-venture-capital-investment.html">DMND To Launch First Stratum V2 Bitcoin Mining Pool and Closes Venture Capital Investment</a></h3>
+                        <p>Bitcoin Magazine
+
+DMND To Launch First Stratum V2 Bitcoin Mining Pool and Closes Venture Capital Inv...</p>
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">Tue, 18 Mar 2025 13:25:04 +0000</span>
+                            | <span class="meta-author">By Nik</span>
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/michael-saylor-s-strategy-plans-to-offer-5m-shares-to-buy-more-bitcoin.html"> Michael Saylor’s Strategy plans to offer 5M shares to buy more Bitcoin </a></h3>
+                        <p>Business intelligence firm and Bitcoin investor Strategy plans to offer 5 million shares of the comp...</p>
+                        <div class="meta">
+                            <span class="meta-source">Cointelegraph.com News</span> |
+                            <span class="meta-date">Tue, 18 Mar 2025 13:15:45 +0000</span>
+                            | <span class="meta-author">By Cointelegraph by Ezra Reguerra</span>
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/introducing-congressman-nicholas-begich-an-og-bitcoiner.html">Introducing Congressman Nicholas Begich, An OG Bitcoiner</a></h3>
+                        <p>Bitcoin Magazine
+
+Introducing Congressman Nicholas Begich, An OG Bitcoiner
+Congressman Nicholas “Nic...</p>
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">Tue, 18 Mar 2025 13:00:58 +0000</span>
                             | <span class="meta-author">By Frank Corva</span>
                         </div>
                     </article>
                 
-                    <article>
-                        <h3><a href="/articles/here-s-what-happened-in-crypto-today.html"> Here’s what happened in crypto today </a></h3>
-                        <p>Today in crypto, a bill for the US to buy 1 million Bitcoin was re-submitted to Congress, the EU is ...</p>
-                        <div class="meta">
-                            <span class="meta-source">Cointelegraph.com News</span> |
-                            <span class="meta-date">Tue, 11 Mar 2025 21:44:50 +0000</span>
-                            | <span class="meta-author">By Cointelegraph by Cointelegraph</span>
-                        </div>
-                    </article>
-                
-                    <article>
-                        <h3><a href="/articles/us-senator-and-congressman-introduce-strategic-bitcoin-reserve-bills-to-buy-one-million-btc.html">US Senator And Congressman Introduce Strategic Bitcoin Reserve Bills To Buy One Million BTC</a></h3>
-                        <p>Bitcoin Magazine
-
-US Senator And Congressman Introduce Strategic Bitcoin Reserve Bills To Buy One Mi...</p>
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Tue, 11 Mar 2025 19:51:45 +0000</span>
-                            | <span class="meta-author">By Nik</span>
-                        </div>
-                    </article>
-                
                     <article class="hidden">
-                        <h3><a href="/articles/cantor-fitzgerald-to-expand-bitcoin-financing-amid-u-s-policy-shift.html">Cantor Fitzgerald To Expand Bitcoin Financing Amid U.S. Policy Shift</a></h3>
+                        <h3><a href="/articles/access-usd-without-selling-your-btc-with-bitcoin-backed-loans.html">Access USD Without Selling Your BTC With Bitcoin Backed Loans</a></h3>
                         <p>Bitcoin Magazine
 
-Cantor Fitzgerald To Expand Bitcoin Financing Amid U.S. Policy Shift
-Cantor Fitzge...</p>
+Access USD Without Selling Your BTC With Bitcoin Backed Loans
+Xapo Bank now offers...</p>
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Tue, 11 Mar 2025 16:57:46 +0000</span>
-                            | <span class="meta-author">By Nik</span>
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/bitcoin-mining-pool-braiins-hits-1-000-daily-payouts-on-lightning-network.html">Bitcoin Mining Pool Braiins Hits 1,000 Daily Payouts On Lightning Network</a></h3>
-                        <p>Bitcoin Magazine
-
-Bitcoin Mining Pool Braiins Hits 1,000 Daily Payouts On Lightning Network
-Bitcoin ...</p>
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Tue, 11 Mar 2025 15:24:13 +0000</span>
+                            <span class="meta-date">Tue, 18 Mar 2025 13:00:13 +0000</span>
                             | <span class="meta-author">By Vivek Sen Bitcoin</span>
                         </div>
                     </article>
                 
                     <article class="hidden">
-                        <h3><a href="/articles/mt-gox-makes-second-900m-move-in-a-week-as-bitcoin-taps-76k.html"> Mt. Gox makes second $900M+ move in a week as Bitcoin taps $76K </a></h3>
-                        <p>Defunct crypto exchange Mt. Gox moved almost a billion worth of Bitcoin, the second large BTC transf...</p>
+                        <h3><a href="/articles/bitcoin-s-recent-12b-open-interest-wipeout-was-essential-says-analyst.html"> Bitcoin’s recent $12B open interest wipeout was essential, says analyst </a></h3>
+                        <p>Bitcoin’s nearly $12 billion open interest shakeout earlier this month might be just the catalyst ne...</p>
                         <div class="meta">
                             <span class="meta-source">Cointelegraph.com News</span> |
-                            <span class="meta-date">Tue, 11 Mar 2025 04:36:00 +0000</span>
-                            | <span class="meta-author">By Cointelegraph by Brayden Lindrea</span>
+                            <span class="meta-date">Tue, 18 Mar 2025 03:26:48 +0000</span>
+                            | <span class="meta-author">By Cointelegraph by Ciaran Lyons</span>
                         </div>
                     </article>
                 
                     <article class="hidden">
-                        <h3><a href="/articles/white-house-draws-line-between-bitcoin-and-digital-assets-at-its-first-crypto-summit-in-eo.html">White House Draws Line Between Bitcoin And Digital Assets At Its First Crypto Summit, In EO</a></h3>
-                        <p>Bitcoin Magazine
-
-White House Draws Line Between Bitcoin And Digital Assets At Its First Crypto Summ...</p>
+                        <h3><a href="/articles/hyperliquid-opened-doors-to-democratized-crypto-whale-hunting-analyst.html"> Hyperliquid opened doors to ‘democratized’ crypto whale hunting: Analyst </a></h3>
+                        <p>Crypto whale tracking on the Hyperliquid blockchain has enabled traders to target whales with promin...</p>
                         <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Sat, 08 Mar 2025 02:38:56 +0000</span>
-                            | <span class="meta-author">By Frank Corva</span>
+                            <span class="meta-source">Cointelegraph.com News</span> |
+                            <span class="meta-date">Tue, 18 Mar 2025 01:29:01 +0000</span>
+                            | <span class="meta-author">By Cointelegraph by Stephen Katte</span>
                         </div>
                     </article>
                 
                     <article class="hidden">
-                        <h3><a href="/articles/not-your-keys-not-your-content-ownership-in-a-digital-age.html">Not Your Keys, Not Your Content: Ownership In A Digital Age</a></h3>
+                        <h3><a href="/articles/bitcoin-covenants-what-are-they-and-what-do-they-do.html">Bitcoin Covenants: What Are They And What Do They Do?</a></h3>
                         <p>Bitcoin Magazine
 
-Not Your Keys, Not Your Content: Ownership In A Digital Age
-What does ownership me...</p>
+Bitcoin Covenants: What Are They And What Do They Do?
+What are covenants? What do ...</p>
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Fri, 07 Mar 2025 19:17:38 +0000</span>
-                            | <span class="meta-author">By Will Jager</span>
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/the-clock-is-ticking-while-you-do-nothing.html">The Clock Is Ticking While You Do Nothing</a></h3>
-                        <p>Bitcoin Magazine
-
-The Clock Is Ticking While You Do Nothing
-Bitcoin doesn't exist in a vacuum, the r...</p>
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Fri, 07 Mar 2025 14:15:42 +0000</span>
+                            <span class="meta-date">Mon, 17 Mar 2025 19:36:24 +0000</span>
                             | <span class="meta-author">By Shinobi</span>
                         </div>
                     </article>
                 
                     <article class="hidden">
-                        <h3><a href="/articles/how-global-liquidity-fuels-bitcoin-price-growth.html">How Global Liquidity Fuels Bitcoin Price Growth</a></h3>
+                        <h3><a href="/articles/bitcoin-s-unstoppable-rise-a-saint-patrick-s-day-price-history.html">Bitcoin’s Unstoppable Rise: A Saint Patrick’s Day Price History</a></h3>
                         <p>Bitcoin Magazine
 
-How Global Liquidity Fuels Bitcoin Price Growth
-Bitcoin Price Performance Is Deepl...</p>
+Bitcoin’s Unstoppable Rise: A Saint Patrick’s Day Price History
+From just $5 in 20...</p>
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Fri, 07 Mar 2025 14:00:01 +0000</span>
-                            | <span class="meta-author">By Matt Crosby</span>
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/the-united-states-officially-establishes-a-strategic-bitcoin-reserve.html">The United States Officially Establishes A Strategic Bitcoin Reserve </a></h3>
-                        <p>Bitcoin Magazine
-
-The United States Officially Establishes A Strategic Bitcoin Reserve 
-President Tr...</p>
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Fri, 07 Mar 2025 02:49:12 +0000</span>
+                            <span class="meta-date">Mon, 17 Mar 2025 16:15:05 +0000</span>
                             | <span class="meta-author">By Nik</span>
                         </div>
                     </article>
                 
                     <article class="hidden">
-                        <h3><a href="/articles/celebrating-the-life-of-patricia-trompeter.html">Celebrating the Life of Patricia Trompeter</a></h3>
+                        <h3><a href="/articles/south-korea-dismisses-establishing-strategic-bitcoin-reserve.html">South Korea Dismisses Establishing Strategic Bitcoin Reserve</a></h3>
                         <p>Bitcoin Magazine
 
-Celebrating the Life of Patricia Trompeter
-Patti Trompeter, CEO of Sphere3D, a NAS...</p>
+South Korea Dismisses Establishing Strategic Bitcoin Reserve
+The Bank of Korea (BO...</p>
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">Thu, 06 Mar 2025 21:54:39 +0000</span>
-                            | <span class="meta-author">By Amanda Fabiano</span>
+                            <span class="meta-date">Mon, 17 Mar 2025 13:23:17 +0000</span>
+                            | <span class="meta-author">By Vivek Sen Bitcoin</span>
                         </div>
                     </article>
                 
@@ -205,26 +209,97 @@ Patti Trompeter, CEO of Sphere3D, a NAS...</p>
                 <h2>In-Depth Content</h2>
                 
                     <article>
-                        <h3><a href="/articles/bitbonds-an-idea-whose-time-has-come-andrew-hohns-bitcoin-for-america.html">"BitBonds - An Idea Whose Time Has Come" | Andrew Hohns, Bitcoin for America</a><span class="badge">▶</span></h3>
-                        
+                        <h3><a href="/articles/bitcoin-the-u-s-debt-crisis-w-avik-roy.html">BITCOIN & THE U.S. DEBT CRISIS w/ Avik Roy</a><span class="badge">(A)</span></h3>
+                        <p>Avik Roy is a policy analyst, and the president of the Foundation for Research on Equal Opportunity....</p>
                         <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-12T01:09:15.000Z</span>
+                            <span class="meta-source">What Bitcoin Did</span> |
+                            <span class="meta-date">Tue, 18 Mar 2025 18:28:00 +0000</span>
                             
                         </div>
                     </article>
                 
                     <article>
-                        <h3><a href="/articles/matthew-pines-bitcoin-in-a-changing-world-order-bitcoin-for-america.html">Matthew Pines "Bitcoin in a Changing World Order" | Bitcoin for America</a><span class="badge">▶</span></h3>
+                        <h3><a href="/articles/walker-america-bitcoin-s-biggest-political-moment-yet-the-culture-bit.html">Walker America: Bitcoin’s Biggest Political Moment Yet | The Culture Bit</a><span class="badge">▶</span></h3>
                         
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-11T23:48:00.000Z</span>
+                            <span class="meta-date">2025-03-17T19:00:28.000Z</span>
                             
                         </div>
                     </article>
                 
                     <article>
+                        <h3><a href="/articles/how-will-america-s-strategic-bitcoin-reserve-actually-work-pubkey-x-bitcoin-magazine.html">How Will America's Strategic Bitcoin Reserve ACTUALLY Work? | PubKey x Bitcoin Magazine</a><span class="badge">▶</span></h3>
+                        
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">2025-03-14T21:44:09.000Z</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/is-gamestop-s-ceo-hinting-at-a-bitcoin-strategy-bitcoin-backstage-feat-simon-gerovich.html">Is GameStop's CEO Hinting at a Bitcoin Strategy? | Bitcoin Backstage feat. Simon Gerovich</a><span class="badge">▶</span></h3>
+                        
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">2025-03-13T20:53:40.000Z</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/scaling-bitcoin-with-zk-rollups-with-david-seroy-and-sims-slp644.html">Scaling Bitcoin with ZK Rollups with David Seroy and Sims | SLP644</a><span class="badge">(A)</span></h3>
+                        <p>In this conversation with Stephan, David and Simanta discuss the implications of ZK Roll-ups for Bit...</p>
+                        <div class="meta">
+                            <span class="meta-source">Stephan Livera Podcast</span> |
+                            <span class="meta-date">Thu, 13 Mar 2025 10:55:06 GMT</span>
+                            | <span class="meta-author">By Stephan Livera</span>
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/lawrence-lepard-inflation-outlook-coming-bitcoin-monetary-reset-the-culture-bit.html">Lawrence Lepard: Inflation Outlook, Coming Bitcoin "Monetary Reset"? | The Culture Bit</a><span class="badge">▶</span></h3>
+                        
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">2025-03-12T23:08:07.000Z</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/live-bitcoin-price-watch-24-7-with-krakendesktop.html">LIVE: BITCOIN PRICE WATCH 24/7 WITH @KRAKENDESKTOP 💥</a><span class="badge">▶</span></h3>
+                        
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">2025-03-12T19:55:21.000Z</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/bitcoin-is-digital-property-michael-saylor.html">"Bitcoin is Digital Property" - Michael Saylor</a><span class="badge">▶</span></h3>
+                        
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">2025-03-12T18:00:17.000Z</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/the-fed-can-t-save-the-economy-w-jeff-snider.html">THE FED CAN’T SAVE THE ECONOMY w/ Jeff Snider</a><span class="badge">(A)</span></h3>
+                        <p>Jeff Snider is a macro analyst and the host of Eurodollar University.
+ In this episode, we discuss w...</p>
+                        <div class="meta">
+                            <span class="meta-source">What Bitcoin Did</span> |
+                            <span class="meta-date">Wed, 12 Mar 2025 10:56:00 +0000</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
                         <h3><a href="/articles/what-is-driving-the-growth-of-bitcoin-michael-saylor.html">"What is Driving the Growth of Bitcoin?" - Michael Saylor</a><span class="badge">▶</span></h3>
                         
                         <div class="meta">
@@ -245,56 +320,6 @@ Patti Trompeter, CEO of Sphere3D, a NAS...</p>
                     </article>
                 
                     <article class="hidden">
-                        <h3><a href="/articles/sen-lummis-reintroduces-bitcoin-act-for-u-s-strategic-reserve-government-btc-purchases.html">Sen. Lummis Reintroduces "BITCOIN Act" for U.S Strategic Reserve, Government BTC Purchases</a><span class="badge">▶</span></h3>
-                        
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-11T22:35:52.000Z</span>
-                            
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/jack-mallers-the-american-monetary-revolution-bitcoin-for-america.html">Jack Mallers "The American Monetary Revolution" | Bitcoin for America</a><span class="badge">▶</span></h3>
-                        
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-11T20:59:20.000Z</span>
-                            
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/vivek-ramaswamy-the-future-of-bitcoin-american-leadership-bitcoin-for-america.html">Vivek Ramaswamy "The Future of Bitcoin & American Leadership" | Bitcoin for America</a><span class="badge">▶</span></h3>
-                        
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-11T19:51:20.000Z</span>
-                            
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/rep-nick-begich-announces-house-strategic-bitcoin-reserve-bill-calls-for-fed-to-buy-1-million-btc.html">Rep. Nick Begich Announces House Strategic Bitcoin Reserve Bill, Calls For Fed To Buy 1 Million BTC</a><span class="badge">▶</span></h3>
-                        
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-11T18:48:57.000Z</span>
-                            
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/michael-saylor-bitcoin-for-america-keynote-speech-the-bitcoin-policy-institute.html">Michael Saylor "Bitcoin for America" Keynote Speech | The Bitcoin Policy Institute</a><span class="badge">▶</span></h3>
-                        
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-11T18:28:06.000Z</span>
-                            
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
                         <h3><a href="/articles/will-quantum-break-bitcoin-w-hunter-beast.html">WILL QUANTUM BREAK BITCOIN? W/ Hunter Beast</a><span class="badge">(A)</span></h3>
                         <p>Hunter Beast is a Bitcoin researcher focused on mitigating the risks quantum computing may pose to B...</p>
                         <div class="meta">
@@ -310,16 +335,6 @@ Patti Trompeter, CEO of Sphere3D, a NAS...</p>
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
                             <span class="meta-date">2025-03-11T16:59:43.000Z</span>
-                            
-                        </div>
-                    </article>
-                
-                    <article class="hidden">
-                        <h3><a href="/articles/live-bitcoin-price-watch-24-7-with-krakendesktop.html">LIVE: BITCOIN PRICE WATCH 24/7 WITH @KRAKENDESKTOP 💥</a><span class="badge">▶</span></h3>
-                        
-                        <div class="meta">
-                            <span class="meta-source">Bitcoin Magazine</span> |
-                            <span class="meta-date">2025-03-10T23:08:18.000Z</span>
                             
                         </div>
                     </article>
@@ -370,6 +385,26 @@ Patti Trompeter, CEO of Sphere3D, a NAS...</p>
                         <div class="meta">
                             <span class="meta-source">Bitcoin Magazine</span> |
                             <span class="meta-date">2025-03-07T21:11:35.000Z</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/strategic-bitcoin-reserve-geopolitical-impacts-and-bitcoin-for-america-w-matthew-pines.html">Strategic Bitcoin Reserve Geopolitical Impacts and "Bitcoin for America" w/ Matthew Pines</a><span class="badge">▶</span></h3>
+                        
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">2025-03-07T00:48:50.000Z</span>
+                            
+                        </div>
+                    </article>
+                
+                    <article class="hidden">
+                        <h3><a href="/articles/dr-art-laffer-presidential-candidate-maya-parbhoe-suriname-s-bitcoin-strategy.html">Dr. Art Laffer & Presidential Candidate Maya Parbhoe: Suriname's Bitcoin Strategy</a><span class="badge">▶</span></h3>
+                        
+                        <div class="meta">
+                            <span class="meta-source">Bitcoin Magazine</span> |
+                            <span class="meta-date">2025-03-06T18:50:37.000Z</span>
                             
                         </div>
                     </article>
@@ -9250,19 +9285,33 @@ What ...</p>
                     </article>
                 
             </div>
-            <!-- Comment out tweet column
+            <!--
             <div class="column-right">
                 <h2>Tweets</h2>
                 
             </div>
             -->
         </main>
-        <button id="show-more">Show More</button>
+       enticate: <button id="show-more">Show More</button>
         <footer>
-            <p>© 2023 nonoise₿itcoin | Last updated: 3/12/2025, 9:47:00 AM</p>
+            <p>© 2023 nonoise₿itcoin | Last updated: 3/19/2025, 2:36:45 PM</p>
         </footer>
     </div>
     <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+
         document.getElementById('show-more').addEventListener('click', function() {
             document.querySelectorAll('.hidden').forEach(function(article) {
                 article.classList.remove('hidden');

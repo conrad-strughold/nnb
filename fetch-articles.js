@@ -19,8 +19,8 @@ async function fetchBitcoinPrice() {
     }
 }
 
+/*
 async function getTweets(username, count = 5) {
-    // Use a persistent Chrome profile to stay logged in
     const chromeOptions = new chrome.Options();
     chromeOptions.addArguments('--user-data-dir=C:/Users/mvpru/nnbitcoin/chrome-profile');
 
@@ -33,7 +33,6 @@ async function getTweets(username, count = 5) {
         await driver.get(`https://twitter.com/${username}`);
         console.log(`Navigated to @${username}.`);
 
-        // Only wait for login if the login file does not exist
         try {
             await fs.access(LOGIN_FILE);
             console.log('Login already completed on this machine.');
@@ -56,7 +55,6 @@ async function getTweets(username, count = 5) {
 
         let tweetElements = await driver.findElements(By.css('article'));
         let tweets = [];
-        // Start at index 1 to skip the first tweet (likely a pinned tweet)
         for (let i = 1; i < Math.min(count + 1, tweetElements.length); i++) {
             try {
                 let tweet = tweetElements[i];
@@ -88,7 +86,6 @@ async function fetchTweets() {
             allTweets = allTweets.concat(tweets);
         } catch (error) {
             console.error(`Error fetching tweets for ${account}:`, error);
-            // Continue with other accounts even if one fails
         }
     }
 
@@ -98,6 +95,7 @@ async function fetchTweets() {
 
     return allTweets;
 }
+*/
 
 async function getExistingArticles(articlesDir) {
     const existingArticles = new Map();
@@ -134,12 +132,11 @@ async function fetchArticlesAndPodcasts() {
     const indexPath = path.join(__dirname, 'public', 'index.html');
     await fs.mkdir(articlesDir, { recursive: true });
 
-    // Get existing articles cache
     const existingArticles = await getExistingArticles(articlesDir);
 
     const bitcoinPrice = await fetchBitcoinPrice();
-    // Comment out tweet fetching
     // const allTweets = await fetchTweets();
+    const allTweets = []; // Empty array since tweets are commented out
 
     const bitcoinKeywords = ['bitcoin', 'btc'];
     const altcoinKeywords = ['ethereum', 'eth', 'ripple', 'xrp', 'cardano', 'ada', 'litecoin', 'ltc', 'binance', 'bnb', 'solana', 'sol', 'polkadot', 'dot', 'dogecoin', 'doge'];
@@ -157,11 +154,8 @@ async function fetchArticlesAndPodcasts() {
                 const excerpt = (item.contentSnippet || item.content || item.description || '').toLowerCase();
                 const slug = title.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-                // Skip if article already exists
                 if (existingArticles.has(slug)) {
                     console.log(`Skipping existing article: ${slug}`);
-                    
-                    // Add to allItems so it still appears in the index
                     allItems.push({
                         slug,
                         title: item.title,
@@ -217,7 +211,7 @@ async function fetchArticlesAndPodcasts() {
     const newsItems = allItems.filter(item => item.category === 'news');
     const inDepthItems = allItems.filter(item => item.category === 'in-depth');
 
-    const indexHtml = generateIndexHtml(newsItems, inDepthItems, [], bitcoinPrice); // Pass empty array instead of allTweets
+    const indexHtml = generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice);
     await fs.writeFile(indexPath, indexHtml);
     console.log(`Generated index.html with ${newsItems.length} news and ${inDepthItems.length} in-depth items`);
 }
@@ -269,7 +263,7 @@ function generateItemHtml(item, type, source, link, bitcoinPrice) {
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: ${bitcoinPrice}</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">${bitcoinPrice}</span></div>
         </header>
         <div class="article-content">
             <h2>${item.title}</h2>
@@ -287,6 +281,21 @@ function generateItemHtml(item, type, source, link, bitcoinPrice) {
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     `;
@@ -311,8 +320,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
         main { display: flex; gap: 20px; margin-top: 20px; }
         .column-left { width: 25%; }
         .column-middle { width: 50%; }
-        /* Updated tweet column: now scrolls like the other columns */
-        .column-right { width: 25%; background-color: #1f1f1f; padding: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        /* .column-right { width: 25%; background-color: #1f1f1f; padding: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); } */
         h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 10px; background: linear-gradient(to right, #ff9800 0%, #fff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
         article { background-color: #1f1f1f; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         article:hover { border-left: 2px solid #ff9800; padding-left: 13px; }
@@ -328,11 +336,11 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
         .hidden { display: none; }
         button { background-color: #ff9800; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-size: 14px; font-family: 'Roboto', sans-serif; border-radius: 5px; margin-top: 10px; transition: background-color 0.3s; }
         button:hover { background-color: #e68900; }
-        .tweet { margin-bottom: 15px; }
-        .tweet-username { color: #ff9800; font-size: 14px; font-weight: bold; }
-        .tweet-username a { color: #ff9800; text-decoration: none; }
-        .tweet-username a:hover { text-decoration: underline; }
-        .tweet-text { color: #aaa; font-size: 12px; }
+        /* .tweet { margin-bottom: 15px; } */
+        /* .tweet-username { color: #ff9800; font-size: 14px; font-weight: bold; } */
+        /* .tweet-username a { color: #ff9800; text-decoration: none; } */
+        /* .tweet-username a:hover { text-decoration: underline; } */
+        /* .tweet-text { color: #aaa; font-size: 12px; } */
         footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
         @media (max-width: 768px) { main { flex-direction: column; } .column-left, .column-middle, .column-right { width: 100%; } }
     </style>
@@ -341,7 +349,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: ${bitcoinPrice}</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">${bitcoinPrice}</span></div>
         </header>
         <main>
             <div class="column-left">
@@ -372,7 +380,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
                     </article>
                 `).join('')}
             </div>
-            <!-- Comment out tweet column
+            <!--
             <div class="column-right">
                 <h2>Tweets</h2>
                 ${allTweets.map(tweet => `
@@ -384,12 +392,26 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
             </div>
             -->
         </main>
-        <button id="show-more">Show More</button>
+       enticate: <button id="show-more">Show More</button>
         <footer>
             <p>© 2023 nonoise₿itcoin | Last updated: ${new Date().toLocaleString()}</p>
         </footer>
     </div>
     <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+
         document.getElementById('show-more').addEventListener('click', function() {
             document.querySelectorAll('.hidden').forEach(function(article) {
                 article.classList.remove('hidden');
