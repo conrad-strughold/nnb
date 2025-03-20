@@ -2,7 +2,7 @@ name: Update and Deploy Site
 
 on:
   schedule:
-    - cron: '*/15 * * * *'  # Runs every 5 minutes
+    - cron: '*/15 * * * *'  # Runs every 15 minutes (adjust as needed)
   workflow_dispatch:       # Manual trigger for testing
 
 jobs:
@@ -30,21 +30,58 @@ jobs:
       - name: List public directory
         run: ls -la public  # Verify contents of the 'public' directory
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Prepare deployment folder
+        run: |
+          mkdir deploy
+          cp public/index.html deploy/
+          cp -r public/articles deploy/
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v3
         with:
-          path: public     # Uploads the public/ folder as the artifact
+          name: deploy
+          path: deploy
 
   deploy:
-    needs: build          # Waits for the build job to complete
-    permissions:
-      pages: write        # Allows deploying to GitHub Pages
-      id-token: write     # Required for authentication
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}  # Provides the deployed URL
+    needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write       # Allows pushing changes to repository branches
+      pages: write          # Allows updating GitHub Pages
+      id-token: write       # Required for authentication
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Download deployment artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy
+          path: deploy
+
+      - name: Deploy to gh-pages branch
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          # Clone the repository and checkout (or create) the gh-pages branch
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo-gh-pages
+          cd repo-gh-pages
+          git checkout gh-pages || git checkout --orphan gh-pages
+          # Copy only the files you want to update from the deployment folder
+          cp -r ../deploy/index.html .
+          cp -r ../deploy/articles .
+          git add index.html articles
+          git commit -m "Deploy updated site to gh-pages branch" || echo "No changes to commit"
+          git push origin gh-pages
+
+      - name: Deploy to main branch
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          # Clone the repository and checkout the main branch
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo-main
+          cd repo-main
+          git checkout main
+          # Copy the updated files into the repository root
+          cp -r ../deploy/index.html .
+          cp -r ../deploy/articles .
+          git add index.html articles
+          git commit -m "Deploy updated site files to main branch" || echo "No changes to commit"
+          git push origin main
