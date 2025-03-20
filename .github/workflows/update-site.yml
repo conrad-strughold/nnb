@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: gh-pages         # Explicitly checkout the 'main' branch
+          ref: main         # Explicitly checkout the 'main' branch
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
