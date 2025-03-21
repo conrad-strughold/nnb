@@ -37,7 +37,7 @@ jobs:
           cp -r public/articles deploy/
 
       - name: Upload deployment artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Updated to v4
         with:
           name: deploy
           path: deploy
@@ -51,7 +51,7 @@ jobs:
       id-token: write       # Required for authentication
     steps:
       - name: Download deployment artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4  # Updated to v4 for consistency
         with:
           name: deploy
           path: deploy
@@ -60,11 +60,9 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          # Clone the repository and checkout (or create) the gh-pages branch
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo-gh-pages
           cd repo-gh-pages
           git checkout gh-pages || git checkout --orphan gh-pages
-          # Copy only the files you want to update from the deployment folder
           cp -r ../deploy/index.html .
           cp -r ../deploy/articles .
           git add index.html articles
@@ -75,11 +73,9 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          # Clone the repository and checkout the main branch
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo-main
           cd repo-main
           git checkout main
-          # Copy the updated files into the repository root
           cp -r ../deploy/index.html .
           cp -r ../deploy/articles .
           git add index.html articles
