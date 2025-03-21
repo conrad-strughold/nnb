@@ -37,7 +37,7 @@ jobs:
           cp -r public/articles deploy/
 
       - name: Upload deployment artifact
-        uses: actions/upload-artifact@v4  # Updated to v4
+        uses: actions/upload-artifact@v4
         with:
           name: deploy
           path: deploy
@@ -51,7 +51,7 @@ jobs:
       id-token: write       # Required for authentication
     steps:
       - name: Download deployment artifact
-        uses: actions/download-artifact@v4  # Updated to v4 for consistency
+        uses: actions/download-artifact@v4
         with:
           name: deploy
           path: deploy
@@ -63,10 +63,11 @@ jobs:
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo-gh-pages
           cd repo-gh-pages
           git checkout gh-pages || git checkout --orphan gh-pages
-          cp -r ../deploy/index.html .
-          cp -r ../deploy/articles .
-          git add index.html articles
-          git commit -m "Deploy updated site to gh-pages branch" || echo "No changes to commit"
+          mkdir -p public  # Ensure the public directory exists
+          cp -r ../deploy/index.html public/
+          cp -r ../deploy/articles public/
+          git add public/index.html public/articles
+          git commit -m "Deploy updated site to gh-pages branch in public/" || echo "No changes to commit"
           git push origin gh-pages
 
       - name: Deploy to main branch
@@ -76,8 +77,9 @@ jobs:
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} repo-main
           cd repo-main
           git checkout main
-          cp -r ../deploy/index.html .
-          cp -r ../deploy/articles .
-          git add index.html articles
-          git commit -m "Deploy updated site files to main branch" || echo "No changes to commit"
+          mkdir -p public  # Ensure the public directory exists
+          cp -r ../deploy/index.html public/
+          cp -r ../deploy/articles public/
+          git add public/index.html public/articles
+          git commit -m "Deploy updated site files to main branch in public/" || echo "No changes to commit"
           git push origin main
