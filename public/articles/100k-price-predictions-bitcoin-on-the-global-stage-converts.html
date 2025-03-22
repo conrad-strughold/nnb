@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,16 +32,26 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>$100k | Price predictions | Bitcoin on the global stage | Converts</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/f99ee335-5b96-44f8-9729-3d7b67bcc80d/audio/9e0d4927-0753-4d33-a986-1edc46052ae2/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In a recent Bitcoin podcast discussion, the crew analyzed Bitcoin's milestone of reaching $100,000, highlighted by supportive statements from Federal Reserve Chair Powell, Putin, and Trump within 24 hours. Powell's comparison of Bitcoin to gold rather than the dollar was seen as a significant shift in institutional recognition. The crew examined MicroStrategy's convertible bond strategy, now being replicated by other companies, while raising concerns about potential risks for late adopters attempting similar approaches.
+The crew debated whether Bitcoin would continue experiencing traditional 80% market crashes, with some arguing that institutional and nation-state buyers might prevent such deep downturns. Key statistics revealed that missing just two best trading days annually would result in -5.9% returns versus 12,000% for holding, emphasizing the importance of long-term investment. As Bitcoin becomes the seventh largest global asset, the crew shared mixed predictions about reaching $1 million by 2025, though many agreed that gold parity (around $500,000) could be achievable with strategic reserve adoption. The consensus viewed this as a crucial transition period for Bitcoin from a speculative asset to an established store of value.
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Fri, 6 Dec 2024 22:58:41 +0000</span>
-                | <span class="meta-author">By brady@swanbitcoin.com (Brandon Quittem, Brady Swenson, John Haar, Steven Lubka)</span>
+                | <span class="meta-author">By brady@swanbitcoin.com (Brady Swenson, Steven Lubka, Brandon Quittem, John Haar)</span>
             </div>
             <a href="https://swansignalpodcast.com/episodes/100k-price-predictions-bitcoin-on-the-global-stage-converts-TBkrhKmM" target="_blank" class="source-link">Listen to Original</a>
             <a href="/" class="back-link">← Back to Home</a>
@@ -48,6 +60,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

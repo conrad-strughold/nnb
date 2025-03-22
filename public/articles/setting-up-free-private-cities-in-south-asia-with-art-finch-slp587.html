@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,46 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Setting up Free Private Cities in South Asia with Art Finch (SLP587)</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/88689902/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-6-1%2F382139627-44100-2-f710ef32a2fee.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Art Finch is a South African-American Entrepreneur. Art has experience across South Asia and is interested in setting up Free Private Cities or Charter Cities. In this episode he shares his experiences in Bhutan and shares his theories on how Bitcoin and Free Private Cities can work together. 
+Timestamps:
+(00:00) - Intro
+(01:28) - Art’s background & his interest in building a Free Private City (FPC)
+(10:50) - The need for a Free Private City
+(13:11) - A look at Shenzhen as an SEZ
+(16:20) - Education in an FPC context
+(20:08) - Sponsors
+(22:22) - Education in an FPC context (contd.)
+(26:11) - Setting up an FPC in Bhutan
+(33:56) - Bhutan’s leadership views on the FPC 
+(41:41) - Sponsors
+(44:00) - Art’s insights on Bhutan & Bitcoin mining
+(46:08) - Potential FPCs in the future
+X clips:
+07:18 - biggest risk to FPC
+08:47 - 10:01 - Bhutan FPC in a nutshell
+10:57 - 12:40 - need for FPC
+18:08 - 20:08 -  learning/self education, role of schools, start with one node and grow from there - similar to bitcoin
+44:08 - 45:59 - Bitcoin progress in Bhutan - mining ops,  
+Links:
+Article mentioned: https://www.forbes.com/sites/sarahemerson/2023/12/15/bhutan-futuristic-city-dragon-king/
+Site: https://yungdrung.city/
+Free Citadels profile: https://freecitadels.com/profile/art-finch/ 
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 01 Jul 2024 15:36:08 GMT</span>
@@ -48,6 +84,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,53 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Charlene Fadirepo | Swan Signal | EP 111</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/823b3620-aeef-4ff1-ab33-467fe6a2a208/audio/ec90e344-bdf9-4526-be6f-374bcf2417b8/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">On this episode of Swan Signal, Sam sat down with Bitcoin educator and podcaster Charlene Fadirepo to discuss Bitcoin adoption in emerging markets, how Bitcoin can promote financial inclusion, and what we can do as an industry to drive Bitcoin adoption forward. 
+Timestamps:
+00:00:00 “Swan Signal” Intro
+00:01:29 Introducing Charlene and her Bitcoin 2023 Recap
+00:02:50 Charlene Bitcoin Origin Story 00:06:15 “Bitcoin and The American Dream”
+00:08:35 The Lack of Financial Inclusion in Traditional Finance
+00:12:45 Cross-Border Payments and Remittances
+00:16:00 Bitcoin Developments Happening in Africa
+00:21:52 Nigeria's Currency Debasement, CBDC Project and Bitcoin Adoption
+00:25:30 How Can People Help Drive Bitcoin Adoption Globally?
+00:29:17 Book Recommendations from Charlene
+00:30:22 How to Connect with Charlene
+00:31:35 “Swan Signal” Outro
+Connect with Swan Bitcoin: 
+🎬 YouTube: https://youtube.com/@Swan_Bitcoin 
+🐦 Twitter: https://twitter.com/SwanBitcoin 
+📸 Instagram: https://instagram.com/SwanBitcoin 
+💬 Telegram: https://t.me/swanbitcoin 
+🔗 LinkedIn: https://linkedin.com/company/swanbitcoin 
+📚 *Swan Bitcoin* is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Start your Bitcoin journey today, and your first $10 purchase is on us
+ 👉 https://swanbitcoin.com/yt
+📲 Download the all-new *Swan Bitcoin App*
+ 👉 https://www.swanbitcoin.com/app/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🎉 Get your ticket for the Pacific *Bitcoin Festival 2023* before prices increase!
+ 👉 https://www.pacificbitcoin.com/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🏦 Secure your bright orange future with the *Swan IRA* today! Real Bitcoin, no taxes
+ 👉 https://www.swanbitcoin.com/bitcoin-ira/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+💼 For high-net-worth individuals and corporations seeking to build generational wealth with Bitcoin, *Swan Private* is your guide 
+👉 https://www.swanbitcoin.com/private/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🎓 Want to learn more about Bitcoin? Check out the *Bitcoin Canon* a curated list of the best Bitcoin resources from your favorite experts 
+👉 https://swanbitcoin.com/cannon/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🚀 Get paid to recruit new Bitcoiners by joining *Swan Force*
+ 👉 https://www.swanbitcoin.com/enlist/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Thu, 1 Jun 2023 12:28:37 +0000</span>
@@ -48,6 +91,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

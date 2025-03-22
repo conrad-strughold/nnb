@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,80 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>The Bitcoin Strategy of Semler Scientific with Eric Semler | SLP641</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/99340719/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-4%2F395927952-44100-2-dd581321fa05d.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Eric Semler, chairman of Semler Scientific, shares his journey from being an investor in technology and media to adopting a Bitcoin treasury strategy for his company. He discusses the origins of Semler Scientific, the challenges faced in the healthcare sector, and how he became convinced of Bitcoin's potential as a store of value. 
+Eric elaborates on the transition from personal conviction in Bitcoin to implementing a corporate strategy, navigating regulatory hurdles, and the evolution of Bitcoin treasury strategies. He also addresses the concept of zombie companies and their potential to benefit from adopting Bitcoin as part of their financial strategy. The strategic timing for deploying Bitcoin in business operations, the high hurdle rate associated with Bitcoin investments, and the evolving landscape of Bitcoin treasury companies are few of the other aspects discussed in depth. 
+Takeaways
+🔸Semler Scientific was founded 20 years ago by Eric's father.
+🔸The company focuses on medical devices, particularly for screening peripheral artery disease.
+🔸Eric's journey with Bitcoin began in 2013 but solidified in 2017.
+🔸He was influenced by notable figures like Tom Lee and Michael Saylor.
+🔸The company adopted a Bitcoin treasury strategy in May 2021.
+🔸They faced regulatory challenges with the SEC during the adoption process.
+🔸The board was supportive of the Bitcoin strategy despite initial skepticism.
+🔸Eric believes that many companies should adopt a Bitcoin treasury strategy.
+🔸Zombie companies are those with cash but lack growth and market interest.
+🔸Eric advocates for these companies to consider Bitcoin as a valuable asset.  Tech CEOs may 🔸personally hold Bitcoin but hesitate to adopt it for their companies.
+🔸Advising zombie companies to start with small Bitcoin investments can be effective.
+🔸Calling a company a 'zombie' can be insulting and counterproductive.
+🔸Companies should focus on accumulating Bitcoin rather than using it for operations.
+🔸The hurdle rate for Bitcoin investments is exceptionally high.
+🔸Market saturation could impact the success of Bitcoin treasury companies.
+🔸Institutional investors have strict mandates that limit direct Bitcoin purchases.
+🔸The current market drawdown may deter companies from investing in Bitcoin.
+🔸Long-term strategies are essential for navigating Bitcoin's volatility.
+🔸The potential for Bitcoin to exceed gold's value presents significant opportunities.
+Timestamps:
+(00:00) - Intro
+(01:54) - The story of Semler Scientific 
+(06:09) - How did Eric stumble down the Bitcoin rabbit hole?
+(09:10) - Semler Scientific adopting the Bitcoin Treasury Strategy
+(16:34) - Convincing the stakeholders and the board of Semler Scientific to adopt BTC 
+(18:32) - Exploring financial engineering to buy more Bitcoin
+(20:42) - Sponsors
+(22:57) - Semler Scientific’s value as a MedTech & Bitcoin Treasury company
+(26:38) - How is the debt structured to acquire more Bitcoin?
+(29:02) - What is the future of Bitcoin Treasury Companies?
+(31:40) - What is a zombie company?; The case for Bitcoin in zombie companies
+(36:00) - The role of Tech CEOs in Bitcoin adoption
+(37:29) - Advising zombie companies on Bitcoin
+(39:27) - Sponsors
+(40:39) - Are zombie companies sensitive to criticism?
+(43:58) - When should a company deploy Bitcoin in its business strategies?  
+(46:45) - Should Bitcoin be a hurdle rate for investments?
+(51:18) - Bitcoin treasury companies managing market saturation
+(54:39) - Understanding the investor landscape for Bitcoin Treasuries
+(59:33) - How does Semler navigate bear cycles? 
+(1:01:53) - Closing thoughts
+Links: 
+
+https://x.com/SemlerEric
+
+https://www.semlerscientific.com/ 
+
+https://x.com/SemlerEric/status/1892924967940993250 
+
+Sponsors:
+
+Bold Bitcoin
+
+CoinKite.com (code LIVERA)
+
+Lana by Galoy
+
+Stephan Livera links:
+
+Follow me on X: @stephanlivera
+
+Subscribe to the podcast
+
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Tue, 04 Mar 2025 10:55:00 GMT</span>
@@ -48,6 +118,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

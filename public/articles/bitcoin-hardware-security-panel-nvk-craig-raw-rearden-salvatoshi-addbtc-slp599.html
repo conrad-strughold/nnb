@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,62 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Hardware Security Panel - NVK, Craig Raw, Rearden, Salvatoshi, AddBTC - SLP599</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/90706589/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-7-21%2F385106292-44100-2-19e5aeaa08dd1.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin security, especially during the upcoming bull run, is extremely important. In this high powered hardware security panel episode featuring NVK, Craig Raw, Rearden, Salvatoshi, AddBTC, we discuss the key trade offs of bitcoin hardware security.
+🔸What are the implications of Dark Skippy? 🔸What are some of the most common ways people lose their coins? 
+🔸Risks of USB in hardware wallets
+🔸Standardization & inspection of wallets
+Summary
+The panel discusses the recent Dark Skippy attack and its implications for Bitcoin security. They emphasize the importance of considering the entire threat model and the various ways in which users can lose their coins. The conversation touches on topics such as bad backups, social attacks, exchanges, and computer and phone vulnerabilities. 
+They highlight the trade-offs involved in hardware security and the need for a balance between security, privacy, and user experience. The conversation explores the security considerations and trade-offs in hardware wallets for Bitcoin. The participants discuss the risks associated with USB connections, the vulnerabilities of counterfeit devices, the importance of trust on first use, and the role of social security in the Bitcoin ecosystem. 
+They also touch on the need for standardized protocols, the challenges of inspectability, and the importance of a holistic approach to security. The conversation concludes with a reminder to not panic and to choose a hardware wallet that suits individual needs and preferences.
+Takeaways
+Consider the entire threat model when evaluating Bitcoin security.
+There are multiple ways users can lose their coins, including bad backups, social attacks, and vulnerabilities in computers and phones.
+Entropy plays a crucial role in key generation and signing.
+USB connections pose significant risks and may not be adequately secure.
+Hardware security involves trade-offs between security, privacy, and user experience. USB connections pose security risks due to the potential for exfiltration of sensitive information.
+Counterfeit devices, such as counterfeit FTDI UART to USB converters, can introduce vulnerabilities.
+Trust on first use is crucial in hardware wallets, as it establishes a secure foundation for subsequent operations.
+The Bitcoin ecosystem relies on a combination of technical security measures and social security practices.
+Standardized protocols and open standards are important for interoperability and reducing vendor dependence.
+Inspectability of software updates and communication processes is essential for maintaining security.
+A holistic approach to security considers factors such as usability, privacy, and user experience.
+Multisignature and Miniscript are practical solutions for enhancing security in hardware wallets.
+The best hardware security device for Bitcoin is the one that is used regularly and suits individual needs and preferences.
+Timestamps:
+(00:00) - Intro
+(01:03) - Panel’s reaction on ‘Dark Skippy’
+(14:33) - Most common ways people lose their coins
+(22:57) - Entropy in key generation and signing
+(28:04) - Sponsors
+(30:41) - Risks of using hardware wallets with USB
+(47:54) - Sponsor
+(49:02) - Standardization of hardware wallets; synchronous communication between external devices
+(55:16) - Community review and safety
+(1:05:10) - Closing thoughts
+Links: 
+https://x.com/add_BTC
+https://x.com/nvk
+https://x.com/craigraw
+https://x.com/reardencode 
+https://x.com/salvatoshi 
+Blog post: https://www.ledger.com/blog/towards-a-trustless-bitcoin-wallet-with-miniscript 
+Prior episode on Dark Skippy: https://stephanlivera.com/episode/597/ 
+Sponsors:
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Wed, 21 Aug 2024 11:41:42 GMT</span>
@@ -48,6 +100,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

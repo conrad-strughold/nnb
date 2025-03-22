@@ -2,11 +2,8 @@ const fs = require('fs').promises;
 const path = require('path');
 const Parser = require('rss-parser');
 const parser = new Parser();
-const { Builder, By, until } = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-const readline = require('readline');
-
-const LOGIN_FILE = 'loggedIn.txt';
+const axios = require('axios');
+const cheerio = require('cheerio');
 
 async function fetchBitcoinPrice() {
     try {
@@ -18,84 +15,6 @@ async function fetchBitcoinPrice() {
         return '$00,000';
     }
 }
-
-/*
-async function getTweets(username, count = 5) {
-    const chromeOptions = new chrome.Options();
-    chromeOptions.addArguments('--user-data-dir=C:/Users/mvpru/nnbitcoin/chrome-profile');
-
-    let driver = await new Builder()
-        .forBrowser('chrome')
-        .setChromeOptions(chromeOptions)
-        .build();
-
-    try {
-        await driver.get(`https://twitter.com/${username}`);
-        console.log(`Navigated to @${username}.`);
-
-        try {
-            await fs.access(LOGIN_FILE);
-            console.log('Login already completed on this machine.');
-        } catch (err) {
-            console.log('Not logged in. Please log in now, then press Enter in the terminal to continue...');
-            await new Promise(resolve => {
-                const rl = readline.createInterface({
-                    input: process.stdin,
-                    output: process.stdout
-                });
-                rl.question('Press Enter after logging in...', () => {
-                    rl.close();
-                    resolve();
-                });
-            });
-            await fs.writeFile(LOGIN_FILE, 'logged in');
-        }
-
-        await driver.wait(until.elementsLocated(By.css('article')), 10000);
-
-        let tweetElements = await driver.findElements(By.css('article'));
-        let tweets = [];
-        for (let i = 1; i < Math.min(count + 1, tweetElements.length); i++) {
-            try {
-                let tweet = tweetElements[i];
-                let tweetText = await tweet.findElement(By.css('div[lang]')).getText();
-                let tweetLinkElement = await tweet.findElement(By.css('a[href*="/status/"]'));
-                let tweetLink = await tweetLinkElement.getAttribute('href');
-                tweets.push({ username: `@${username}`, text: tweetText, link: tweetLink });
-            } catch (tweetError) {
-                console.error(`Error processing a tweet for @${username}:`, tweetError);
-            }
-        }
-
-        return tweets;
-    } catch (error) {
-        console.error(`Error fetching tweets for @${username}:`, error);
-        return [];
-    } finally {
-        await driver.quit();
-    }
-}
-
-async function fetchTweets() {
-    const accounts = ['saylor', 'bitcoinmagazine', 'BitcoinPierre'];
-    let allTweets = [];
-
-    for (const account of accounts) {
-        try {
-            const tweets = await getTweets(account, 5);
-            allTweets = allTweets.concat(tweets);
-        } catch (error) {
-            console.error(`Error fetching tweets for ${account}:`, error);
-        }
-    }
-
-    const tweetText = allTweets.map(tweet => `${tweet.username}: ${tweet.text} (Link: ${tweet.link})`).join('\n\n');
-    await fs.writeFile('tweets.txt', tweetText);
-    console.log('Tweets saved to tweets.txt');
-
-    return allTweets;
-}
-*/
 
 async function getExistingArticles(articlesDir) {
     const existingArticles = new Map();
@@ -113,36 +32,101 @@ async function getExistingArticles(articlesDir) {
     return existingArticles;
 }
 
+// Scrape Cointelegraph article content
+async function scrapeCointelegraphArticle(url) {
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+        });
+        const $ = cheerio.load(response.data);
+        const content = $('div.post-content').html();
+        if (!content) {
+            console.error(`No content found for ${url}`);
+            return '<p>No content available</p>';
+        }
+        const $content = cheerio.load(content);
+        $content('template, .post-content__disclaimer').remove();
+        return $content.html();
+    } catch (error) {
+        console.error(`Error scraping Cointelegraph ${url}:`, error);
+        return '<p>Error fetching article content</p>';
+    }
+}
+
+// Updated Bitcoin Magazine scraper
+async function scrapeBitcoinMagazineArticle(url) {
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+        });
+        const $ = cheerio.load(response.data);
+        
+        // Get the main content container
+        const $content = $('div.tdb-block-inner.td-fix-index');
+        if (!$content.length) {
+            console.error(`No main content container found for ${url}`);
+            return '<p>No content available</p>';
+        }
+
+        // Remove unwanted elements
+        $content.find('#bsf_rt_marker').remove();
+        $content.find('.molongui-post-byline').remove();
+        $content.find('[class*="bitco-"]').remove(); // Remove all ad divs
+        $content.find('style').remove();
+        $content.find('script').remove();
+        
+        // Get all paragraphs and preserve their content
+        let articleContent = '';
+        $content.find('p').each((i, elem) => {
+            const paragraphText = $(elem).html();
+            if (paragraphText && paragraphText.trim()) {
+                articleContent += `<p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">${paragraphText}</p>`;
+            }
+        });
+
+        if (!articleContent) {
+            console.error(`No paragraph content found for ${url}`);
+            return '<p>No content available</p>';
+        }
+
+        return articleContent;
+    } catch (error) {
+        console.error(`Error scraping Bitcoin Magazine ${url}:`, error);
+        return '<p>Error fetching article content</p>';
+    }
+}
+
 async function fetchArticlesAndPodcasts() {
     const feeds = [
-        { url: 'https://cointelegraph.com/rss/tag/bitcoin', type: 'article', category: 'news' },
-        { url: 'https://bitcoinmagazine.com/.rss/full/', type: 'article', category: 'news' },
-        { url: 'https://feeds.libsyn.com/219386/rss', type: 'podcast', category: 'in-depth' },
-        { url: 'https://anchor.fm/s/7d083a4/podcast/rss', type: 'podcast', category: 'in-depth' },
-        { url: 'https://feeds.simplecast.com/Z1tu2Hds', type: 'podcast', category: 'in-depth' },
-        { url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCtOV5M-T3GcsJAq8QKaf0lg', type: 'video', category: 'in-depth' },
-        { url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCJWCJCWOxBYSi5DhCieLOLQ', type: 'video', category: 'in-depth' },
-        { url: 'https://nakamotoinstitute.org/feed/', type: 'article', category: 'in-depth' },
-        { url: 'https://www.lynalden.com/feed/', type: 'article', category: 'in-depth' },
-        { url: 'https://vijayboyapati.medium.com/feed', type: 'article', category: 'in-depth' },
-        { url: 'https://bitcoinops.org/en/newsletters/index.xml', type: 'article', category: 'in-depth' },
-        { url: 'https://example.com/bitcoin-standard-podcast.rss', type: 'podcast', category: 'in-depth' }
+        { url: 'https://cointelegraph.com/rss/tag/bitcoin', type: 'article', category: 'news', source: 'Cointelegraph' },
+        { url: 'https://bitcoinmagazine.com/.rss/full/', type: 'article', category: 'news', source: 'Bitcoin Magazine' },
+        { url: 'https://feeds.libsyn.com/219386/rss', type: 'podcast', category: 'in-depth', source: 'Podcast' },
+        { url: 'https://anchor.fm/s/7d083a4/podcast/rss', type: 'podcast', category: 'in-depth', source: 'Podcast' },
+        { url: 'https://feeds.simplecast.com/Z1tu2Hds', type: 'podcast', category: 'in-depth', source: 'Podcast' },
+        { url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCtOV5M-T3GcsJAq8QKaf0lg', type: 'video', category: 'in-depth', source: 'YouTube' },
+        { url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCJWCJCWOxBYSi5DhCieLOLQ', type: 'video', category: 'in-depth', source: 'YouTube' },
+        { url: 'https://nakamotoinstitute.org/feed/', type: 'article', category: 'in-depth', source: 'Nakamoto Institute' },
+        { url: 'https://www.lynalden.com/feed/', type: 'article', category: 'in-depth', source: 'Lyn Alden' },
+        { url: 'https://vijayboyapati.medium.com/feed', type: 'article', category: 'in-depth', source: 'Vijay Boyapati' },
+        { url: 'https://bitcoinops.org/en/newsletters/index.xml', type: 'article', category: 'in-depth', source: 'Bitcoin Optech' },
+        { url: 'https://example.com/bitcoin-standard-podcast.rss', type: 'podcast', category: 'in-depth', source: 'Podcast' }
     ];
     const articlesDir = path.join(__dirname, 'public', 'articles');
     const indexPath = path.join(__dirname, 'public', 'index.html');
     await fs.mkdir(articlesDir, { recursive: true });
 
     const existingArticles = await getExistingArticles(articlesDir);
-
     const bitcoinPrice = await fetchBitcoinPrice();
-    // const allTweets = await fetchTweets();
     const allTweets = []; // Empty array since tweets are commented out
+    const allItems = [];
 
     const bitcoinKeywords = ['bitcoin', 'btc'];
     const altcoinKeywords = ['ethereum', 'eth', 'ripple', 'xrp', 'cardano', 'ada', 'litecoin', 'ltc', 'binance', 'bnb', 'solana', 'sol', 'polkadot', 'dot', 'dogecoin', 'doge'];
     const technicalAnalysisKeywords = ['technical analysis', 'chart', 'indicator', 'moving average', 'rsi', 'macd', 'bollinger', 'fibonacci', 'support', 'resistance', 'trendline'];
-
-    const allItems = [];
 
     for (const feed of feeds) {
         try {
@@ -172,8 +156,7 @@ async function fetchArticlesAndPodcasts() {
                 }
 
                 let includeItem = false;
-
-                if (feed.type === 'podcast') {
+                if (feed.type === 'podcast' || feed.type === 'video') {
                     includeItem = true;
                 } else {
                     const isBitcoinRelated = bitcoinKeywords.some(keyword => title.includes(keyword) || excerpt.includes(keyword));
@@ -183,7 +166,16 @@ async function fetchArticlesAndPodcasts() {
                 }
 
                 if (includeItem) {
-                    const itemHtml = generateItemHtml(item, feed.type, feedData.title, item.link, bitcoinPrice);
+                    let fullContent = '';
+                    if (feed.source === 'Cointelegraph' && item.link) {
+                        fullContent = await scrapeCointelegraphArticle(item.link);
+                    } else if (feed.source === 'Bitcoin Magazine' && item.link) {
+                        fullContent = await scrapeBitcoinMagazineArticle(item.link);
+                    } else {
+                        fullContent = `<p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">${item.contentSnippet || item.content || 'No content available'}</p>`;
+                    }
+
+                    const itemHtml = generateItemHtml(item, feed.type, feedData.title, item.link, bitcoinPrice, fullContent);
                     await fs.writeFile(path.join(articlesDir, `${slug}.html`), itemHtml);
                     console.log(`Generated ${feed.type}: ${slug}.html`);
 
@@ -207,7 +199,6 @@ async function fetchArticlesAndPodcasts() {
     }
 
     allItems.sort((a, b) => b.dateObj - a.dateObj);
-
     const newsItems = allItems.filter(item => item.category === 'news');
     const inDepthItems = allItems.filter(item => item.category === 'in-depth');
 
@@ -216,19 +207,8 @@ async function fetchArticlesAndPodcasts() {
     console.log(`Generated index.html with ${newsItems.length} news and ${inDepthItems.length} in-depth items`);
 }
 
-function generateItemHtml(item, type, source, link, bitcoinPrice) {
-    let content, actionText;
-    if (type === 'podcast' && item.enclosure?.url) {
-        content = `<audio controls style="width: 100%; margin: 20px 0;"><source src="${item.enclosure.url}" type="audio/mpeg"></audio>`;
-        actionText = 'Listen to Original';
-    } else if (type === 'video' && item.link) {
-        content = `<p><a href="${item.link}" target="_blank" style="color: #ff9800; text-decoration: none;">Watch Video</a></p>`;
-        actionText = 'Watch Original';
-    } else {
-        content = `<p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">${item.contentSnippet || item.content || 'No content available'}</p>`;
-        actionText = 'Read Original';
-    }
-
+function generateItemHtml(item, type, source, link, bitcoinPrice, fullContent) {
+    let actionText = type === 'podcast' ? 'Listen to Original' : type === 'video' ? 'Watch Original' : 'Read Original';
     const badge = type === 'podcast' ? '(A)' : type === 'video' ? '▶' : '';
 
     return `
@@ -249,6 +229,8 @@ function generateItemHtml(item, type, source, link, bitcoinPrice) {
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -268,7 +250,9 @@ function generateItemHtml(item, type, source, link, bitcoinPrice) {
         <div class="article-content">
             <h2>${item.title}</h2>
             ${badge ? `<span class="badge">${badge}</span>` : ''}
-            ${content}
+            ${type === 'podcast' && item.enclosure?.url ? `<audio controls style="width: 100%; margin: 20px 0;"><source src="${item.enclosure.url}" type="audio/mpeg"></audio>` : ''}
+            ${type === 'video' && item.link ? `<p><a href="${item.link}" target="_blank" style="color: #ff9800; text-decoration: none;">Watch Video</a></p>` : ''}
+            ${fullContent}
             <div class="meta">
                 <span class="meta-source">${source || 'Unknown Source'}</span> |
                 <span class="meta-date">${item.pubDate || new Date().toISOString().split('T')[0]}</span>
@@ -392,7 +376,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
             </div>
             -->
         </main>
-       <button id="show-more">Show More</button>
+        <button id="show-more">Show More</button>
         <footer>
             <p>© 2023 nonoise₿itcoin | Last updated: ${new Date().toLocaleString()}</p>
         </footer>

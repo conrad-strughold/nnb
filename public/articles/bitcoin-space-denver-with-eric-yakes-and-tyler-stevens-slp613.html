@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,55 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Space Denver with Eric Yakes and Tyler Stevens SLP613</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/94041708/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-10-6%2F389343134-44100-2-40a3deb7a9ee7.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Eric Yakes & Tyler Stevens join me to discuss their efforts to build a Bitcoin-focused community in Denver through various events, educational initiatives, and sustainable financial practices. 
+Summary
+In this episode, Stephan Livera hosts Eric Yakes and Tyler Stevens to discuss the burgeoning Bitcoin community in Denver and their initiative to establish a dedicated Bitcoin space. They explore the dynamics of the local Bitcoin scene, the vision behind creating a community-driven hub, and the importance of governance and member engagement. The conversation also touches on the philosophy of creating a 'third place' for Bitcoin enthusiasts, comparing their efforts to similar initiatives like Bitcoin Park in Nashville, and outlining plans for coworking and events in their new space. In this conversation, Tyler and Eric emphasize the importance of documentation for leadership transitions, the need for financial sustainability, and the engagement of the developer community. They also share insights on creating educational opportunities and offer advice for others looking to establish similar community spaces.
+Takeaways
+The Bitcoin community in Denver is rapidly growing.
+Creating a Bitcoin space aims to bridge social and technical meetups.
+Community-driven governance fosters member engagement and influence.
+The 'third place' philosophy emphasizes a balanced community environment.
+The Denver Bitcoin space seeks to attract talent from the broader crypto community.
+The governance structure allows for member representation and influence.
+The space is designed to be a hub for education and events.
+The initiative aims to positively influence the local culture and economy. 
+You need to motivate your local community.
+Timestamps:
+(00:00) - Intro 
+(01:21) - The vibrant Bitcoin community in Denver; BitDevs
+(04:48) - What is Bitcoin Space? 
+(09:21) - ‘The Third Place’ Philosophy in Bitcoin
+(14:45) - Similarities & differences between Bitcoin Space, Denver & Bitcoin Park, Nashville
+(15:54) - Community growth & member engagement in Bitcoin Space
+(18:57) - Sponsors
+(21:39) - Building community through Coworking & Events at Bitcoin Space
+(27:00) - Self-sustaining nature of leadership & importance of documentation
+(29:32) - Financial sustainability and Treasury management
+(32:36) - FOSS Developer community in Denver; Creating Educational initiatives 
+(33:44) - Sponsors
+(42:15) - Advice for aspiring Community Builders
+(45:28) - Outro
+Includes Paid Partnerships
+Links: 
+Eric Yakes: https://x.com/ericyakes 
+Tyler Stevens: https://x.com/tylerkstevens 
+The Space: https://x.com/SpaceDenver 
+https://denver.space/ 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Wed, 06 Nov 2024 10:55:00 GMT</span>
@@ -48,6 +93,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

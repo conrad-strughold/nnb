@@ -17,6 +17,8 @@ In this episode, Kenji Tateiwa, CEO of Agile Energy X, discusses his extensive b
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -31,12 +33,55 @@ In this episode, Kenji Tateiwa, CEO of Agile Energy X, discusses his extensive b
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Mining: The Most Flexible Energy Buyer with Kenji Tateiwa SLP609</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/93006619/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-9-14%2F388057344-44100-2-cdf78820b2af3.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Summary
+In this episode, Kenji Tateiwa, CEO of Agile Energy X, discusses his extensive background in nuclear engineering and the impact of the Fukushima disaster on public perception of nuclear energy. He explains the innovative concept behind Agile Energy X, which leverages wasted renewable energy through Bitcoin mining to address curtailment and grid congestion issues in Japan. Kenji elaborates on the unique flexibility of Bitcoin mining as an energy buyer and its potential role in the future energy landscape, including the integration of circular economy principles. The conversation also touches on the challenges and opportunities in Japan's energy production, particularly regarding nuclear energy and the need for a diverse energy portfolio.
+Takeaways
+Kenji Tateiwa has a strong background in nuclear engineering.
+The Fukushima disaster significantly impacted public perception of nuclear energy.
+Agile Energy X aims to utilize wasted renewable energy through Bitcoin mining.
+Bitcoin mining can help solve curtailment and grid congestion issues.
+The concept of 'Megawatt to MegaHash' connects energy production to Bitcoin mining.
+Bitcoin mining is flexible and can be turned on and off as needed.
+AI data centers are less flexible compared to Bitcoin mining.
+Agile Energy X has a two-pronged strategy to hedge against market fluctuations.
+The circular economy can be integrated into energy solutions.
+Japan's energy future requires a diverse mix of energy sources.
+Timestamps:
+(00:00) - Intro
+(00:50) - Who is Kenji Tateiwa and what is TEPCO?
+(05:34) - What are the various components of energy markets?
+(06:30) - Fukushima and the perception of nuclear energy 
+(09:42) - What is Agile Energy X & why was it created?
+(14:15) - Convincing TEPCO to mine Bitcoin; Solving the energy issue
+(16:14) - Understanding Curtailment and Grid Congestion
+(20:06) - Sponsors
+(23:10) - Megawatt to MegaHash: Bridging Energy and Bitcoin
+(25:42) - Bitcoin Mining vs. AI Data Centers
+(29:02) - The competitive landscape of Bitcoin mining
+(33:26) - Sponsors 
+(37:58) - Challenges and opportunities in Nuclear Energy
+(42:12) - Curtailment of renewable energy could reach 42% in Japan by 2050?
+(45:41) - Scaling Bitcoin mining in Japan
+(47:02) - What is “The Ultimate Circular Economy”?
+(51:28) - The future of Japanese energy production
+(53:44) - The future of Agile Energy X
+Links: 
+https://agileenergyx.co.jp/en/  
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 14 Oct 2024 11:00:00 GMT</span>
@@ -49,6 +94,21 @@ In this episode, Kenji Tateiwa, CEO of Agile Energy X, discusses his extensive b
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

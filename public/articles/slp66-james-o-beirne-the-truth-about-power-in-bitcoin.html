@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,32 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP66 James O’Beirne - The truth about ‘power’ in Bitcoin</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/2894290/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fproduction%2F2019-3-10%2F12621300-44100-2-d4c2e63a65616.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">James O’Beirne, Bitcoin Core Engineer at Chaincode Labs joins me in this episode to talk about the real nature of ‘power’ and control within Bitcoin. It’s not as simple as it might first seem! We talk about: 
+Differing conceptions of ‘power’ in Bitcoin
+Peer to peer network governance
+Bitcoin Core development
+Assume utxo
+James O’Beirne links:
+Twitter: https://twitter.com/jamesob 
+Github: https://github.com/jamesob 
+Chaincode labs: https://chaincode.com/ 
+Discussed in episode: 
+2019 Draft Paper by Angela Walch: Deconstructing 'Decentralization': Exploring the Core Claim of Crypto Systems - https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3326244 
+WBD089 - Angela Walch appearance on What Bitcoin Did podcast - https://www.whatbitcoindid.com/podcast/critiquing-bitcoin-with-angela-walch 
+Assumeutxo: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-April/016825.html 
+Stephan Livera links:
+Twitter: https://twitter.com/@stephanlivera 
+Subscribe on iTunes: https://itunes.apple.com/podcast/stephan-livera-podcast/id1415720320?mt=2 
+Subscribe on Android: https://subscribeonandroid.com/anchor.fm/s/7d083a4/podcast/rss
+Website: https://stephanlivera.com/ 
+Patreon: http://patreon.com/stephanlivera</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Wed, 10 Apr 2019 19:00:00 GMT</span>
@@ -48,6 +70,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

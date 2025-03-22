@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,66 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Full Reserve vs "Real Bills" with Philipp Bagus - SLP600</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/91028802/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-7-29%2F385500473-44100-2-e612702f7447e.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Philipp Bagus rejoins me to discuss his newest book, ‘Full Reserve Banking versus The Real Bills Doctrine’. This is his response to Juan Ramón Rallo, and in it we discuss:
+🔸 The currency school and the banking school
+🔸The problem of ‘double availability’ 
+🔸Why the creation of fiduciary media is a problem
+🔸The correct categorization of goods and money
+🔸Full Reserve in a Bitcoin world? 
+🔸Milei’s work in Argentina
+Summary:
+In this conversation, Stephan interviews Dr. Philipp Bagus about the full reserve banking versus the real bills doctrine. They discuss: 
+The importance of the fractional reserve banking system and its impact on the monetary system and society as a whole. 
+The historical context of the currency school versus the banking school debate in the 19th century. 
+The concept of double availability and its implications for the stability of the money supply.
+The real bills doctrine and its justification for fractional reserve banking.
+The categorization issues surrounding money and financial assets. 
+In this conversation, Philipp Bagus discusses the flaws of fractional reserve banking and the importance of understanding the distinction between stock and flow of savings. He explains that holding fiduciary media, such as government bonds, does not count as real savings because it involves credit transactions and does not free up consumer goods. Bagus also explores the potential for banking systems to evolve on top of Bitcoin, highlighting the need for full reserves and the importance of legal enforcement to prevent fraud. He concludes by discussing the economic and political challenges faced by Argentina's President Javier Milei.
+Takeaways:
+Fractional reserve banking, where banks create new money out of thin air, is a major problem in the monetary system and has far-reaching ramifications.
+The debate between full reserve banking and fractional reserve banking has historical roots and has been a topic of discussion among Austrian economists.
+The concept of double availability is crucial in understanding the distinction between loans and deposits, and the potential for credit expansion and business cycles.
+The real bills doctrine, which justifies fractional reserve banking, is based on the idea that banks can issue short-term loans backed by goods, but it fails to address the inherent problems of credit expansion.
+Money is not a financial asset, but a present good that facilitates exchange and reduces uncertainty. It is distinct from financial assets and should be categorized separately. Understanding the distinction between stock and flow of savings is crucial in evaluating the flaws of fractional reserve banking.
+Holding fiduciary media, such as government bonds, does not count as real savings because it involves credit transactions and does not free up consumer goods.
+The evolution of banking systems on top of Bitcoin should prioritize full reserves and legal enforcement to prevent fraud.
+President Javier Milei of Argentina faces economic and political challenges in his efforts to reform the country's monetary system.
+Timestamps:
+(00:00) - Intro
+(01:05) - Why care about full reserve banking?
+(03:18) - Currency school vs the Banking school and the role of Mises
+(09:15) - Free banking vs Fractional Reserve banking - the issue of double availability
+(17:17) - What is the Real Bills Doctrine?
+(31:50) - Sponsors
+(34:27) - The issue with the desire for a ‘stable money’
+(41:20) - “Everything is either a real asset or a financial asset.” - J.R. Rallo; monetary substitutes
+(46:42) - Is money a financial asset?; Cash holdings (Stock) vs Savings (Flow)
+(55:21) - Sponsor
+(56:51) - Why does holding fiduciary media not count as ‘real savings’? 
+(1:00:30) - Summarizing the critique 
+(1:03:56) - Bitcoin substitutes - Ecash, Ark, L-BTC, Custodial bitcoin
+(1:13:27) - Potential for Bitcoin to evolve as a Full Reserve banking system
+(1:18:45) - Positive & negative assessment of Javier Milei 
+(1:26:07) - Implication of stablecoin use in Argentina 
+Links: 
+https://x.com/PhilippBagus 
+https://mises.org/profile/philipp-bagus 
+https://mises.org/library/book/full-reserve-banking-versus-real-bills-doctrine 
+Sponsors:
+Bold Bitcoin
+mempool.space/accelerator 
+CoinKite.com (code LIVERA)
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Thu, 29 Aug 2024 10:25:51 GMT</span>
@@ -48,6 +104,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

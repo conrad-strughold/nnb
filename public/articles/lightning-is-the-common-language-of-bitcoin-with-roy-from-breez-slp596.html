@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,57 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Lightning is the common language of Bitcoin with Roy from Breez SLP596 </h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/90235820/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-7-9%2F384526258-44100-2-8d1e49f57f994.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Just like how English is the international language of business, Bitcoin’s lightning network is how various layers and apps and products will ‘talk’ to each other. Roy Sheinfeld, founder and CEO of Breez (@Breez_Tech) rejoins me to talk about updates in lightning and what’s new with Breez SDK. 
+We discuss the various layers and ways of interacting with Bitcoin and lightning, using Liquid (@Liquid_BTC) with swaps, and Bitcoin as a medium of exchange. 
+Summary:
+In this conversation, Stephan and Roy discuss the current state of Bitcoin and Lightning. They explore the contrasting narratives of Lightning startups shutting down and new partnerships being formed. Roy emphasizes that Lightning is a manifestation of the payments use case of Bitcoin and that the majority of Bitcoin usage is still for trading and as an asset. He believes that the value proposition of Bitcoin lies in its potential as peer-to-peer electronic cash. They also discuss the role of custodial and non-custodial solutions, the regulatory landscape, and the control exerted by governments and private companies. 
+Roy argues that Lightning is the common language of the Bitcoin economy, enabling interoperability between different subnetworks and protocols. He highlights the importance of Lightning as a rail for communication and the incentives for moving Bitcoin within the Lightning network. Breez is working on integrating Lightning Network into existing applications to make Bitcoin more accessible and usable. They have developed the Breez SDK, which allows developers to easily integrate Lightning functionality into their apps. 
+Breez offers two implementations: Greenlight, which is a pure Lightning implementation, and Liquid, which is a nodeless implementation of Lightning using the Liquid sidechain. The goal is to provide a seamless user experience for Lightning transactions and make Bitcoin a common language for payments. Breez is also exploring hybrid solutions and partnerships to expand the adoption of Lightning.
+Key Takeaways:
+The majority of Bitcoin usage is currently for trading and as an asset, but the value proposition lies in its potential as peer-to-peer electronic cash.
+Lightning is the common language of the Bitcoin economy, enabling interoperability between different subnetworks and protocols.
+There is a need for both custodial and non-custodial solutions, with a growing focus on self-custodial options.
+The regulatory landscape and control exerted by governments and private companies pose challenges to the use of Bitcoin as a medium of exchange.
+Incentives within the Lightning network encourage the movement of Bitcoin and the use of Lightning as a rail for communication. Breez is focused on integrating Lightning Network into existing applications to make Bitcoin more accessible and usable.
+They have developed the Breez SDK, which allows developers to easily integrate Lightning functionality into their apps.
+Breez offers 2 implementations: Greenlight, which is a pure Lightning implementation, and Liquid, which is a nodeless implementation of Lightning using the Liquid sidechain.
+The goal is to provide a seamless user experience for Lightning transactions and make Bitcoin a common language for payments.
+Breez is exploring hybrid solutions and partnerships to expand the adoption of Lightning.
+Timestamps:
+(00:00) - Intro
+(00:56) - The current state of Bitcoin & Lightning network
+(03:17) - Mutiny wallet’s contributions to Bitcoin
+(04:54) - Regulatory landscape, Dollarisation of Bitcoin & Importance of non-custodial solutions
+(14:43) - Sponsor
+(16:07) - HODLing vs Spending Bitcoin
+(18:55) - Lightning is the common language of the Bitcoin economy
+(22:50) - Lightning: Bitcoin’s interoperability protocol
+(29:42) - Liquid network - overview
+(31:27) - Existing frictions with the Lightning network; Greenlight implementation, Liquid implementation 
+(36:55) - Sponsors
+(38:57) - Boltz.exchange ( @Boltzhq ) X Breez
+(40:33) - Differences b/w Greenlight & Liquid implementation
+(49:00) - Lightning on Liquid soon?
+(52:25) - Possible future integrations & way forward for Breez
+(57:25) - Outro
+Links: 
+https://medium.com/breez-technology/lightning-is-the-common-language-of-the-bitcoin-economy-eb8515341c11 
+https://x.com/Breez_Tech 
+Sponsors:
+CoinKite.com (code LIVERA)
+Mempool.space
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Fri, 09 Aug 2024 11:39:21 GMT</span>
@@ -48,6 +95,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

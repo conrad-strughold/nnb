@@ -17,6 +17,8 @@ Financial surveillance la">
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -31,12 +33,42 @@ Financial surveillance la">
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP165 Rafael Yakobi - Should Coinjoin users be flagged? Is Privacy Illegal?</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/12287887/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fproduction%2F2020-3-11%2F63611401-44100-1-e3c22d05c5cf4.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Rafael Yakobi, Managing Attorney at The Crypto Lawyers joins me to talk about privacy in Bitcoin and the law. We talk about:
+Financial surveillance laws
+Obligations on bitcoin companies
+How it works in practice
+Blockchain surveillance companies
+Links:
+Twitter: @CACryptoLawyer
+The Crypto Lawyers: www.thecryptolawyers.com
+Bitcoin Magazine article: https://bitcoinmagazine.com/articles/bitcoin-fungibility-mixing-and-the-legal-limits-on-maintaining-privacy
+Other links:
+Bitcoin wiki transaction surveillance company by Chris Belcher
+6102 Bitcoin coinjoin infographics:
+https://6102bitcoin.com/001_what_is_bitcoin_taint/
+2. https://6102bitcoin.com/002_are_chain_analysis_heuristics_reliable/
+3. https://6102bitcoin.com/003_blacklisting_distance_proximity/
+Other relevant interviews:
+SLP160 BTCxZelko - Protect your Bitcoin Privacy with Ronin Dojo
+SLP150 Samourai Wallet
+SLP149 Waxwing (JoinMarket, PayJoin, SNICKER)
+Sponsor links:
+Kraken
+Unchained Capital
+CypherWheel by CypherSafe
+SwanBitcoin
+Stephan Livera links:
+Show notes and website
+Follow me on twitter @stephanlivera
+Subscribe to the podcast
+Patreon @stephanlivera</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Sat, 11 Apr 2020 13:47:04 GMT</span>
@@ -49,6 +81,21 @@ Financial surveillance la">
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

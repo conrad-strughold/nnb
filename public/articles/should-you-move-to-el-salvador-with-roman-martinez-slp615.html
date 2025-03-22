@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,63 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Should You Move to El Salvador? With Roman Martinez SLP615</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/94403131/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-10-14%2F389793154-44100-2-ab369d27d41be.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Roman Martinez, Lexi & Stephan discuss the evolving real estate landscape in El Salvador, particularly in the context of Bitcoin adoption. They explore the motivations of various buyers, the impact of recent changes in infrastructure and regulations, and the unique challenges and opportunities present in the market. The conversation also touches on the importance of trust in real estate transactions and the varying expectations of foreign buyers regarding property quality and development. Lexi and Roman also discuss the experience of moving to El Salvador, highlighting cultural adjustments, healthcare quality, language integration, and the real estate market. They emphasize the importance of understanding local customs, the benefits of private healthcare, and the growing expat community. 
+The podcast also covers the real estate landscape, including prices, investment opportunities, and the significance of discovery trips for potential expats. They conclude by addressing the risks associated with real estate investments and the importance of due diligence.
+Takeaways
+El Salvador's real estate market is evolving rapidly.
+Many buyers are looking for a 'plan B' due to safety concerns.
+Bitcoin adoption is influencing real estate investments.
+There are no property taxes in El Salvador, attracting investors.
+Bitcoin Beach is a key area for Bitcoin enthusiasts.
+Real estate transactions require trust and local knowledge.
+Expectations of property quality vary among foreign buyers.
+Pre-construction projects are gaining popularity.
+Education on Bitcoin is crucial for local adoption.
+Location is a critical factor in real estate investment decisions. Cultural understanding is crucial for expats in El Salvador.
+Healthcare in El Salvador can be better than in the US.
+Learning Spanish enhances the experience of living in El Salvador.
+Real estate prices have increased significantly in recent years.
+El Salvador offers a unique lifestyle that differs from Western norms.
+Discovery trips provide valuable insights for potential expats.
+The private healthcare system in El Salvador is highly accessible.
+Real estate investment requires careful consideration and due diligence.
+The expat community in El Salvador is growing and vibrant.
+El Salvador is seen as a country with potential for growth and opportunity.
+Timestamps:
+(00:00) - Intro
+(00:54) - What is Goodlife El Salvador?; El Salvador’s Real Estate landscape
+(04:05) - What is the Real Estate buyer persona in El Salvador?
+(05:52) - What motivates people to move to El Salvador?
+(10:35) - Bitcoin education, adoption and spending in El Salvador
+(15:30) - Living in Bitcoin Hubs & adjacent localities 
+(20:18) - What are the Real Estate investment trends? 
+(22:11) - Common pitfalls for new buyers
+(27:41) - Sponsors
+(29:55) - Quality of development & matching the expectations of expats 
+(31:49) - Cultural norms & Healthcare in El Salvador
+(38:32) - Overcoming language barriers 
+(41:17) - Real Estate prices & trends in El Salvador
+(43:33) - Sponsors
+(50:47) - What to expect in El Salvador?; Discovery trips for expats
+(57:42) - Navigating Real Estate risks
+Links: 
+https://x.com/goodlife_sv 
+https://x.com/romanmartinezc 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Thu, 14 Nov 2024 11:13:59 GMT</span>
@@ -48,6 +101,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

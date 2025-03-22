@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,64 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Lyn Alden and Jeff Booth - E45</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/8c8a24b4-e81b-45d0-9822-603669a97316/audio/f5c299d1-83f2-4f49-aa72-067a6394a961/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Lyn Alden of Lyn Alden Investment Strategy and Jeff Booth, entrepreneur and author of The Price of Tomorrow held a lively discus­sion about technology as a defla­tionary force, long-term debt cycles, and Bitcoin as a solution to unpayable sover­eign debt.
+Why Bitcoin is Not a Ponzi Scheme
+https://www.swanbitcoin.com/why-bitco...
+The Fraying of the US Global Currency Reserve System
+https://www.lynalden.com/fraying-petr...
+7 Misconceptions about Bitcoin, and Where to Buy
+https://www.lynalden.com/misconceptio...
+The Greatest Game
+https://medium.com/the-bitcoin-times/...
+Lyn Alden's Website
+https://www.lynalden.com/
+Follow Lyn on Twitter: https://twitter.com/LynAldenContact
+Jeff Booth's Website
+https://www.jeffreybooth.com/
+Follow Jeff on Twitter: https://twitter.com/JeffBooth
+Summary:
+00:00 Introduction
+5:30 Break Down of the Dollar
+8:30 History of the Dollar as the World Reserve Currency
+16:30 Consequences of our Unstable World Monetary Policy
+18:25 Triffin’s Dilemma
+21:30 How Fiat Causes the Concentration of Wealth
+26:30 The Effects of Time-Theft
+32:00 Monopoly Money vs. Bitcoin
+40:00 World Reaction to Bitcoin, Deflation, & Network Effects
+47:00 Short Term Effects of a Potential “Unwinding”
+56:00 Debunking FUD
+56:30 “Bitcoin Is A Bubble”
+1:02:00 “Bitcoin’s Intrinsic Value Is Zero”
+1:03:00 “Bitcoin Isn’t Scalable”
+1:05:00 “Bitcoin Wastes Energy”
+1:07:30 “Bitcoin Is Too Volatile”
+1:09:15 “Bitcoin Is A Ponzi Scheme”
+1:13:00 “The Government Will Ban Bitcoin”
+1:15:00 Closing Thoughts
+1:20:00 SSL Sign-Off
+Swan Signal Live pairs great guests for compelling discussions about Bitcoin and economics. Subscribe and turn on notifications for more content from one of the best Bitcoin channels on YouTube. 
+Find the audio podcast at https://swansignalpodcast.com
+Connect with Swan on social media:
+Twitter: https://twitter.com/SwanBitcoin
+Telegram: https://t.me/swansignal
+LinkedIn: https://www.linkedin.com/company/swan...
+Swan Signal Live is a production of Swan Bitcoin, the best way to accumulate Bitcoin through automatic recurring buys at https://swanbitcoin.com.
+Get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Fri, 15 Jan 2021 22:41:28 +0000</span>
@@ -48,6 +102,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,36 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP52 Jack Dorsey & Elizabeth Stark - Bitcoin: Native Currency of the Internet</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/2347753/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fproduction%2F2019-1-11%2F9841957-44100-2-75204003157f1.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Jack Dorsey (CEO of Twitter & Square) & Elizabeth Stark (CEO of Lightning Labs) join me to talk about the vision of Bitcoin as native currency of the internet. Bitcoin's principles, resilience, and being 'of the internet' are what make it special. In this special episode we discuss:
+How Jack came to understand Bitcoin and view it as potentially the native currency of the internet
+Why everyone is so excited about the Lightning Network
+Lightning Torch
+Square and the Cash App
+Twitter & Bitcoin
+Future internet business models possible with Lightning Network
+Bitcoin as foundational to the internet and society
+Jack Dorsey Links:
+Twitter account: https://twitter.com/@jack
+Square: https://squareup.com/
+Cash App: https://cash.app/
+Elizabeth Stark Links:
+Twitter account: https://twitter.com/@starkness
+Lightning Labs: https://lightning.engineering/
+Lightning Labs Twitter account: https://twitter.com/@lightning
+Stephan Livera links:
+Twitter: https://twitter.com/@stephanlivera 
+Subscribe on iTunes: https://itunes.apple.com/podcast/stephan-livera-podcast/id1415720320?mt=2 
+Subscribe on Android: https://subscribeonandroid.com/anchor.fm/s/7d083a4/podcast/rss 
+Patreon: https://www.patreon.com/StephanLivera 
+Tallycoin (BTC/LN donations): https://tallyco.in/stephanlivera/ 
+Website: https://stephanlivera.com/</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 11 Feb 2019 12:30:34 GMT</span>
@@ -48,6 +74,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

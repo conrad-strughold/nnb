@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,62 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Dylan LeClair & Joe Consorti | Bank Runs, Bitcoin, and Self-Custody | Swan Signal E100</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/2c1ca896-9b5c-403f-9133-7c7dcd740cef/audio/252c85cc-7fa8-4b0c-b3d9-8415be0bd814/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Joe Consorti @JoeConsorti and Dylan LeClair @DylanLeClair_ weigh in on the current banking crisis, the Fed’s response, and why they are stacking Bitcoin for the long term. 
+Timestamps: 
+00:00:00 “Swan Signal” Intro 
+00:01:26 Introducing Dylan and Joe 
+00:02:36 Silvergate Banking Collapse 
+00:07:00 Chokepoint 2.0 
+00:09:23 Issues with Liquidity/Settlement Time in Crypto Trading due to Signet Failure 
+00:15:30 Is This an Attack on Crypto Banks? 
+00:19:55 Who’s to Blame? 
+00:31:24 Problems with Bailouts and Zombie Companies 
+00:40:00 Is it Fair to Call this a “Bailout”? 
+00:45:43 Privatized Gains and Socializing Losses 
+00:47:37 Will they Continue to Raise Rates? 
+00:51:23 How the Fed is Sending the Wrong Message 
+00:55:48 Future Outlook on Bitcoin 
+01:01:10 “I’ve Never Been as Bullish as I am Now” 
+01:01:48 Where to Find Dylan and Joe 
+01:02:40 “Swan Signal” Outro
+ 
+Connect with Guests: 
+Sam Callahan: https://twitter.com/samcallah 
+Joe Consorti: https://twitter.com/JoeConsorti 
+Dylan LeClair: https://twitter.com/DylanLeClair_
+ 
+Connect with Swan on social media: 
+Twitter: https://twitter.com/SwanBitcoin​​​ 
+Instagram: https://instagram.com/SwanBitcoin 
+Telegram: https://t.me/swansignal​​​ 
+LinkedIn: https://www.linkedin.com/company/swanbitcoin
+Swan Bitcoin is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Get started in just 5 minutes. Your first $10 purchase is on us: https://swanbitcoin.com/yt
+Download the all new Swan app! 
+iOS: https://apps.apple.com/us/app/swan-bitcoin/id1576287352 
+Android: https://play.google.com/store/apps/details?id=com.swanbitcoin.android&pli=1
+ 
+Join us for Pacific Bitcoin Festival 2023! 
+Purchase your tickets now before prices go up: https://PacificBitcoin2023.com 
+ 
+Are you a high net worth individual or do you represent corporation that might be interested in learning more about Bitcoin? Swan Private guides corporations and high net worth individuals toward building generational wealth with Bitcoin. Find out more at https://swanbitcoin.com/private 
+Check out the best place for Bitcoin education, Swan Bitcoin’s “Bitcoin Canon”. Compiling all of the greatest articles, news sources, videos and more from your favorite bitcoiners! https://www.swanbitcoin.com/canon/
+ 
+Get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist 
+#Bitcoin #SwanBitcoin
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Thu, 16 Mar 2023 12:16:10 +0000</span>
@@ -48,6 +100,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

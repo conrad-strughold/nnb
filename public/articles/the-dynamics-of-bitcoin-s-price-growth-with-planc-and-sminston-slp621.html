@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,61 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>The Dynamics of Bitcoin's Price Growth with PlanC and Sminston | SLP621</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/95232372/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-11-2%2F390817756-44100-2-ac03316c53de.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">PlanC and Sminston to discuss the power law as it applies to Bitcoin. They explore the implications of power law on Bitcoin's price, volatility, and market dynamics, emphasizing its predictive capabilities and the diminishing returns over time. The conversation focuses on the technical aspects of power law, its historical accuracy, and potential factors that could disrupt its validity. The hosts also touch on the S-curve phenomenon in Bitcoin adoption and the overall health of the Bitcoin market. Bitcoin's price projections, the concept of extended cycles, and the implications of the power law on Bitcoin's future are a few things which are talked about too, along with stability of Bitcoin's price model, potential market fluctuations, and the impact of adoption and liquidity on Bitcoin's growth. Lastly, PlanC and Sminston emphasize the importance of understanding market dynamics and the historical patterns that Bitcoin has followed, providing insights for investors and enthusiasts alike.
+Takeaways
+🔸Power law indicates diminishing returns for Bitcoin over time.
+🔸Bitcoin's volatility has been decreasing systematically.
+🔸The power law model has shown a 4.5% accuracy in price predictions.
+🔸A significant event would be needed to disrupt Bitcoin's power law.
+🔸The power law provides a more stable growth model compared to exponential growth.
+🔸Bitcoin's adoption is a gradual process, not an overnight phenomenon.
+🔸The R squared value of the power law is increasing, indicating better fit.
+🔸Power law explains Bitcoin's price history with high accuracy.
+🔸Market dynamics can fluctuate, but the power law remains intact.
+🔸Understanding power law helps in making informed investment decisions. Bitcoin's price can fluctuate significantly, with projections ranging from 35k to 400k.
+🔸The stability of Bitcoin's price model is largely established, with 95% confidence in projections.
+🔸Adoption and liquidity cycles are crucial in determining Bitcoin's market behavior.
+🔸The concept of extended cycles suggests that Bitcoin's growth may not follow traditional four-year patterns.
+🔸Historical data shows that Bitcoin has followed a power law growth pattern, indicating long-term stability.
+🔸Market dynamics are influenced by institutional adoption and liquidity conditions.
+🔸The potential for a muted bear market exists, with less drastic price drops anticipated.
+🔸Understanding the power law can provide insights into Bitcoin's future price movements.
+🔸The conversation highlights the importance of data analysis in predicting market trends.
+🔸Investors should remain aware of the evolving landscape of Bitcoin and its implications for the future.
+Timestamps:
+(00:00) - Intro
+(01:29) - How does Power Law apply to Bitcoin?; Comparing it to Saylor’s Bitcoin24 model projections
+(04:54) - The math behind Power Law
+(08:23) - Is Bitcoin on a path of diminishing returns?
+(13:09) - How accurate is the Power Law model?; Power Law Vs S2F comparison
+(18:58) - What differentiates Power Law from other models?
+(22:36) - What could ‘break’ the Power Law?
+(25:09) - Sponsors
+(28:17) - The S-curve phenomenon in Bitcoin adoption
+(34:19) - Bitcoin price projections and Market analysis
+(39:11) - Sponsors
+(49:35) - What can be considered an ‘extended cycle’?
+(55:24) - Sminston With‘s ‘Bitcoin Decay Channel Oscillator’
+(1:02:55) - Power Law and its implications for Bitcoin's Future
+Links: 
+https://x.com/TheRealPlanC
+https://x.com/sminston_with 
+Best Bitcoin Data Family - https://x.com/i/communities/1856486530056929427 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 02 Dec 2024 10:55:00 GMT</span>
@@ -48,6 +99,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

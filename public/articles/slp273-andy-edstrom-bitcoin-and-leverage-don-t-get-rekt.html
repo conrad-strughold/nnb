@@ -18,6 +18,8 @@ Why u">
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -32,12 +34,37 @@ Why u">
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP273 Andy Edstrom - Bitcoin and Leverage: Don’t Get Rekt</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/33016697/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2021-4-7%2Fd318faa6-6a14-5776-b1f5-03e6d6546a92.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Andy Edstrom rejoins me on the show to talk about Bitcoin, leverage, and not getting Rekt! We chat:
+What’s changed in the market in recent years
+Why use leverage
+Risks and costs with leverage
+Supercycle or not
+SWR and FIRE crossovers with collateralization
+Bitcoin side hustles or jobs
+Andrew Edstom links:
+Twitter: @edstromandrew 
+Article: Don't Get Rekt
+Site: AndyEdstrom.com
+Prior episode: SLP157 Andy Edstrom - Bad Options For The Fiat Debt Problem & Why Buy Bitcoin
+Sponsors:
+Swan Bitcoin
+Hodl Hodl Lend
+Compass Mining
+Unchained Capital (code LIVERA)
+CypherSafe (code LIVERA)
+CoinKite.com (code LIVERA)
+Stephan Livera links:
+Show notes and website
+Follow me on twitter @stephanlivera
+Subscribe to the podcast
+Patreon @stephanlivera</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Fri, 07 May 2021 12:34:05 GMT</span>
@@ -50,6 +77,21 @@ Why u">
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

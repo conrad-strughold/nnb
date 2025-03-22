@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,50 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Good Design Creates Trust - Bitcoin Design with Christoph Ono and Mogashni Naidoo SLP562</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/85176489/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-3-9%2F373717841-44100-2-e202177bf4849.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Have you wondered about the role design and UX plays in Bitcoin apps? Christoph and Mogashni join me from the Bitcoin Design Community to share insights on:
+What most people are getting wrong about design
+How you can leverage design principles in your bitcoin product
+Bitcoin specific design challenges
+Types of user
+Tools available by the Bitcoin Design community
+Links:
+Site: Bitcoin.design
+Site: bitcoindesignfoundation.org
+X: @MogashniNaidoo
+X: @GBKS 
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack
+Chapters:
+00:00 - Introduction and Background
+03:31 - The Importance of Design in Bitcoin Applications
+10:10 - The Bitcoin Design Community
+12:34 - Common Mistakes in Bitcoin App Design
+20:10 - Mempool.space
+20:56 - Coinkite.com
+25:14 - Embracing Creativity and Unique Design in Bitcoin
+29:28 - Introduction to User Experience Design in Bitcoin
+33:34 - Working with Bitcoin Apps and Projects
+38:56 - Swan.com
+39:14 - Simplifying the User Experience in Bitcoin
+43:26 - Designing for Complexity in Bitcoin
+45:09 - Navigating Competing Standards in Bitcoin Design
+46:29 - The Value of UX Research in Bitcoin
+49:48 - Practical Advice for Builders and Developers in Bitcoin Design
+54:57 - Find Out More 
+56:40 - Closing Thoughts</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Tue, 09 Apr 2024 12:16:38 GMT</span>
@@ -48,6 +88,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

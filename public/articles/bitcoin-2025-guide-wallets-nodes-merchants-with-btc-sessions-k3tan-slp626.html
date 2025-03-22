@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,61 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin 2025 Guide: Wallets, Nodes & Merchants with BTC Sessions & K3tan | SLP626</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/96938010/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-0-12%2F392934595-44100-2-72cd38dc5bea2.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In this episode of SLP, the discussion revolves around the advancements in Bitcoin hardware and software, focusing on wallet recommendations for beginners, the trade-offs between different types of wallets, and the importance of hardware wallets for securing Bitcoin. 
+Ben & K3tan share their insights on when to transition from software to hardware wallets, the significance of recovery processes, and the evolving landscape of Bitcoin tools and options available to users. 
+They also discuss various aspects of Bitcoin management, including the importance of testing and upgrading hardware wallets, the role of Bitcoin nodes, and effective merchant solutions for accepting Bitcoin payments.The need for careful planning and testing when handling larger amounts of Bitcoin, the benefits of running a personal Bitcoin node, and the various tools available for merchants to accept Bitcoin, such as BTC Pay Server and ZapRite have been touched upon in the episode as well.
+Takeaways
+🔸Bitcoin hardware and software are continuously evolving.
+🔸Choosing the right wallet depends on user experience and comfort level.
+🔸Sparrow Wallet is highly recommended for beginners.
+🔸Understanding the trade-offs between on-chain and liquid Bitcoin is crucial.
+🔸Hardware wallets provide an extra layer of security for Bitcoin holders.
+🔸It's important to educate newcomers on the recovery process of wallets.
+🔸Thresholds for moving to hardware wallets should be based on comfort with risk.
+🔸The ease of use of wallets can significantly impact user experience.
+🔸Recovery and inheritance planning is essential for long-term Bitcoin security.
+🔸The Bitcoin ecosystem is rich with options for both new and experienced users. Test your backups as you're setting up the device.
+🔸Don't rush to move your entire cold stack to new hardware.
+🔸Running a Bitcoin node is primarily for personal verification.
+🔸BTCPay Server is a reliable option for accepting Bitcoin payments.
+🔸You can pay your bills in Bitcoin through specific services.
+🔸Building a local community can enhance Bitcoin transactions.
+🔸Using gift cards can help manage everyday expenses with Bitcoin.
+🔸It's essential to understand the trade-off between time and money in Bitcoin management.
+🔸Zaprite offers excellent invoicing solutions for Bitcoin payments.
+🔸The current low fees despite high Bitcoin prices indicate a more mature infrastructure.
+Timestamps:
+(00:00) - Intro
+(04:25) - Software Bitcoin Wallets
+(17:50) - Sponsors
+(22:52) - Hardware Bitcoin Wallets
+(30:18) - Sponsors
+(41:05) - Why do you need to run your own Bitcoin Node?
+(53:14) - How can merchants use Bitcoin?
+(58:51) - Practical approaches of living on a Bitcoin Standard
+(1:06:39) - Outro
+
+Links: 
+https://x.com/BTCsessions 
+https://x.com/theBTCmentor 
+https://x.com/_k3tan 
+https://x.com/ministryofnodes 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Sun, 12 Jan 2025 11:17:54 GMT</span>
@@ -48,6 +99,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

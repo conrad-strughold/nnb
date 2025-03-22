@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,16 +32,61 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Pierre Rochard & Steve Barbour | Swan Signal | EP 107</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/457e8649-cf9b-4270-941e-2731b14b1db9/audio/41ec4bc3-26d6-44c7-89bf-0ecacce4e970/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">We sat down with Pierre Rochard @BitcoinPierre and Steve Barbour @SGBarbour for a wide-ranging discussion including the benefits of Bitcoin mining to the energy industry, the scam of carbon accounting, and how Bitcoin can reduce electricity prices for entire communities. 
+Connect with Guests: 
+Sam Callahan: https://twitter.com/samcallah 
+Pierre Rochard: https://twitter.com/BitcoinPierre 
+Steve Barbour: https://twitter.com/SGBarbour
+Timestamps: 
+00:00:00 “Swan Signal” Intro 
+00:01:57 Introducing Pierre and Steve 
+00:03:26 Difficulties with Mining with Renewables 
+00:07:34 New York Times Carbon Emission Debate 
+00:10:32 Hydro-Carbon Based Energy 
+00:14:43 The Unethical Nature of Carbon-Tax Credits 
+00:20:00 The Cost of Decarbonization 
+00:22:11 How Bitcoin Mining is a Benefit to Oil and Gas Companies 
+00:27:55 Layers of Scammery in Accounting Carbon Emissions 
+00:36:07 How Money and the Economy Act As a Natural Accounting System 
+00:40:56 Responding to the New York Times False Reporting 
+00:48:12 How Bitcoin Helps Balance the Energy Grid 
+00:54:12 Why Bitcoin’s Hash-Rate is Increasing and the Possibilities of Russia Mining Bitcoin 
+00:57:28 “Intel” Pausing Asic Chip Manufacturing 
+01:01:41 What Pierre and Steve Are Most Excited About Going Forward in Bitcoin Mining 
+01:05:53 How to Connect with Pierre and Steve 
+01:06:28 “Swan Signal” Outro
+Connect with Swan on social media: 
+Twitter: https://twitter.com/SwanBitcoin​​​ 
+Instagram: https://instagram.com/SwanBitcoin 
+Telegram: https://t.me/swansignal​​​ 
+LinkedIn: https://www.linkedin.com/company/swanbitcoin
+Swan Bitcoin is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Get started in just 5 minutes. Your first $10 purchase is on us: https://swanbitcoin.com/yt
+Download the all new Swan app! iOS: https://apps.apple.com/us/app/swan-bitcoin/id1576287352 Android: https://play.google.com/store/apps/details?id=com.swanbitcoin.android&pli=1 
+Join us for Pacific Bitcoin Festival 2023! Purchase your tickets now before prices go up: https://www.pacificbitcoin.com/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+Are you a high net worth individual or do you represent corporation that might be interested in learning more about Bitcoin? Swan Private guides corporations and high net worth individuals toward building generational wealth with Bitcoin. Find out more at: https://www.swanbitcoin.com/private/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_post
+Check out the best place for Bitcoin education, Swan Bitcoin’s “Bitcoin Canon”. Compiling all of the greatest articles, news sources, videos and more from your favorite bitcoiners! https://swanbitcoin.com/cannon?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+Get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist?utm_medium=social&utm_source=twitter&utm_campaign=social_selling
+#Bitcoin #SwanBitcoin
+ 
+
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Wed, 3 May 2023 23:51:26 +0000</span>
-                | <span class="meta-author">By brady@swanbitcoin.com (Steve Barbour, Sam Callahan, Pierre Rochard)</span>
+                | <span class="meta-author">By brady@swanbitcoin.com (Steve Barbour, Pierre Rochard, Sam Callahan)</span>
             </div>
             <a href="https://swansignalpodcast.com/episodes/pierre-rochard-steve-barbour-swan-signal-ep-107-1_SH7DAy" target="_blank" class="source-link">Listen to Original</a>
             <a href="/" class="back-link">← Back to Home</a>
@@ -48,6 +95,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

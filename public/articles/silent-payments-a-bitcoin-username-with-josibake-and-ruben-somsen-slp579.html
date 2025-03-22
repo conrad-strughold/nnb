@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,54 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Silent Payments: A Bitcoin username? With Josibake and Ruben Somsen SLP579</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/87259621/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-4-27%2F378888033-44100-2-36745f8edc455.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Silent Payments is a new approach to improving privacy and useability of Bitcoin. Imagine not needing to manually create new addresses? Josibake and Ruben Somsen join me to discuss some of the ins and outs of Silent Payments. We discuss:
+Silent Payments overview
+Contrast with other techniques such as BIP47 
+Light client support
+Stopping address re use
+Base layer privacy discussion
+Links:
+X: @josibake
+X: @SomsenRuben
+BIP: Silent Payments
+Tracking progress in Bitcoin Core/libsecp256k1
+Informational website from sethforprivacy : Privacy-preserving static addresses for Bitcoin
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack
+
+Timestamps:
+(00:00) - Intro
+(01:01) - Overview of Silent Payments (SP)
+(03:15) - History of the SP idea & contrast with other methods
+Add more
+(14:36) - Current status of SP development & adoption
+(17:49) - Testing light clients for SP
+(21:50) - The Silent Payment Experience
+(26:31) - Light client support
+(31:20) - What is a light client?
+(38:05) - Sponsors
+(41:16) - Spend Key & Scan Key 
+(42:37) - XPUB vs. Silent Payments
+(44:42) - Reducing address re-use with SP
+(49:29) - Labeling with Silent Payments
+(53:14) - Ease of use and compatibility with Lightning 
+(57:03) - Overcoming the ‘silver bullet’ mindset
+(01:10:50) - Composability with Silent Payments
+(01:12:46) - Silent Payments summary
+(01:14:06) - Closing Thoughts</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 27 May 2024 12:42:09 GMT</span>
@@ -48,6 +92,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

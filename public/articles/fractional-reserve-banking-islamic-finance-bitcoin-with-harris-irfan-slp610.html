@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,55 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Fractional Reserve Banking, Islamic Finance & Bitcoin with Harris Irfan SLP610</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/93216081/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-9-18%2F388315051-44100-2-f74a15ab5c89d.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Harris Irfan, CEO Cordoba Capital Markets & Advisor at @OnrampMENA joins me to discuss challenges and opportunities within Islamic finance, ethics of finance in business and the intersection of Islamic finance and Bitcoin. Harris highlights building a financial system focused on real economy transactions, sharing insights on finance, custody, and Bitcoin investment. 
+Summary
+In this conversation, Harris Irfan discusses his journey from conventional finance to Islamic finance and Bitcoin. He explores the challenges and opportunities within Islamic finance, particularly in relation to ethical finance and risk-sharing principles. The discussion delves into the intersection of Islamic finance and Bitcoin, highlighting the potential for Bitcoin to serve as a sound monetary system that aligns with Islamic principles. Harris emphasizes the importance of creating a financial system that prioritizes real economy transactions over speculative practices, and he shares insights on the future of finance, custody, and investment decisions in a Bitcoin standard.
+Takeaways
+Harris Irfan transitioned from conventional finance to Islamic finance and Bitcoin.
+Islamic finance emphasizes ethical finance and risk-sharing principles.
+Bitcoin is viewed as a modern form of sound money, potentially more Islamic than gold.
+The challenges of Islamic finance are exacerbated by the fiat banking system.
+Custody solutions for Bitcoin are evolving, with a focus on self-custody.
+Cultural perspectives on money influence the adoption of Bitcoin in Muslim communities.
+Trade finance can be structured to align incentives between investors and businesses.
+The VC industry may need to adapt to a sound money standard.
+Hurdle rates for investments will change in a Bitcoin economy.
+Optimism about the future of Bitcoin is essential for its growth.
+Timestamps:
+(00:00) - Intro 
+(01:04) - Harris’s background with finance & Islamic banking
+(07:44) - Comparing Fiat banking with Islamic finance 
+(12:06) - The intersection of Islamic finance and Bitcoin
+(18:21) - Custodying Bitcoin - Individuals vs. Trusted custodians
+(25:51) - What are misconceptions about Bitcoin among muslims?
+(30:20) - What are the cultural differences when operating on a Fiat Standard vs Sound Money Standard?
+(33:27) - What does it mean to share risk in finance?
+(39:12) - The viability of different financial models
+(45:35) - What would finance look like in a Full Reserve Bitcoin banking world?
+(54:17) - How does one navigate with morality & ethics in the current Fiat world?
+(59:00) - Bitcoin compared to hurdle rates in investment decisions
+(1:02:11) - Outro
+Includes Paid Partnerships
+(16:04) - Sponsors
+(38:11) - Sponsor
+Links: 
+https://x.com/harris_irfan 
+https://www.ccmkts.com/
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Fri, 18 Oct 2024 11:58:00 GMT</span>
@@ -48,6 +93,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

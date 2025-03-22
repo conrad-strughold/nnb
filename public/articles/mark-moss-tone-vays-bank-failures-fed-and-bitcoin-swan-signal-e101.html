@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,16 +32,67 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Mark Moss & Tone Vays | Bank Failures, FED, and Bitcoin | Swan Signal E101</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/f7114656-373f-4593-ae24-d5eb6591d030/audio/7dcfa539-c9e2-4b37-806b-fd68ea2cf6dc/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Mark Moss @1MarkMoss and Tone Vays @ToneVays discuss the possible systemic bank failures in real time, out-of-control government debt levels, and why Bitcoin is a lifeboat on a sinking ship. 
+Connect with Guests:
+Sam Callahan: https://twitter.com/samcallah
+Tone Vays: https://twitter.com/ToneVays
+Mark Moss: https://twitter.com/1MarkMoss
+Timestamps:
+00:00:00 “Swan Signal Intro”
+00:01:26 Introducing Mark and Tone
+00:02:12 Bank Failures and Bitcoin Rally
+00:05:56 Problems with Banks
+00:07:52 SVB Balance Sheet
+00:10:05 “The Fed is to Blame”
+00:15:42 Who Controls the Money?
+00:19:47 Exponential Increase on Debt
+00:22:40 Japan Forced Selling US - Treasuries
+00:24:10 “The World has a Dollars Problem”
+00:27:15 China, Russia and BRICS
+00:34:10 Was This a Bailout?
+00:40:55 Bitcoiners Being Blamed For Whistleblowing Banking
+00:47:52 Bitcoin Adoption Growth
+00:49:34 “Bitcoin: The Sixth Technological Revolution”
+00:53:44 Are the Bitcoin Price-Lows In?
+00:56:58 Bitcoin Halving Cycles
+00:58:52 Where to Find Tone
+01:00:17 March FOMC Meeting
+01:01:24 “Swan Signal” Outro
+
+Connect with Swan on social media: 
+Twitter: https://twitter.com/SwanBitcoin​​​ 
+Instagram: https://instagram.com/SwanBitcoin 
+Telegram: https://t.me/swansignal​​​ 
+LinkedIn: https://www.linkedin.com/company/swanbitcoin
+Swan Bitcoin is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Get started in just 5 minutes. Your first $10 purchase is on us: https://swanbitcoin.com/yt
+Download the all new Swan app! iOS: https://apps.apple.com/us/app/swan-bitcoin/id1576287352 
+Android: https://play.google.com/store/apps/details?id=com.swanbitcoin.android&pli=1
+Join us for Pacific Bitcoin Festival 2023! 
+Purchase your tickets now before prices go up: https://PacificBitcoin2023.com
+Are you a high net worth individual or do you represent corporation that might be interested in learning more about Bitcoin? Swan Private guides corporations and high net worth individuals toward building generational wealth with Bitcoin. Find out more at https://swanbitcoin.com/private 
+Check out the best place for Bitcoin education, Swan Bitcoin’s “Bitcoin Canon”. Compiling all of the greatest articles, news sources, videos and more from your favorite bitcoiners! https://www.swanbitcoin.com/canon/
+Get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist 
+#Bitcoin #SwanBitcoin
+
+ 
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Thu, 23 Mar 2023 13:52:05 +0000</span>
-                | <span class="meta-author">By brady@swanbitcoin.com (Mark moss, Jacob Pope, Sam Callahan, Tone Vays)</span>
+                | <span class="meta-author">By brady@swanbitcoin.com (Mark moss, Sam Callahan, Jacob Pope, Tone Vays)</span>
             </div>
             <a href="https://swansignalpodcast.com/episodes/mark-moss-tone-vays-bank-failures-fed-and-bitcoin-swan-signal-e101-nL5EBaKZ" target="_blank" class="source-link">Listen to Original</a>
             <a href="/" class="back-link">← Back to Home</a>
@@ -48,6 +101,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

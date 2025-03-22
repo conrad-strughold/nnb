@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,65 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>BDP and BOSS Program with Matthew Zipkin and Stacie Waleyko SLP620</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/95075252/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-10-28%2F390623707-44100-2-6fc5f646d6a97.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Matthew Zipkin and Stacie Waleyko discuss the current state of Bitcoin open source development, the various layers of Bitcoin development, and the need for more contributors in the ecosystem. They emphasize the importance of education and innovative approaches to learning Bitcoin development, sharing success stories from their programs aimed at increasing participation in the Bitcoin community. In this conversation, Matthew and Stacie also share their insights on the various ways individuals can contribute to the Bitcoin ecosystem through the Bitcoin Developer Project (BDP). They explore the importance of personal passion in contributing to Bitcoin, the innovative educational tools and programs available for developers, and the diverse pathways for involvement in Bitcoin development. They also highlight key contributors in the community and the significance of collaboration and open-source contributions in advancing Bitcoin technology.
+
+Takeaways
+🔸Bitcoin open source development is good but needs improvement.
+🔸There are different layers of Bitcoin development: protocol, application, and layer two.
+🔸The Bitcoin community is welcoming and encourages contributions from all backgrounds.
+🔸Education is key to increasing the number of Bitcoin developers.
+🔸Innovative learning tools can help demystify Bitcoin development.
+🔸Success stories from programs show diverse backgrounds of contributors.
+🔸The need for more funding and support for open source developers is critical.
+🔸Understanding Bitcoin's technical side enhances belief in its value.
+🔸The Bitcoin ecosystem is vast, yet the number of active developers is small.
+🔸Creating engaging educational content is essential for attracting new contributors. 🔸Contributing to Bitcoin can be personalized based on individual passions.
+🔸The Bitcoin Developer Project offers a welcoming environment for learners.
+🔸Educational tools like BOSS and BTC Demi help ease the learning process.
+🔸Active participation as a user can lead to contributions in open source.
+🔸Diverse skills are needed in Bitcoin development, from coding to design.
+🔸Innovative projects like Warnet simulate Bitcoin networks for research and education.
+🔸Community contributions can lead to significant advancements in Bitcoin technology.
+🔸The Bitcoin ecosystem thrives on collaboration and meritocracy.
+🔸Starting with small contributions can lead to larger opportunities in Bitcoin.
+🔸The importance of recognizing and supporting key contributors in the Bitcoin community.
+Timestamps:
+(00:00) - Intro
+(00:45) - Who are Matthew & Satsie? 
+(01:48) - What is the current state of Bitcoin Open Source?
+(04:11) - What are the different types of Bitcoin Development? 
+(09:18) - The need for more Bitcoin Developers
+(13:21) - How does BDP lower the barrier to entry in Bitcoin development?
+(16:48) - Success stories in Bitcoin Development (21:05) - The future of Bitcoin Open Source contributions
+(22:19) - Sponsors
+(24:43) - What is the Bitcoin Developer Project (BDP)?; Learning tools and Programs(31:03) - Sponsors(33:07) - Career pathways to contribute to Bitcoin
+(37:57) - What are the areas of involvement in Bitcoin Development?
+(44:41) - Shoutouts to key contributors
+Links: 
+https://learning.chaincode.com/ 
+https://bitcoindevs.xyz/ 
+https://x.com/MatthewZipkin 
+https://x.com/satsie 
+https://savingsatoshi.com/ 
+
+
+
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Thu, 28 Nov 2024 10:55:00 GMT</span>
@@ -48,6 +103,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,47 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>A New Era for Bitcoin with Tuur Demeester (SLP540)</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/81124803/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-0-11%2F363032021-44100-2-d5a10025e65db.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">On the eve of Bitcoin ETFs being approved, is Bitcoin entering a new era? Tuur Demeester, long time bitcoin advocate, writer and speaker rejoins me on the show to discuss his thoughts:
+This new era for Bitcoin
+ETF approval and what it means
+Capture risks are low
+Psychology of a market cycle and HODLers
+“Hate buying” Bitcoin
+Bitcoin Life Insurance
+Why every company needs a Bitcoin strategy
+Future of Bitcoin use
+Links:
+X: @TuurDemeester 
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Chapters:
+00:00 - Introduction and background
+01:00 - The new era of Bitcoin
+06:11 - What are the actual risks?
+12:20 - How many coins are held in custody?
+15:00 - Tuur's reports
+21:27 - Psychology of a market cycle and HODLers
+31:40 - Swan.com
+33:12 - Coinkite.com
+34:52 - Mempool.space
+37:43 - 3 green, 1 red meme
+43:10 - Bitcoin Life Insurance
+51:21 - “Hate buying” Bitcoin
+56:35 - Why every company needs a Bitcoin strategy
+01:01:50 - Future of Bitcoin use
+01:07:02 - Closing thoughts</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Thu, 11 Jan 2024 12:55:00 GMT</span>
@@ -48,6 +85,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

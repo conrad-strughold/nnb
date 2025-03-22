@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,75 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Saifedean Ammous & Stephan Livera | Swan Signal | EP 105</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/12ed70c2-197a-4ec3-b901-4a57bfb92d1e/audio/57ec02d6-0bcb-4692-9252-6008d195218f/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Saifedean Ammous @saifedean and Stephan Livera @stephanlivera break down fiat, fragility, and fractional reserve banking in the latest Swan Signal episode. Learn about the banking cartel and why they don’t want us to have sound money. 
+Connect with Guests: 
+Sam: https://twitter.com/samcallah 
+Saifedean: https://twitter.com/saifedean 
+Stephan: https://twitter.com/stephanlivera 
+ 
+"Principles of Economics" by Saifedean Ammous: https://saifedean.com/poe
+ 
+Timestamps: 
+00:00:00 “Swan Signal” Intro 
+00:01:40 Introducing Saifedean and Stephan 
+00:02:10 Why Are Banks Failing? 
+00:04:57 Questioning the Financial System 
+00:10:28 “The House Always Wins” 
+00:16:00 How Does Bitcoin Fix This? 
+00:21:03 “Good” Inflation vs “Bad” Inflation 
+00:24:12 Money Printing is Inevitable 
+00:29:14 Why Do Other Fiat Currencies Exist? 
+00:34:43 Family and Friends Experiencing Hyperinflation Asking about Bitcoin 
+00:38:35 “The Fiat Standard’s Harsh Difficulty Adjustment” 
+00:44:27 How Would a Central Bank Digital Currency Effect The Fiat System? 
+00:48:04 Looking Down the Tunnel of Inflation 
+00:50:20 How Could Bitcoin Dismantle Hyperinflation? 
+01:03:24 Individual Success and Growth Will Help Bitcoin Adoption 
+01:04:50 What Would You Say to the “New York Times” and The “Senate of Texas”? 
+01:09:47 “Principles of Economics” by Saifedean Ammous 
+01:11:33 Where to Find Stephan 
+01:12:08 “Swan Signal” Outro
+ 
+Connect with Swan on social media: 
+Twitter: https://twitter.com/SwanBitcoin​​​ 
+Instagram: https://instagram.com/SwanBitcoin 
+Telegram: https://t.me/swansignal​​​ 
+LinkedIn: https://www.linkedin.com/company/swanbitcoin
+ 
+Swan Bitcoin is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. 
+Get started in just 5 minutes. Your first $10 purchase is on us: 
+https://swanbitcoin.com/yt
+ 
+Download the all new Swan app! 
+iOS: https://apps.apple.com/us/app/swan-bitcoin/id1576287352 
+Android: https://play.google.com/store/apps/details?id=com.swanbitcoin.android&pli=1
+ 
+Join us for Pacific Bitcoin Festival 2023! 
+Purchase your tickets now before prices go up: https://PacificBitcoin2023.com 
+ 
+Are you a high net worth individual or do you represent corporation that might be interested in learning more about Bitcoin? Swan Private guides corporations and high net worth individuals toward building generational wealth with Bitcoin. Find out more at https://swanbitcoin.com/private
+ 
+Check out the best place for Bitcoin education, Swan Bitcoin’s “Bitcoin Canon”. Compiling all of the greatest articles, news sources, videos and more from your favorite bitcoiners! https://www.swanbitcoin.com/canon/
+ 
+Get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist 
+ 
+#Bitcoin #SwanBitcoin
+
+ 
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Thu, 20 Apr 2023 13:30:02 +0000</span>
@@ -48,6 +113,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

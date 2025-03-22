@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,54 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>How to Ride Through This Bitcoin Bull Cycle with Vijay Boyapati SLP559</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/84563693/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-2-26%2F372247667-44100-2-f2df3c4d48dde.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">My friend Vijay Boyapati (Author of the Bullish Case for Bitcoin, and part of the Swan team) rejoins me on the show to talk about HODLing, share his analysis on things, and offer some tips on how to HODL. We talk:
+What phase of the cycle we’re in
+HODLer psychology
+Does Bitcoin get captured? 
+Is Bitcoin for Everyone?
+Self custody tech
+GBTC and Bankruptcies
+Common traps and how to avoid them
+Links:
+X: @real_vijay
+Genesis thread https://twitter.com/real_vijay/status/1744454450138526162 
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Nomadcapitalist.com
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack
+Chapters:
+00:00 - Introduction and Overview
+03:01 - The Excitement of Bull Markets
+05:54 - The Slow Build-Up and Parabolic Moves
+08:46 - Hodling Through Adversity
+13:07 - The Nature of Bitcoin Cycles
+16:02 - The Reachability of Bitcoin Participants
+19:45 - Coinkite.com
+21:00 - NomadCapitalist.com
+22:08 - The Challenges of Self-Custody
+30:00 - The Feasibility of Self-Custody for All
+34:14 - Bitcoin as a Superior Monetary Base
+35:10 - Concerns about Concentration Risk
+38:07 - Mempool.space
+39:16 - Swan.com
+40:12 - Government Influence on Bitcoin ETFs
+43:32 - Multipolar World and Bitcoin Adoption
+44:01 - US Favorability towards Bitcoin
+46:51 - Genesis Bankruptcy and Grayscale's Future
+50:11 - Common Traps in a Bull Cycle
+59:54 - Dealing with Corrections in a Bull Cycle</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Tue, 26 Mar 2024 12:54:43 GMT</span>
@@ -48,6 +92,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

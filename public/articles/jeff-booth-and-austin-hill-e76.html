@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,54 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Jeff Booth and Austin Hill - E76</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/de094f37-a40d-49a7-b35d-d0d41d88c306/audio/cde23ae7-de2e-4670-9eee-663788123623/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">On this episode of Swan Signal Live Jeff Booth and Austin Hill join me to talk about the geopolitical landscape of Bitcoin,  what the future of decentralized vs centralized technologies and how we can best educate others to ensure a pro-bitcoin future. 
+Chapters:
+0:00 - Stack  with Swan Bitcoin!
+5:03 - Geo-Political landscape of Bitcoin and Fiat.
+11:13 - UBI and control of money.
+17:15 - Americas influence over the global monetary policy.
+22:33 - Could we see bitcoin custody laws come?
+29:30 - What is the singularity?
+38:38 - Nano-Tech coming sooner than we think?
+46:02 - What is nuclear fusion?
+49:43 - Outlook on the future of tech and centralization.
+56:43 - Importance of education on tech and bitcoin.
+1:01:43 - Final thoughts!
+1:03:58 - Twitter Spaces Q+A!
+Connect with Jeff Booth:
+https://twitter.com/JeffBooth
+Connect with Austin Hill:
+https://twitter.com/AustinHill
+Connect with Brady Swenson:
+https://twitter.com/citizenbitcoin
+Swan Bitcoin is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Get started in just 5 minutes. Your first $10 purchase is on us: https://swanbitcoin.com/yt 
+Check out the best place for Bitcoin education, Swan Bitcoin's "Bitcoin Canon". Compiling all of the greatest articles, news sources, videos and more from your favorite bitcoiners! https://www.swanbitcoin.com/canon/
+Connect with Swan on social media:
+Twitter: https://twitter.com/SwanBitcoin​​​
+Telegram: https://t.me/swansignal​​​
+LinkedIn: https://www.linkedin.com/company/swan...
+Swan Signal Live and Swan Lounge are a production of Swan Bitcoin, the best way to accumulate Bitcoin through automatic recurring buys at https://swanbitcoin.com​​​.
+Are you a high net worth individual or do you represent corporation that might be interested in learning more about Bitcoin? Swan Private guides corporations and high net worth individuals toward building generational wealth with Bitcoin. Find out more at https://swanbitcoin.com/private
+Get your free ebook or audiobook copy of "Inventing Bitcoin" here: https://swanbitcoin.com/freebook
+We also have the book available en español, y puede descargar su copia en https://swanbitcoin.com/librogratis
+Get your free ebook copy of "21 Lessons" here:
+https://swanbitcoin.com/21lessons
+Join our Swan Force, our referral program, and get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist
+#Bitcoin #SwanBitcoin #Finance #BitcoinNews
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Thu, 17 Mar 2022 03:05:17 +0000</span>
@@ -48,6 +92,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

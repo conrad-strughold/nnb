@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,58 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Austin Mitchell & Patti Trompeter | Swan Signal | EP 113</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/64a645f6-2204-464d-ba9f-705ad3dc40a2/audio/0c59e38a-9972-40d6-9f7e-4b7dc8a78b0a/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Sam sat down with Synota Co-Founder and CEO Austin Mitchell and Sphere 3D CEO Patti Trompeter to discuss how Bitcoin mining operations are becoming more efficient, why miners represent long-needed innovation for the energy industry, and what may be behind the recent explosion in Bitcoin’s hash rate. 
+Timestamps: 
+00:00:00 “Swan Signal” Intro 
+00:01:39 Introducing Patti and Austin 
+00:02:26 Patti’s Journey from the Secret Service and into Finance and Bitcoin 
+00:05:00 Austin’s Background in the Energy Sector 
+00:07:02 Benefits of Bitcoin Mining, Innovations, and Educating Lawmakers 
+00:14:22 Why Does “Proof of Work” Matter? 
+00:18:48 How Should States View Bitcoin Mining? 
+00:23:50 How will Miners and Mining Companies Become More Efficient in the Future? 
+00:31:25 Synota: The Transitive Energy Solution 
+00:41:12 Sphere3D Mining 
+00:44:36 Learning Lessons from the 2021 Bull Market 
+00:51:41 How Does Bitcoin Make You Feel About the Future? 
+00:54:16 Whats the Next Big Thing Bitcoin Will Fix? 
+00:56:20 How to Connect with Patti and Austin 
+00:57:31 “Swan Signal” Outro
+
+Connect with Swan Bitcoin: 
+🎬 YouTube: https://youtube.com/@Swan_Bitcoin 
+🐦 Twitter: https://twitter.com/SwanBitcoin 
+📸 Instagram: https://instagram.com/SwanBitcoin 
+💬 Telegram: https://t.me/swanbitcoin 
+🔗 LinkedIn: https://linkedin.com/company/swanbitcoin
+📚 *Swan Bitcoin* is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Start your Bitcoin journey today, and your first $10 purchase is on us 
+👉 https://swanbitcoin.com/yt
+📲 Download the all-new *Swan Bitcoin App* 
+👉 https://www.swanbitcoin.com/app/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🎉 Get your ticket for the Pacific *Bitcoin Festival 2023* before prices increase! 
+👉 https://www.pacificbitcoin.com/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🏦 Secure your bright orange future with the *Swan IRA* today! Real Bitcoin, no taxes 
+👉 https://www.swanbitcoin.com/bitcoin-ira/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+💼 For high-net-worth individuals and corporations seeking to build generational wealth with Bitcoin, *Swan Private* is your guide
+ 👉 https://www.swanbitcoin.com/private/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🎓 Want to learn more about Bitcoin? Check out the *Bitcoin Canon* a curated list of the best Bitcoin resources from your favorite experts 
+👉 https://swanbitcoin.com/cannon/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+🚀 Get paid to recruit new Bitcoiners by joining *Swan Force* 
+👉 https://www.swanbitcoin.com/enlist/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Thu, 15 Jun 2023 13:24:38 +0000</span>
@@ -48,6 +96,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

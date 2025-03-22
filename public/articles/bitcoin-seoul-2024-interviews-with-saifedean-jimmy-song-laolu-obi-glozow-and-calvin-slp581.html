@@ -18,6 +18,8 @@ Gloria Zhao on Bitcoin Core and m">
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -32,12 +34,71 @@ Gloria Zhao on Bitcoin Core and m">
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Seoul 2024 Interviews with Saifedean, Jimmy Song, Laolu, Obi, glozow and Calvin SLP581</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/87597027/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-5-4%2F379692998-44100-2-4b0c75c54af4.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">I recently spoke at Bitcoin Seoul 2024 and here are some interviews with some of the speakers:
+Calvin Kim on utreexo
+Gloria Zhao on Bitcoin Core and mempool
+Laolu on Taproot Assets and covenants
+Saifedean on Central Banking and tax cattle
+Obi Nwosu on Fedi
+Jimmy Song on Bitcoin in Korea
+Timestamps:
+(00:00) - Calvin Kim on importance of Bitcoin conferences
+(01:51) - Simplifying Utreexo
+(03:31) - What is Utreexod?
+(04:51) - Will node providers support Utreexo?
+(06:38) - Gloria Zhao on BIP431 (Truc)
+(08:15) - Implications of Truc
+(12:26) - What is mempool cluster?
+(14:08) - P2P encryption on Bitcoin core V27.0
+(15:22) - Upcoming developments on Bitcoin core
+(18:04) - Sponsors(20:13) - Laolu (Roasbeef) on Taproot assets
+(25:29) - LSP Challenges on issuing stablecoins
+(28:21) - Views on covenants
+(31:51) - Ensuring protocol safety while enabling Opcodes
+(34:33) - Saifedean’s views on Bitcoin Seoul 2024
+(34:44) - Central Bank behaving like a private organisation
+(40:21) - ‘The Keynesian Voodoo’ 
+(46:35) - All roads lead to Bitcoin
+(48:26) - Sponsors
+(50:45) - Latest developments at Fedi with Obi Nwosu
+(52:23) - Role of the Fedimint Guardians
+(54:40) - Fees on Fedi
+(56:18) - Fedi’s Social backup and recovery model
+(58:26) - Risks of getting rugged
+(1:01:23) - Fedi is trust-reduced
+(1:03:11) - Jimmy Song’s views on Bitcoin Seoul 2024
+(1:04:18) - Views on Bitcoin’s Technical developments
+(1:05:46) - Savings culture among Koreans & role of Bitcoin
+(1:09:16) - Outro
+Links:
+X: x.com/saifedean
+Saifedean episode: https://saifedean.com/podcast/222-central-banking-works
+X: x.com/glozow
+Bitcoin review club:  https://bitcoincore.reviews/
+BIP 431: https://github.com/bitcoin/bips/blob/master/bip-0431.mediawiki
+X: x.com/obi 
+Fedi: https://www.fedi.xyz/
+X: x.com/roasbeef
+Lightning Labs: https://lightning.engineering/
+X: https://x.com/kcalvinalvinn
+Utreexod beta release: https://groups.google.com/g/bitcoindev/c/5GyV9af9lv4?pli=1 
+X: x.com/jimmysong
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Tue, 04 Jun 2024 11:49:40 GMT</span>
@@ -50,6 +111,21 @@ Gloria Zhao on Bitcoin Core and m">
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

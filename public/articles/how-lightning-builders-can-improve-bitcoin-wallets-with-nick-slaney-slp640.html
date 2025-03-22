@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,74 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>How Lightning Builders Can Improve Bitcoin Wallets with Nick Slaney | SLP640</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/99275344/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-3%2F395845324-44100-2-757f24d881b9b.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In this episode, Stephan speaks with Nick Slaney about the current state and future of the Lightning Network. They discuss the misconceptions surrounding Lightning adoption, the legal challenges faced by developers, and the opportunities for Lightning Service Providers (LSPs). 
+Nick shares insights on hosted channels, liquidity management, and the user experience of Lightning, emphasizing the importance of understanding costs associated with using the network. The conversation highlights the potential for growth and innovation in the Lightning ecosystem as it continues to evolve. In this conversation, Stephan and Nick Slaney delve into the intricacies of the Lightning Network, Bitcoin fees, and the role of stablecoins in the crypto ecosystem. They discuss the real-world user experience with Bitcoin and Lightning, emphasizing the importance of understanding user needs and the misconceptions prevalent in online discussions. The conversation also touches on the implications of Taproot assets for the Lightning Network and the future of Bitcoin development, highlighting the need for better user experiences and broader adoption.
+Takeaways
+🔸Lightning has seen significant growth in volume over the past year.
+🔸Misunderstandings about Lightning's functionality can lead to misconceptions.
+🔸Legal challenges have created a chilling effect on Lightning adoption in the US.
+🔸LSPs are a viable business model for facilitating Lightning transactions.
+🔸Hosted channels can help onboard casual users to Lightning.
+🔸User experience is crucial for the adoption of self-custodial wallets.
+🔸Costs associated with using Lightning can vary based on user behavior.
+🔸The Lightning Network is not free; users must consider on-chain fees.
+🔸There is a need for better tools to facilitate movement between Lightning and on-chain Bitcoin.
+🔸The future of Lightning looks promising with ongoing developments and innovations. 🔸Real-world users are often willing to pay higher fees for Bitcoin transactions.
+🔸The fee structure for Lightning transactions can be misunderstood online.
+🔸Stablecoins serve a purpose in regions where users cannot access dollars.
+🔸Self-custody offers assurance and control over Bitcoin holdings.
+🔸The Lightning Network needs to focus on user experience to drive adoption.
+🔸There is a disconnect between online Bitcoin discussions and real-world user experiences.
+🔸Taproot assets could change the dynamics of stablecoins on the Lightning Network.
+🔸The future of Bitcoin may involve integrating fiat systems with Lightning payments.
+🔸Building trust and brand recognition is crucial for crypto applications.
+🔸The Bitcoin community should prioritize real-world applications and user needs.
+Timestamps:
+(00:00) - Intro
+(01:14) - How has the Lightning network progressed with time? 
+(04:06) - What are the tradeoffs with Lightning?
+(07:15) - What are the current legal challenges and their impact on Lightning?
+(10:16) - Opportunities for Lightning Service Providers (LSPs)
+(13:11) - How does an LSP identify a profitable channel?; What is a Hosted channel? 
+(16:13) - The challenge of UX and cost considerations in Lightning
+(18:05) - Sponsors
+(19:55) - “Graduated wallet approach” 
+(22:12) - What is the actual number of people that can use Lightning? 
+(27:00) - What are the individual costs of using self-custodial Lightning? 
+(33:36) - Misconceptions about Lightning
+(35:26) - Sponsors
+(37:43) - Real-world user perspectives on Bitcoin and Lightning
+(41:16) - What is the role of Stablecoins in the payment ecosystem?
+(50:44) - Taproot Assets and their impact on Lightning Network
+(58:09) - The future of Bitcoin & Lightning Development
+Links: 
+
+https://sats.build/self-custody-lightning-2025/
+
+https://x.com/nick_slaney/status/1889679185313960320 
+
+Sponsors:
+
+Bold Bitcoin
+
+CoinKite.com (code LIVERA)
+
+Lana by Galoy
+
+Stephan Livera links:
+
+Follow me on X: @stephanlivera
+
+Subscribe to the podcast
+
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 03 Mar 2025 10:55:00 GMT</span>
@@ -48,6 +112,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

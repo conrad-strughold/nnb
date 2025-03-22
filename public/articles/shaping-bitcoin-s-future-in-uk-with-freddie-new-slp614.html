@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,68 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Shaping Bitcoin's Future in UK with Freddie New SLP614</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/94247610/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-10-11%2F389599191-44100-2-4066475c631d5.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In this conversation, Freddie New, general counsel at The Little Car and Head of Policy at Bitcoin Policy UK, discusses the evolution of Bitcoin regulation in the UK. He highlights the historical context of regulatory attitudes, the role of the Law Commission in recognizing Bitcoin as property, and the challenges posed by the Financial Conduct Authority (FCA). 
+The conversation also touches on banking access issues, the impact of fraud concerns, and the future of Bitcoin custodianship. They also discuss the strategic reserve held by the UK government, regulatory challenges faced by Bitcoin exchanges, and the broader policy goals for Bitcoin advocacy. Freddie sheds light on the political landscape and the need for engagement with politicians to promote Bitcoin-friendly policies. Additionally, they address the ECB's recent criticisms of Bitcoin and contrast the regulatory approaches of the UK and EU. 
+
+Takeaways
+Freddie New advocates for Bitcoin policy in the UK.
+The UK has a history of misunderstanding Bitcoin.
+The Law Commission has recognized Bitcoin as property.
+The FCA has restricted access to Bitcoin products.
+Fraud concerns impact banking access for Bitcoin users.
+Bitcoin is seen as a unique form of money.
+The government is becoming more positive about Bitcoin.
+Banks are primarily concerned with self-preservation.
+The FCA's stance is a significant barrier to adoption.
+Bitcoin is for both individuals and institutions. The UK holds 61,000 Bitcoin, making it the third largest holder.
+There is a need for the UK to capitalize on its Bitcoin holdings.
+Self-custody of Bitcoin must remain legal in the UK.
+Access to exchanges and banking services is crucial for Bitcoin adoption.
+The UK should explore the potential of Bitcoin mining using renewable energy.
+Political engagement is essential for Bitcoin advocacy in the UK.
+The ECB's criticisms of Bitcoin are fundamentally flawed.
+The UK and EU have different regulatory approaches to Bitcoin.
+Pension funds are beginning to allocate assets to Bitcoin.
+Support for Bitcoin Policy UK can help influence positive change.
+Timestamps:
+(00:00) - Intro
+(01:00) - Who is Freddie New?
+(03:26) - An overview of Bitcoin regulatory scenario in the UK
+(08:00) - The shift in perception: From criminality to legitimacy
+(17:23) - Are banking onramps/offramps to Bitcoin a hurdle in the UK?
+(21:13) - AML regulations & their Implications for Bitcoin
+(26:21) - Sponsors
+(32:08) - The FCA's resistance to Bitcoin adoption in the UK; Strategic Bitcoin Reserve
+(40:43) - Sponsors
+(44:02) - Answering a questionnaire to buy Bitcoin in the UK?
+(47:51) - What are the Policy Goals for Bitcoin in the UK?; Bitcoin Developer community 
+(53:06) - Politicians & their stance on Bitcoin advocacy
+(1:06:27) - Contrasting UK & EU Regulatory approaches
+(1:12:00) - How to support Bitcoin Policy UK?
+Links: 
+https://x.com/freddienew 
+Bill on digital property that's currently going through Parliament: https://bills.parliament.uk/bills/3766 
+Exchange walkthroughs:  https://x.com/freddienew/status/1743644557441470496
+https://uk.bitcoinpolicy.net/ 
+http://www.bitcoinpolicy.uk/
+Steve Baker speaking on Bitcoin in Parliament in 2014: https://www.youtube.com/watch?v=RXQpXYvUB98 
+
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 11 Nov 2024 10:55:00 GMT</span>
@@ -48,6 +106,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     
