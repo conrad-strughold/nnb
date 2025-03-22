@@ -367,7 +367,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
                 `).join('')}
             </div>
             <div class="column-middle">
-                <h2>In-Depth Content</h2>
+                <h2>Media Hub</h2>
                 ${inDepthItems.map((item, index) => `
                     <article${index >= 3 ? ' class="hidden"' : ''}>
                         <h3><a href="/articles/${item.slug}.html">${item.title}</a>${item.type === 'podcast' ? '<span class="badge">(A)</span>' : item.type === 'video' ? '<span class="badge">▶</span>' : ''}</h3>
@@ -392,7 +392,7 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
             </div>
             -->
         </main>
-       enticate: <button id="show-more">Show More</button>
+       <button id="show-more">Show More</button>
         <footer>
             <p>© 2023 nonoise₿itcoin | Last updated: ${new Date().toLocaleString()}</p>
         </footer>
