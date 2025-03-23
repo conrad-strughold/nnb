@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,70 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Financialization of Bitcoin with Pierre Rochard | SLP636</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/98613064/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-1-17%2F395020386-44100-2-a4506ca2e6bfa.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Stephan and Pierre discuss the evolving landscape of Bitcoin, focusing on the dichotomy between securitization and tokenization. They explore the regulatory environment, the challenges of Bitcoin adoption, and the implications of volatility on investor behavior. The discussion also touches upon the financialization of Bitcoin and the misconceptions surrounding tokenization of real-world assets, ultimately questioning the value created through such processes.
+They also discuss the risks associated with traditional financial systems, the importance of self-custody, the psychological barriers to Bitcoin adoption, is stablecoin a gateway to Bitcoin and the challenges of privacy and surveillance in financial transactions. 
+Takeaways
+🔸Regulatory uncertainty was historically the biggest concern for Bitcoin.
+🔸The current primary concern for Bitcoin adoption is price volatility.
+🔸Bitcoin's community often lacks empathy towards those wary of volatility.
+🔸Financialization of Bitcoin has accelerated with the introduction of ETFs.
+🔸There is a significant demand for products that cater to different risk appetites.
+🔸Tokenization of assets does not create new value; it merely changes the form.
+🔸The crypto space often misidentifies problems that need solving.
+🔸Investors are more interested in securitized products than decentralized solutions.
+🔸The narrative around tokenization is often misleading and oversold.
+🔸Real-world applications of blockchain technology can sometimes complicate rather than simplify transactions. Bitcoin's financialization is a key trend for the future.
+🔸Investors need to understand the risks of traditional finance.
+🔸Securitization of Bitcoin will drive institutional interest.
+🔸Regulatory changes are creating new opportunities for Bitcoin.
+🔸Self-custody is essential for Bitcoin holders.
+🔸Stablecoins can serve as a bridge to Bitcoin investment.
+🔸The psychological aspect of investing in Bitcoin is significant.
+🔸Privacy concerns in finance are becoming more pronounced.
+🔸Bitcoin's volatility is a barrier for some investors.
+🔸The future of finance may involve a blend of Bitcoin and traditional assets.
+Timestamps:
+(00:00) - Intro
+(00:55) - What are the primary objections that people have with Bitcoin?  
+(07:20) - Technology vs. Number-Go-Up
+(15:08) - Which pathway brings more people into Bitcoin?
+(22:45) - $MSTR leveraging trad-fi to drive its bitcoin treasury strategy
+(26:30) - The dubious narrative of ‘tokenization of real-world assets’
+(32:06) - Sponsors
+(39:12) - What is the role of Bitcoin in financial strategies?
+(48:11) - What will be the impact of regulatory changes on Bitcoin?
+(52:34) - The important concerns over centralization and state capture of Bitcoin
+(52:22) - Sponsors
+(58:38) - What are the psychological barriers to Bitcoin adoption?
+(1:02:22) - Are stablecoins a gateway to Bitcoin?
+(1:04:24) - The role of surveillance and privacy in financial systems
+(1:12:00) - Closing thoughts
+Links: 
+ 
+https://x.com/BitcoinPierre 
+
+Sponsors:
+ 
+Bold Bitcoin
+  
+CoinKite.com (code LIVERA)
+  
+Lana by Galoy
+
+Stephan Livera links:
+  
+Follow me on X: @stephanlivera
+  
+Subscribe to the podcast
+  
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Tue, 18 Feb 2025 10:55:00 GMT</span>
@@ -48,6 +108,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

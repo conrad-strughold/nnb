@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,48 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Big Changes in El Salvador with Mike Peterson SLP547</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/82303868/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-1-6%2F366448496-44100-2-68995f4bd61e.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Mike Peterson from Bitcoin Beach El Zonte, El Salvador rejoins me on the show to give listeners some updates from El Salvador. Having a reduced crime rate and improved investment and tourism into the country has driven big changes! We talk:
+How things look a few years on from the Bitcoin Law
+Life on the ground in El Salvador
+How easy it is to move
+El Salvador $1M Citizenship Program
+Dealing with on chain fees
+Custodial vs Self Custodial and pragmatism
+‘Circular Economies’ and insights from his networking around the world
+Links:
+X: @Bitcoinbeach
+YT: @LiveFromBitcoinBeach 
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack
+Timestamps/Chapters:
+00:00 - Introduction and Background
+01:20 - Two and a Half Years After Bitcoin Adoption in El Salvador
+05:21 - Financial Innovation in El Salvador
+09:36 - Bottom-Up vs Top-Down Adoption of Bitcoin
+11:00 - Ease of Setting Up in El Salvador
+21:05 - Coinkite.com
+22:13 - Mempool.space
+22:56 - Swan.com
+24:15 - Living on Bitcoin in El Salvador
+31:48 - Bitcoin Meetups and Events in El Salvador
+35:51 - Circular Economies and Bitcoin Adoption
+40:55 - Insights from Other Circular Economies
+50:05 - Custodial vs. Non-Custodial
+54:21 - The Bitcoin Beach Podcast
+56:16 - Closing thoughts</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Tue, 06 Feb 2024 13:22:12 GMT</span>
@@ -48,6 +86,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

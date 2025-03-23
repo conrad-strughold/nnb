@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,35 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP448 Texas Slim & Jacob Wolki - Bitcoin & Australian Beef Initiative</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/63137029/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2023-0-6%2Fb35729d9-230b-12bd-0fe3-1632527dd700.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Texas Slim and Jacob Wolki join me on the show to chat about what people are getting wrong with their nutrition nowadays, and how the beef initiative is helping. We chat:
+Nutrition today and what’s gone wrong
+The Beef Initiative
+Regenerative Agriculture and the difference in product
+Using Bitcoin w/IBEX, OpenNode, BTCPay
+Inaugural Australian Beef Initiative Summit Feb 12th
+Links:
+Event link: Australian Beef Initiative- Sunday 12th
+Twitter: @JakeWolki 
+Twitter: @modernTman
+Jake’s Site: Wolkifarm.com.au
+Slim’s Site: Beefinitiative.com
+Sponsors:
+Swan Bitcoin
+Mempool.space
+Unchained Capital (code LIVERA)
+CoinKite.com(code LIVERA)
+Buildonl2.com
+Stephan Livera links:
+Follow me on Twitter @stephanlivera
+Subscribe to the podcast
+Patreon @stephanlivera</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Fri, 06 Jan 2023 10:46:43 GMT</span>
@@ -48,6 +73,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

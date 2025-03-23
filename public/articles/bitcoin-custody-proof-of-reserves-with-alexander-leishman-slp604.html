@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,58 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Custody & Proof of Reserves with Alexander Leishman SLP604</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/91914013/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-8-19%2F386634198-44100-2-b82c0282d2655.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">With growing institutional adoption of Bitcoin through custodians, investors will demand transparency through ‘Proof of Reserves’. Alexander Leishman, CEO & CTO, River joins me to discuss more of the institutional adoption of Bitcoin, Coinbase’s hesitation towards Proof of Reserves, US Govt. debt and more.
+Summary
+In this episode of the Stephan Livera podcast, host Stephan speaks with Alex Leishman, CEO and CTO of River, about various topics surrounding Bitcoin, including the current state of exchanges like Coinbase, the importance of proof of reserves, and the growing adoption of Bitcoin among businesses. They discuss the implications of stablecoins, the comparison between Bitcoin and gold, and the future of Bitcoin technology. Alex emphasizes the need for transparency in the industry and the importance of maintaining a solid foundation for Bitcoin's development.
+Takeaways
+Coinbase likely has the coins they claim, but proof is needed.
+Proof of reserves should include liabilities for full transparency.
+Bitcoin adoption is growing among businesses of all sizes.
+Stablecoins serve as a necessary tool for many users.
+The future of Bitcoin as a store of value is promising.
+Gold's historical significance may not hold against Bitcoin's advantages.
+Self-custody remains a challenge for many Bitcoin users.
+Bitcoin technology is evolving, focusing on reliability and security.
+The political landscape may influence Bitcoin's regulatory environment.
+Community education is crucial for fostering trust in custodians.
+Timestamps:
+(00:00) - Intro
+(00:34) - Does Coinbase hold all the Bitcoin they claim to?
+(02:33) - What happens when liabilities are more than assets?
+(06:44) - @River ‘s Proof of Reserves - Explained
+(10:32) - How does Proof of Reserves mitigate the risk of ‘Paper Bitcoin’?
+(12:07) - Sponsors
+(14:22) - Why Proof of Reserves could be difficult to implement for Coinbase?
+(17:56) - Why Business Bitcoin adoption grew by 30% in 1 year
+(21:30) - The increasing US Govt. debt & the role of Bitcoin
+(23:08) - Gold vs Bitcoin 
+(26:32) - Risks of centralization of Bitcoin custody through ETFs
+(30:45) - Sponsor
+(34:15) - Bitcoin’s role in commerce - Store of Value of Medium of Exchange?
+(38:00) - Does Bitcoin need an upgrade?
+(41:24) - Are stablecoins a hindrance to Bitcoin adoption?
+(47:20) - US Presidential election affecting Bitcoin
+(52:56) - Way forward with Bitcoin Development
+(56:45) - Closing thoughts 
+Links: 
+https://x.com/Leishman 
+https://x.com/River/status/1831374555530830304 
+https://x.com/Leishman/status/1836406012405772568 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Thu, 19 Sep 2024 11:45:00 GMT</span>
@@ -48,6 +96,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

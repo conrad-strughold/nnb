@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,66 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Adoption in Australia with Ethan Timor | SLP639</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/99164805/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-1-28%2F395708996-44100-2-91dc9bd5fc22a.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In this episode, Stephan Levera interviews Ethan from Bitaroo, discussing the current state of Bitcoin in Australia, regulatory challenges, the importance of self-custody, and the evolving landscape of cryptocurrency exchanges. 
+They explore the implications of regulations like the FATF and AFSL, the role of banks in facilitating or hindering Bitcoin transactions, and the need for consumer protection and self-responsibility in the crypto space. The conversation also touches on proof of reserves and market trends influencing Bitcoin adoption.
+Takeaways
+🔸Bitaroo is a prominent Bitcoin-only exchange in Australia.
+🔸The FATF regulations impact how financial institutions handle Bitcoin transactions.
+🔸AFSL regulations may change the landscape for Bitcoin businesses in Australia.
+🔸User experience may suffer due to increased compliance requirements.
+🔸Self-custody is essential for Bitcoin users to maintain control over their assets.
+🔸Banks are increasingly blocking transfers to Bitcoin exchanges, complicating access.
+🔸Consumer protection should encourage self-responsibility rather than dependence on government.
+🔸Proof of reserves could enhance trust in cryptocurrency exchanges.
+🔸Market trends indicate a shift towards institutional investment in Bitcoin.
+🔸Advocating against restrictive regulations is crucial for the Bitcoin community.
+Timestamps:
+(00:00) - Intro
+(01:01) - How does the Bitcoin landscape look currently in Australia? 
+(09:20) - What is AFSL?
+(14:57) - Sponsors
+(15:57) - What other Bitcoin-centric regulations can Australians expect? 
+(18:29) - How is Bitaroo ensuring its users practice self-custody?
+(23:14) - The dilemma b/w self custody vs. custodial solutions
+(29:59) - Is it worthwhile to lobby for lesser regulations?
+(36:42) - Libertarian perspective & the current situation in Australia 
+(38:40) - Are some Australian banks blocking Bitcoin transactions?
+(46:56) - Sponsors
+(49:57) - Is Bitaroo KYC-free for merchants?
+(55:25) - Will Proof of Reserves for exchanges be popularised in Australia? 
+(1:02:14) - Future adoption of Bitcoin and Market trends
+Links: 
+ 
+https://x.com/EthanBitcoin 
+ 
+https://x.com/BitarooExchange 
+  
+https://x.com/AusBTCIndBody 
+  
+https://bitcoinalive.io/ 
+
+Sponsors:
+  
+Bold Bitcoin
+  
+CoinKite.com (code LIVERA)
+  
+Lana by Galoy
+
+Stephan Livera links:
+  
+Follow me on X: @stephanlivera
+  
+Subscribe to the podcast
+  
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Fri, 28 Feb 2025 12:01:25 GMT</span>
@@ -48,6 +104,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

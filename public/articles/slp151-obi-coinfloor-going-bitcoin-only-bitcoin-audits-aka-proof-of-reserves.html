@@ -17,6 +17,8 @@ Going Bitcoin Only and whe">
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -31,12 +33,32 @@ Going Bitcoin Only and whe">
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP151 Obi - Coinfloor Going Bitcoin Only & Bitcoin Audits (aka Proof of Reserves)</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/10524866/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fproduction%2F2020-1-21%2F51592204-44100-1-f15fe899efd2c.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Obi Nwosu, CEO and Co-founder of Coinfloor joins me in this episode to talk about his approach to the space. We talk about:
+Going Bitcoin Only and when an exchange should delist cryptocurrencies
+Proof of Reserves & Proof of Solvency
+Educating users of the exchange about Bitcoin
+Supporting grass roots bitcoin meet ups, conferences, organisations
+Advancing Bitcoin
+Obi links:
+Twitter: @obi
+Coinfloor: https://coinfloor.co.uk/hodl/
+Coinfloor Bitcoin Audits: https://coinfloor.co.uk/hodl/proof/
+Sponsor links:
+Kraken
+Unchained Capital
+CypherWheel by CypherSafe
+Stephan Livera links:
+Show notes and website
+Follow me on twitter @stephanlivera
+Subscribe to the podcast
+Patreon @stephanlivera</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Fri, 21 Feb 2020 10:47:08 GMT</span>
@@ -49,6 +71,21 @@ Going Bitcoin Only and whe">
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

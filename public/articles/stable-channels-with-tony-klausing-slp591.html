@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,44 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Stable Channels with Tony Klausing (SLP591)</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/89236943/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-6-15%2F383206807-44100-2-dabd57b82677b.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Even as bitcoiners, we can’t deny that there is demand for ‘stablecoins’ or some kind of stable value feature. Tony Klausing, bitcoin and lightning developer joins me to talk about Stable Channels. This approach to stable value is self custodial, P2P, and bitcoin-native. We talk about the benefits, trade offs and who this would be suitable for. 
+Timestamps:
+(00:00) - Intro 
+(00:51) - Tony’s background 
+(03:28) - Opportunity of Stable Channels
+(05:46) - Fiat-backed stablecoins Vs. Crypto-backed stablecoins(10:23) - Overview of Stable Channels
+(14:17) - Difference between DLCs & Stable Channels
+(18:02) - Stable Channels during varying BTC price scenarios
+(21:34) - Sponsors
+(23:49) - Who are Stable Channels for?
+(30:50) - Dual funding & splicing on Stable Channels
+(32:24) - How do participants of Stable Channels find each other?
+(38:22) - Addressing concerns around Stable Channels 
+(41:12) - Sponsors
+(42:33) - Possible challenges for Stable Channels
+(46:43) - Payments on Stable Channels
+(52:07) - Is Stable Channels a ‘Quasi-decentralized exchange’?
+(53:57) - Lightning payment vs legacy financial payment
+(58:03) - Usability challenges
+(1:00:09) - Outro
+Links:
+https://x.com/tonklaus 
+https://stablechannels.com/ 
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 15 Jul 2024 11:35:01 GMT</span>
@@ -48,6 +82,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

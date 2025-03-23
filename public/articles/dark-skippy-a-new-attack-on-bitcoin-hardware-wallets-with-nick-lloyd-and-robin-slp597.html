@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,59 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Dark Skippy: A New Attack on Bitcoin Hardware Wallets? With Nick, Lloyd and Robin SLP597</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/90424577/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-7-14%2F384758239-44100-2-32937807c21fb.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Dark Skippy is a new attack that in theory, makes it much easier for a malicious person to steal your coins. Listen in to learn about some of the ins and outs here, as well as mitigation and the path forward for the industry from @utxoclub , @LLFOURN & @robin_linus . 
+Why air gapping is not the be all end all
+Dark Skippy in context with other attacks
+Security while signing transactions, and security while generating keys
+RFC6979 Deterministic nonce generation
+Updating PSBT to help mitigate this attack
+Summary
+The conversation discusses the ‘Dark Skippy’ attack, a new method for leaking secret keys from a malicious signing device. The attack takes advantage of the nonces used in the Schnorr and ECDSA signature schemes. The new attack vector can potentially extract private keys and seed words from hardware wallets. The attack targets the nonce generation process during key generation and signing. The previous versions of this attack were inefficient, but Dark Skippy improves upon them. The contributors explain how the attack came about and its implications for hardware wallet security. They also discuss the RFC6979 deterministic nonce generation and the concept of anti-klepto signing protocols as mitigations against the attack. 
+While Dark Skippy is a sophisticated attack, it requires a high level of expertise and is not currently seen in the wild. The discussion highlights the importance of secure boot, upgrading the Partially Signed Bitcoin Transaction (PSBT) process, and improving the randomness of upfront key generation as potential mitigations. 
+However, it is emphasized that current reputable hardware wallets still provide a high level of security, and there is no immediate action required for users.
+Takeaways
+Dark Skippy is a new attack that leaks secret keys from a malicious signing device.
+The attack exploits the nonces used in the Schnorr and ECDSA signature schemes.
+Previous versions of this attack were inefficient, but Dark Skippy improves upon them.
+Mitigations against the attack include the RFC6979 deterministic nonce generation and anti-klepto signing protocols. Dark Skippy is a sophisticated attack that targets the nonce generation process during key generation and signing.
+Mitigations for Dark Skippy include implementing secure boot, upgrading the PSBT process, and improving the randomness of upfront key generation.
+Reputable hardware wallets currently provide a high level of security, and there is no immediate action required for users.
+The discussion highlights the importance of ongoing research and development to enhance the security of hardware wallets and protect against potential future attacks.
+Timestamps:
+(00:00) - Intro
+(00:45) - What is ‘Dark Skippy’?
+(04:39) - Is it an old attack vector? Bitcoin’s security evolving with time
+(12:41) - Sponsor
+(15:22) - What is a nonce?, RFC6979 Deterministic nonce generation
+(22:55) - Common ways of people losing their Bitcoin
+(31:08) - Sponsor
+(32:07) - Anti-klepto signing protocols; ways to mitigate risks of losing coins
+(39:51) - Updating PSBT to help mitigate this attack
+(43:26) - The role of Multisig in preventing the attack
+(49:57) - Other attack vectors in malicious actor’s toolkit
+(56:49) - Summarizing the steps to improve the ecosystem security
+(1:00:18) - Closing thoughts
+Links: 
+https://darkskippy.com/ 
+https://frostsnap.com/ 
+https://x.com/LLFOURN 
+https://x.com/robin_linus 
+https://x.com/utxoclub 
+https://x.com/utxoclub/status/1820520960476561825 
+Sponsors:
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Wed, 14 Aug 2024 11:43:59 GMT</span>
@@ -48,6 +97,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

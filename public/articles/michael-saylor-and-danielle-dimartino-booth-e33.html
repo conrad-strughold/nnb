@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,54 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Michael Saylor and Danielle DiMartino Booth - E33</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/6be01674-63da-4d8d-a57e-7efff28852c5/audio/5babafdf-786f-4c5f-b6fe-1f24238ddb55/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Michael Saylor is CEO of MicroStrategy, a publicly-traded business intelligence company. Michael burst onto the Bitcoin scene when he put MicroStrategy onto a Bitcoin standard by converting nearly all of the company treasury to Bitcoin with a $450 MILLION buy over the past few months. Michael, welcome to Swan Signal Live. 
+Danielle DiMartino Booth is a former Fed insider, she was a right-hand analyst for Dallas Fed President Richard Fisher during the 2008 financial crisis.  Through that experience, she came to call out monetary malpractice at the Fed in her book Fed Up: An Insider's Take on Why the Federal Reserve is Bad. She now runs her own research firm, Quill Intelligence. Danielle, really appreciate your taking the time to join us today.
+Summary:
+0:00 Introduction
+2:49 Danielle's thoughts on Bitcoin
+7:07 Michael's view on central banks and Maco
+10:52 Are we in a currency collapse?
+20:20 Real estate as a store of value
+27:09 Onset of the virtual wave
+31:16 How does monetary policy affect company decisions?
+33:58 Zombie Companies and the deflationary transition.
+41:43 Bitcoin as a force for good in the world
+45:38 Congress waking up to the role of the Fed
+52:30 Bitcoin on company balance sheets
+54:05 History of Bitcoin
+57:57 Thoughts on Inflation and CPI
+1:01:43 Do companies take on dollar-debt to buy Bitcoin?
+1:09:02 BItcoin energy usage
+1:12:01 Bitcoin quantum computer
+1:13:36 People of Bitcoin
+1:20:11 Which big company buys Bitcoin next?
+1:23:38 Bitcoin gives people hope and an exit strategy.
+1:31:25 Michael Saylor hype video
+1:33:00 Video response and appreciation for early Bitcoiners.
+Swan Signal Live pairs great guests for compelling discussions about Bitcoin and economics. Subscribe and turn on notifications for more content from one of the best Bitcoin channels on YouTube. 
+Find the audio podcast at https://swansignalpodcast.com
+Connect with Swan on social media:
+Twitter: https://twitter.com/SwanBitcoin
+Telegram: https://t.me/swansignal
+LinkedIn: https://www.linkedin.com/company/swan...
+Connect with Danielle on social media: https://twitter.com/DimartinoBooth
+Connect with Michael Saylor on social media: https://twitter.com/Michael_saylor
+Swan Signal Live is a production of Swan Bitcoin, the best way to accumulate Bitcoin through automatic recurring buys at https://swanbitcoin.com.
+Get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Wed, 14 Oct 2020 17:08:22 +0000</span>
@@ -48,6 +92,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

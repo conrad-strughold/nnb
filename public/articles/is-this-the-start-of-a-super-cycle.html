@@ -17,6 +17,8 @@ Bitcoin hitting new all-time highs ">
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -31,16 +33,33 @@ Bitcoin hitting new all-time highs ">
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Is This the Start of a Super Cycle?</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/66c8eb04-aad5-4762-a7e7-a6ff764b45a7/audio/7db6bc1b-31ed-4638-9ed1-87221b7150db/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This Swan Signal podcast discussed major Bitcoin developments following Trump's election win. Key points included:
+Bitcoin hitting new all-time highs around $77,000
+Discussion of potential "super cycle" with $800k-850k price targets
+Analysis of Trump administration's likely pro-Bitcoin policies, including a Strategic Bitcoin Reserve
+Significance of the Lummis bill and possibility of US government Bitcoin purchases
+Record inflows into Bitcoin ETFs post-election
+Discussion of Fed policy and potential new Treasury Secretary Scott Besant
+Overall sentiment that Bitcoin adoption is entering a new phase with mainstream acceptance, ETF access, and potential government support
+The hosts expressed optimism about Bitcoin's outlook while acknowledging these developments mark a significant shift from previous cycles.
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Sat, 9 Nov 2024 01:05:30 +0000</span>
-                | <span class="meta-author">By brady@swanbitcoin.com (Steven Lubka, Brady Swenson, Brandon Quittem, John Haar)</span>
+                | <span class="meta-author">By brady@swanbitcoin.com (Brandon Quittem, Brady Swenson, Steven Lubka, John Haar)</span>
             </div>
             <a href="https://swansignalpodcast.com/episodes/is-this-the-start-of-a-super-cycle-NYUebcAp" target="_blank" class="source-link">Listen to Original</a>
             <a href="/" class="back-link">← Back to Home</a>
@@ -49,6 +68,21 @@ Bitcoin hitting new all-time highs ">
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

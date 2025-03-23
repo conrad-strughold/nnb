@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,62 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Correcting BBC misinformation on Bitcoin with Susie Violet Ward | SLP628</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/97135630/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-0-16%2F393178599-44100-2-d952379bed289.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In this episode, Susie Ward discusses her advocacy for Bitcoin in the UK, focusing on media misrepresentation and regulatory challenges. She critiques the BBC's negative coverage of Bitcoin, highlighting the importance of accurate information and the impact of misinformation on public perception. 
+The conversation then shifts to the FATF travel rule, exploring its implications for privacy and the ineffectiveness of traditional financial regulations in combating money laundering. Susie emphasizes the need for a better understanding of Bitcoin's technology and the dangers of overregulation. 
+Susie and Stephan also discuss the implications of compliance and regulation on Bitcoin adoption, the dangers of debanking, and the political divides affecting financial freedom. The discussion highlights the need for better understanding and education around Bitcoin and the potential risks of centralized control over financial systems.
+Takeaways
+🔸The BBC's coverage of Bitcoin often lacks accuracy and accountability.
+🔸Misinformation about Bitcoin can have lasting effects on public perception.
+🔸The FATF travel rule is ineffective and infringes on privacy rights.
+🔸Many journalists lack the technical background to report accurately on Bitcoin.
+🔸Public fear can drive support for unnecessary regulations.
+🔸Bitcoin's benefits are often overshadowed by negative media narratives.
+🔸The travel rule has not proven to reduce money laundering effectively.
+🔸Data privacy is at risk with increasing regulatory demands.
+🔸The financial system has not solved the issues it claims to address.
+🔸Understanding Bitcoin requires significant research and expertise. Compliance and regulation are making Bitcoin adoption more difficult.
+🔸Centralized databases pose risks to individual safety.
+🔸Debanking affects millions in the UK without explanation.
+🔸Political views can lead to financial exclusion.
+🔸The UK is struggling to become a crypto hub despite government interest.
+🔸Regulatory measures can hinder retail investors from accessing Bitcoin.
+🔸The perception of Bitcoin as 'internet money' leads to ignorance among regulators.
+🔸Advocacy and education are crucial for Bitcoin's future in the UK.
+🔸Public discourse on controversial topics is essential for understanding.
+🔸The implications of programmable money are more dystopian than Orwell predicted.
+Timestamps:
+(00:00) - Intro
+(00:55) - Why is the BBC distorting facts about Bitcoin?
+(04:55) - What is the impact of misinformation spread around Bitcoin by the BBC among the general public?
+(09:31) - The importance of fact-checked rebuttals
+(13:53) - What is the FATF Travel Rule?; What are its implications?
+(23:22) - Are people pushing for more compliance laws? 
+(24:03) - Sponsors
+(29:59) - Dangers of overdoing KYC; Debanking & its implications
+(34:20) - Political divides & Financial freedom
+(35:28) - Sponsors
+(38:22) - Is the UK really protecting its investors?
+(45:36) - George Orwell coin 
+(47:35) - Advocacy for Bitcoin in the UK
+Links:
+Susie’s Forbes articles: https://www.forbes.com/sites/susievioletward/
+Susie’s Twitter: https://x.com/DecentraSuze
+How to donate and help bitcoin in the UK: https://uk.bitcoinpolicy.net/membership/individuals/
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Thu, 16 Jan 2025 12:12:36 GMT</span>
@@ -48,6 +100,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

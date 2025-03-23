@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,33 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>A Paper Computer for Bitcoin? Codex32 with Andrew Poelstra (SLP506)</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/75125949/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2023-7-27%2F3e8f5b39-7a51-c538-d64d-6087a770391d.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A ‘paper computer’ for Bitcoin checksums and Shamir Secret Sharing may seem absurd, but that’s what we’re talking about in this episode! This project is a scheme to generate, encode, checksum, split and recover Bitcoin secret keys, using pencil, paper and lookup tables (alternately, volvelles). We discuss codex32 and the motivation behind it with Andrew Poelstra (Director of Research, Blockstream). Note this is the first of a two part episode. In this first part we discuss:
+Bitcoin private keys today
+Multi signature and Shamir Secret Sharing contrasted
+Where to keep shards or keys
+Error correction
+Risks with Hardware wallets (even though you should still use them)
+BIP39 vs codex32
+Limitations of the paper computer (Volvelles)
+Links:
+codex32 website
+codex32 github
+Blockstream store
+Sponsors:
+Pacific Bitcoin Festival (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+Base58 
+SL links:
+Follow me on Twitter @stephanlivera
+Subscribe to the podcast</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Sun, 27 Aug 2023 15:38:49 GMT</span>
@@ -48,6 +71,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

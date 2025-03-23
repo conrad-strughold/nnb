@@ -17,6 +17,8 @@ Dr. Jeff Ross, founder, Vailshire Capital Management, joins me">
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -31,12 +33,57 @@ Dr. Jeff Ross, founder, Vailshire Capital Management, joins me">
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin: The Great Absorber of Liquidity with Dr. Jeff Ross SLP606</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/92263075/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-8-27%2F387137354-44100-2-440b19e3121af.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">After a long and choppy bull-crab market, Dr. Ross notes that the bull market is here! 
+Dr. Jeff Ross, founder, Vailshire Capital Management, joins me to discuss the ongoing sentiment in the markets, global liquidity, pitfalls and opportunities of this bull cycle, holistic living and more!
+Summary
+In this conversation, Dr. Jeff Ross discusses his transition from a bearish to a bullish outlook on Bitcoin and the broader market, emphasizing the importance of liquidity and central bank policies. He explains how liquidity flows impact asset prices, particularly Bitcoin, and outlines his predictions for economic growth and market behavior in the coming years. The discussion also touches on wealth inequality, the role of Bitcoin in addressing economic disparities, and strategies for investors, including the controversial 8% withdrawal rate for Bitcoin holders.
+Takeaways
+Liquidity is the key driver of asset prices.
+The transition from bear to bull markets is influenced by liquidity flows.
+Central banks play a significant role in market dynamics.
+Bitcoin is seen as a solution to wealth inequality.
+The US dollar remains the strongest currency despite global challenges.
+High liquidity environments lead to increased risk-taking behavior.
+Investors should consider Bitcoin as a significant part of their portfolio.
+Timing the market can be beneficial for fund managers but not for regular investors.
+The 8% withdrawal rate is reasonable for Bitcoin holders.
+Future economic growth may surprise - to the upside.
+Timestamps:
+Timestamps:
+(00:00) - Intro
+(00:48) - Why is Dr. Jeff bullish?; Shift from bull-crab to bull
+(03:29) - The significance of M2 Money Supply & Global Liquidity
+(07:44) - Will the Fed rate cut increase asset prices?
+(10:38) - Liquidity into 2025?
+(16:09) - Recession fear overblown?
+(22:05) - Ever-increasing US Govt. debt and currency collapse across the world
+(30:07) - “Easy money begets stupid & risky behavior” 
+(37:35) - Detachment of Bitcoin halving cycles from other major cycles  
+(40:10) - Bhutan on a Bitcoin stacking spree; Changing world-order
+(44:01) - How do Gold & Bitcoin perform in a high liquidity environment?
+(47:23) - Asset allocation wrt Bitcoin for Institutional investors
+(53:23) - $475K Bitcoin target in play?
+(57:12) - Caution to take during a bull cycle
+(1:00:47) - Financial independence & 8% Withdrawal Rate?
+(1:07:24) - Closing thoughts
+Links: 
+drjeff@nostrplebs.com 
+https://primal.net/p/npub1k7vkcxp7qdkly7qzj3dcpw7u3v9lt9cmvcs6s6ln26wrxggh7p7su3c04l 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Sun, 29 Sep 2024 07:01:21 GMT</span>
@@ -49,6 +96,21 @@ Dr. Jeff Ross, founder, Vailshire Capital Management, joins me">
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

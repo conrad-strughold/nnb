@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,32 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP60 Askuwheteau & Ketominer of nodl - Plug and Play Bitcoin Lightning Nodes</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/2683197/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fproduction%2F2019-2-19%2F11545522-48000-2-fe4ed157f01d5.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Askuwheteau and Ketominer of the nodl.it team join me to talk about the ‘plug and play’ Bitcoin Lightning full node hardware they are creating. We discuss: 
+Bitcoin full node philosophy
+Why they started a company
+How to set up a Nodl device
+Comparison with other plug and play node products
+Future features coming
+Askuwheteau, Ketominer & nodl links:
+Askuwheteau’s Twitter: https://twitter.com/IAskuwheteau 
+Ketominer’s Twitter: http://twitter.com/Ketominer
+nodl Twitter: https://twitter.com/nodl_it 
+nodl website: https://www.nodl.it/ 
+nodl official store: https://shop.lightning-solutions.eu
+Rise of the nodes medium post: article
+Stephan Livera links:
+Twitter: https://twitter.com/@stephanlivera 
+Subscribe on iTunes: https://itunes.apple.com/podcast/stephan-livera-podcast/id1415720320?mt=2 
+Subscribe on Android: https://subscribeonandroid.com/anchor.fm/s/7d083a4/podcast/rss
+Website: https://stephanlivera.com/ 
+Patreon: http://patreon.com/stephanlivera</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Tue, 19 Mar 2019 10:00:23 GMT</span>
@@ -48,6 +70,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

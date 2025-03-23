@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,63 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Debunking Climate Myths with Tom Nelson | SLP618</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/94798557/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-10-22%2F390282425-44100-2-af83ebdaaea9e.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Tom Nelson discusses the misconceptions surrounding climate change, particularly the belief that carbon dioxide (CO2) is the primary driver of climate change. He argues that this notion is a significant part of a larger narrative that has been perpetuated for decades, leading to alarmism and extreme policies. 
+The discussion also touches on the evolution of climate catastrophism, the implications of the net zero agenda, and the role of media and funding in shaping public perception. Nelson emphasizes the need for a more nuanced understanding of climate science and the importance of questioning prevailing narratives. 
+Tom & Stephan also discuss the evolution of climate skepticism, the impact of urban heat islands on temperature records, and the misconceptions surrounding extreme weather events and climate change. Emphasis is also laid on the importance of debates in shaping public perception and critiques government subsidies for renewable energy sources. The discussion touches on the potential of Bitcoin as a means of financial freedom in the context of climate change narratives.
+Takeaways
+🔸Carbon dioxide is just one of many factors affecting climate.
+🔸Groupthink and power control drive climate alarmism.
+🔸The narrative around climate change has evolved over decades.
+🔸Net zero policies often lead to absurd consequences.
+🔸Many climate policies are based on flawed assumptions.
+🔸Public perception is influenced by media narratives.
+🔸Funding for climate research often favors alarmist views.
+🔸The complexity of climate science is often oversimplified.
+🔸Bitcoin mining is unfairly criticized in climate discussions.
+🔸There is potential for changing minds within the climate debate. Many well-known climate skeptics once believed in climate change.
+🔸Starting with one lie can open up discussions about climate change.
+🔸Legacy media's influence is diminishing as alternative media rises.
+🔸The urban heat island effect significantly skews temperature records.
+🔸Extreme weather events have always existed and are not solely due to climate change.
+🔸Debates on climate change are often avoided by alarmists.
+🔸Government subsidies for renewable energy are often misallocated.
+🔸Fossil fuels are underfunded compared to renewable energy sources.
+🔸Public perception of climate change is shifting towards skepticism.
+🔸Bitcoin represents a potential shift in financial autonomy against climate narratives.
+Timestamps:
+(00:00) - Intro
+(02:12) - What drives Climate Catastrophism?
+(07:54) - What are the implications of the ‘Net Zero’ agenda?
+(12:16) - The role & consequences of media reporting on Climate Crisis
+(17:35) - Sponsors
+(23:24) - The Science Funding Dilemma 
+(26:41) - Does Bitcoin mining cause bad weather conditions? 
+(30:51) - The shift in climate skepticism
+(33:35) - Temperate Records
+(35:32) - Sponsors
+(40:40) - How serious are the extreme weather events?
+(44:15) - Ongoing debates and public perception of climate change narratives 
+(50:02) - Government subsidies for different forms of energy sources
+(55:33) - Tom’s perspective on Bitcoin
+Links: 
+https://climatethemovie.net/ 
+https://x.com/TomANelson 
+https://linktr.ee/tomanelson1 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Fri, 22 Nov 2024 11:15:14 GMT</span>
@@ -48,6 +101,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

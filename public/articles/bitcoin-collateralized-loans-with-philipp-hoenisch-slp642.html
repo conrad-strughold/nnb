@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,77 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin-collateralized loans with Philipp Hoenisch | SLP642</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/99388251/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-5%2F395987920-44100-2-4c47e32925476.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Stephan discusses the evolution of Bitcoin and the challenges of self-custody with Philip Hoenisch, co-founder of Lendasat. They explore the transition from traditional finance to on-chain solutions, the importance of self-custody, and the ideological divides within the Bitcoin community. 
+Philipp shares his insight on the intricacies of Bitcoin lending, focusing on liquidation processes, collateralization ratios, and the role of technology in managing these aspects. He explains the cost structures associated with lending, including origination fees and transaction costs, and explores the potential for loan rollovers and credit lines. The discussion also touches on the future of stablecoins amidst regulatory risks and the growth of the lending market, particularly from the perspective of lenders. Finally, the conversation highlights the impact of technological innovations like CheckTemplateVerify (CTV) on the Bitcoin ecosystem.
+Takeaways
+🔸Bitcoin is a cypherpunk tool for decentralization.
+🔸Self-custody is essential for true Bitcoin adoption.
+🔸The traditional finance system is not designed for self-sovereignty.
+🔸Many people are not technically equipped to self-custody Bitcoin.
+🔸Lendasat aims to provide a collateralized lending solution for Bitcoin.
+🔸Interest rates in Bitcoin lending are expected to decrease over time.
+🔸KYC regulations are a significant hurdle for Bitcoin lending platforms.
+🔸DLCs can automate and secure loan agreements on Bitcoin.
+🔸User experience is crucial for broader Bitcoin adoption.
+🔸The future of lending may involve integrating fiat and stablecoins. Liquidation occurs when collateral falls below a certain threshold.
+🔸Lenders can set their own collateralization ratios.
+🔸Technology plays a crucial role in monitoring liquidation events.
+🔸The app automates notifications for lenders regarding their loans.
+🔸Origination fees are a primary cost in Bitcoin lending.
+🔸Loan rollovers allow borrowers to extend their loans easily.
+🔸Stablecoins face regulatory risks that could impact their use.
+🔸Lenders may come from both retail and institutional backgrounds.
+🔸The future of lending may involve innovative financial products.
+🔸Technological advancements like CTV could enhance Bitcoin's lending capabilities.
+Timestamps:
+(00:00) - Intro
+(00:52) - Pivoting from 10101 Finance to Lendasat
+(03:15) - Will the future of Bitcoin be On-chain or TradFi?; The importance of self-custody in Bitcoin
+(08:29) - Is there an ideological echo chamber hindering Bitcoin’s adoption?
+(11:49) - The case for Lendasat 
+(14:26) - Managing interest rates and loan terms in Bitcoin lending
+(19:43) - Sponsors
+(22:00) - What are the KYC & AML related hurdles in Bitcoin lending? 
+(23:22) - What is Lendasat ?
+(30:53) - How does DLC work in Bitcoin lending with Lendasat? 
+(33:47) - Understanding liquidation criteria and collateralization terms with Lendasat
+(35:34) - How is technology overseeing liquidation processes?
+(39:04) - Sponsors
+(43:16) - Cost structures, loan rollovers and credit lines
+(48:57) - The future of stablecoins
+(54:29) - Lender’s perspective and market growth potential 
+(56:45) - What will be the impact of CTV on Bitcoin lending markets? 
+(59:53) - Closing thoughts
+Links: 
+
+https://x.com/bonomat 
+
+https://x.com/lendasat 
+
+https://lendasat.com/ 
+
+Sponsors:
+
+Bold Bitcoin
+
+CoinKite.com (code LIVERA)
+
+Lana by Galoy
+
+Stephan Livera links:
+
+Follow me on X: @stephanlivera
+
+Subscribe to the podcast
+
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Wed, 05 Mar 2025 11:14:34 GMT</span>
@@ -48,6 +115,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

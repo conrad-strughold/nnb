@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,60 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Venture Capital Outlook in 2024 with Andi Pitt | EP 141</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/de0dda37-8a2d-4dc4-a0da-b73f1f1424d0/audio/460119ad-6d23-43ad-a6e1-9d9166f341b0/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Sam sits down with Andi Pitt from Ego Death Capital to hear more about the world of Bitcoin venture capital, her general thoughts on the current investing landscape, and about what sectors of the Bitcoin ecosystem excites her the most in 2024.
+Timestamps:
+00:00:00 “Swan Signal” Intro
+00:01:10 Introducing “Andi Pitt”
+00:01:51 “Focusing on Bitcoin” - Investing in Bitcoin Only Companies
+00:03:21 Growth Happening in Bitcoin (L2 & L3 Solutions)
+00:08:04 How the Bitcoin ETF Helps Investment in Bitcoin
+00:10:41 “Tokenized Economies”
+00:14:58 Finding the “Right Investor” at “Ego Death Capital”
+00:16:28 Using “Bitcoin as the Benchmark”
+00:18:04 New Fund Raise at “Ego Death Capital”
+00:19:48 Investing in “Wolf: A Lightning Startup Accelerator”
+00:21:52 Opportunities in Building a Start Up in Bitcoin
+00:26:00 How Bitcoin Converges with Other Emerging Technologies
+00:28:35 How to Connect with “Andi Pitt”
+00:29:05 “Swan Signal” Outro
+Connect with:
+Sam Callahan: https://twitter.com/samcallah
+Andi Pitt: https://twitter.com/1andipitt
+Connect with Swan Bitcoin:
+     YouTube: https://youtube.com/@Swan_Bitcoin
+     Twitter: https://twitter.com/Swan
+     Instagram: https://instagram.com/SwanBitcoin
+     Telegram: https://t.me/swanbitcoin
+      LinkedIn: https://linkedin.com/company/swanbitcoin
+Swan Bitcoin does not provide any investment, financial, tax, legal or other professional advice. We recommend that you consult with financial and tax advisors to understand the risks and consequences of buying, selling and holding Bitcoin.
+ Swan Bitcoin is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Start your Bitcoin journey today, and your first $10 purchase is on us
+     https://swanbitcoin.com/yt
+ Download the all-new Swan Bitcoin App
+     https://www.swanbitcoin.com/app/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+ Get your ticket for the Pacific Bitcoin Festival 2023 before prices increase!
+      https://www.pacificbitcoin.com/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+ Secure your bright orange future with the Swan IRA today! Real Bitcoin, no taxes
+     https://www.swanbitcoin.com/bitcoin-ira/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+ For high-net-worth individuals and corporations seeking to build generational wealth with Bitcoin, Swan Private is your guide
+     https://www.swanbitcoin.com/private/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+ Want to learn more about Bitcoin? Check out the Bitcoin Canon a curated list of the best Bitcoin resources from your favorite experts
+     https://swanbitcoin.com/cannon/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+  Get paid to recruit new Bitcoiners by joining Swan Force
+      https://www.swanbitcoin.com/enlist/?utm_medium=social&utm_source=youtube&utm_campaign=youtube_description
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Wed, 24 Jan 2024 13:50:36 +0000</span>
@@ -48,6 +98,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

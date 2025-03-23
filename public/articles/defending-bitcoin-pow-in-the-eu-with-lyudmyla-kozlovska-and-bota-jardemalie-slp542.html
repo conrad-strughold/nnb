@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,46 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Defending Bitcoin PoW in the EU with Lyudmyla Kozlovska and Bota Jardemalie (SLP542)</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/81391177/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-0-17%2F363791182-44100-2-d65deef2f9e5b.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It seems that the EU is constantly coming out with bad new regulations that will impact Bitcoiners and Bitcoin miners. Joining me today is Lyudmyla Kozlovska and Bota Jardemalie from the Open Dialogue Foundation - Bitcoin and human rights advocates. We talk about:
+EU bureaucracy and ECB threat to Bitcoin
+Why engage with these people at all?
+Attacks on Bitcoin’s Proof of Work
+Threat to self custody and sovereignty - AML
+Bitcoin as bank of last resort
+How you can help with testimonials
+Links:
+PoW submission: https://en.odfoundation.eu/a/724499,defend-pow-submission-to-esma/
+EU AML submission: https://en.odfoundation.eu/a/578069,can-the-eus-anti-money-laundering-reform-help-dictators/
+Site / Support OD Foundation: https://en.odfoundation.eu/how-can-you-help/
+Lyudmyla on X: @LyudaKozlovska 
+Bota on X: @jardemalie
+Sponsors:
+Swan.com (code LIVERA)
+CoinKite.com (code LIVERA)
+Mempool.space
+NomadCapitalist.com LIVE
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack
+Timestamps/Chapters:
+00:00 - Introduction and Background
+04:55 - The current threats
+08:00 - Engaging with Regulators
+12:05 - Can they be reasoned with?
+17:30 - Threats to mining
+25:55 - ESG Narrative and Proof of Work
+38:20 - Threats to Self Custody and AML Regulations
+46:03 - AML and Counter-Terrorism Financing Regulations
+52:50 - De-risking and Financial Exclusion
+01:00:28 - Summary of Key Concerns and closing thoughts</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Wed, 17 Jan 2024 11:55:13 GMT</span>
@@ -48,6 +84,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

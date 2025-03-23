@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,63 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Preston Pysh & Andy Edstrom | Q1 Macro Report | E103</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://cdn.simplecast.com/audio/6b4113f8-61fd-4976-a3e6-4d8ed2143233/episodes/a4922210-4feb-4c6a-bc70-5fdedf27522a/audio/82e00268-f21f-43dc-8075-15daa5facf22/default_tc.mp3?aid=rss_feed&feed=Z1tu2Hds" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Preston Pysh @PrestonPysh and Andy Edstrom @edstromandrew check in on the markets for the latest quarterly report. They cover the broad economy, Bitcoin cycles, and wether the bull has begun to run. 
+Timestamps: 
+00:00:00 “Swan Signal” Intro 
+00:01:46 Travel, Vacations and Robot Competitions 
+00:03:20 Correct Calls from Preston and Andy, December 2022 “Quarterly Report” 
+00:05:28 Q1-2023 Macro Report 
+00:09:27 Bullish Indicators and Long-Term Investing 
+00:13:38 Tracking Liquidity and Cross-Border Settlement 
+00:15:58 Can the Fed Combat a Credit Crisis? 
+00:20:14 Inflation Concerns For This Decade 
+00:23:24 What Will Cause the Fed to Pivot? 
+00:28:42 Scarcity Being the Only Escape 
+00:30:14 Long-Term Conviction in Bitcoin 
+00:34:14 Healthy Volatility and Resilience of Bitcoin 
+00:35:40 Chokepoint 2.0 
+00:42:01 Attack Vectors for Bitcoin 
+00:48:33 Commercial and Office Space Conditions 
+00:50:40 Credit Crunch Due to Economic Unwind in Housing 
+00:53:34 “The Unstoppable Rise of Government Rescues"
+00:56:36 “Swan Signal” Outro
+Connect with Guests: 
+Sam Callahan: https://twitter.com/samcallah 
+Andy Edstrom: https://twitter.com/edstromandrew 
+Preston Pysh: https://twitter.com/PrestonPysh 
+
+Connect with Swan on social media: 
+Twitter: https://twitter.com/SwanBitcoin​​​ 
+Instagram: https://instagram.com/SwanBitcoin 
+Telegram: https://t.me/swansignal​​​ 
+LinkedIn: https://www.linkedin.com/company/swanbitcoin
+Swan Bitcoin is the best way to accumulate Bitcoin with automatic recurring buys and instant buys from $10 to $10 million. Get started in just 5 minutes. Your first $10 purchase is on us: https://swanbitcoin.com/yt 
+Download the all new Swan app! 
+iOS: https://apps.apple.com/us/app/swan-bitcoin/id1576287352 
+Android: https://play.google.com/store/apps/details?id=com.swanbitcoin.android&pli=1
+Join us for Pacific Bitcoin Festival 2023! 
+Purchase your tickets now before prices go up: https://PacificBitcoin2023.com
+Are you a high net worth individual or do you represent corporation that might be interested in learning more about Bitcoin? Swan Private guides corporations and high net worth individuals toward building generational wealth with Bitcoin. Find out more at https://swanbitcoin.com/private 
+Check out the best place for Bitcoin education, Swan Bitcoin’s “Bitcoin Canon”. Compiling all of the greatest articles, news sources, videos and more from your favorite bitcoiners! https://www.swanbitcoin.com/canon/
+Get paid to recruit new Bitcoiners: https://swanbitcoin.com/enlist 
+#Bitcoin #SwanBitcoin
+
+ 
+
+Start buying your first Bitcoin in just minutes. Search "Swan Bitcoin" in your app store or visit swan.com/app.
+ 
+Swan Private helps HNWI, companies, trusts, and other entities go beyond legacy finance with BItcoin. Learn more at swan.com/private.  
+ 
+Put Bitcoin into your IRA and own your future. Check out swan.com/ira.
+
+Swan Vault makes advanced Bitcoin security simple. Learn more at swan.com/vault.</p>
             <div class="meta">
                 <span class="meta-source">Swan Signal Live - A Bitcoin Show</span> |
                 <span class="meta-date">Wed, 5 Apr 2023 23:13:42 +0000</span>
@@ -48,6 +101,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

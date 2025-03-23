@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,62 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Power Law, Bitcoin & MicroStrategy with Sina | SLP619</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/94915300/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2024-10-25%2F390422306-44100-2-931ba4140b33b.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Sina, COO and co-founder of 21st Capital, discusses the application of power law in understanding Bitcoin's growth. He explains how his empirical research led to the development of a power law model that accurately describes Bitcoin's historical price behavior. The discussion delves into the mechanisms behind this model, the reliability of its predictions, and the impact of market maturity on Bitcoin's growth trajectory. 
+Sina also introduces quantile models to provide a probabilistic view of future price predictions, emphasizing the importance of understanding market dynamics and investor behavior. They also discuss the evolving dynamics of Bitcoin mining, the impact of fiat inflation on Bitcoin valuation, and the significance of the power law in Bitcoin's growth. They deep dive into MicroStrategy's unique position in the Bitcoin market, analyzing its premium and market dynamics, and explore the future interplay between MicroStrategy and Bitcoin.
+Takeaways
+🔸Power law models Bitcoin's growth behavior effectively.
+🔸Adoption is a key driver of Bitcoin's value.
+🔸Reliability of models can be assessed through R-squared values.
+🔸Market maturity leads to reduced volatility in Bitcoin.
+🔸Quantile models provide a probabilistic view of price predictions.
+🔸Historical patterns can inform future expectations.
+🔸Latecomers to the market have less impact on price.
+🔸Bitcoin's growth is constrained by physical and psychological limits.
+🔸ETF purchases are becoming more influential than mining.
+🔸Understanding probabilities is crucial for realistic expectations. People are overemphasizing the mining factor in Bitcoin's price.
+🔸Long-term holders play a significant role in Bitcoin's market dynamics.
+🔸Fiat inflation can impact Bitcoin's nominal price but not its fundamental value.
+🔸The power law provides a framework for understanding Bitcoin's growth.
+🔸MicroStrategy's premium reflects its unique position in the market.
+🔸Investors see MicroStrategy as a way to gain exposure to Bitcoin indirectly.
+🔸MicroStrategy's financial engineering allows it to accumulate more Bitcoin over time.
+🔸The premium on MicroStrategy shares may fluctuate with market conditions.
+🔸Increased institutional interest in Bitcoin could benefit MicroStrategy.
+🔸Self-custody remains a critical aspect of Bitcoin investment.
+Timestamps:
+(00:00) - Intro
+(00:54) - What is the Power Law? How does it apply to Bitcoin?
+(06:44) - Will Power Law patterns hold into the future?
+(10:09) - Evaluating the reliability of Power Law
+(15:40) - Does Power Law imply a diminishing return for Bitcoin? 
+(21:08) - Sponsors
+(23:40) - Quantile models and Future price predictions
+(31:38) - The evolving dynamics of Bitcoin mining and sell-offs
+(34:24) - How does fiat inflation influence the Power Law model?
+(40:59) -Sponsors
+(43:01) - What’s driving $MSTR to trade at a premium?
+(48:32) - The future of MicroStrategy and Bitcoin's interplay
+(56:48) - Impact of corporations adopting the Bitcoin Strategy
+Links: 
+https://21stcapital.com/ 
+https://x.com/Sina_21st 
+https://www.youtube.com/@21stCapital 
+https://x.com/Sina_21st/status/1858706684904104149 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+mempool.space/accelerator 
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 25 Nov 2024 10:55:00 GMT</span>
@@ -48,6 +100,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

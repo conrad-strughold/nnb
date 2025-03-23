@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,63 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>SLP629 If You Can Drive, You Can Self Custody Bitcoin with NVK</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/97397209/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-0-22%2F393505721-44100-2-5e0fcc4f2c01.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In this episode, NVK, co-founder and CEO of CoinKite, discusses the fundamentals of Bitcoin self-custody. He covers the importance of self-custody, the different forms of Bitcoin ownership, the significance of private keys, best practices for securing Bitcoin, and tips for choosing the right hardware wallet. NVK highlights that self-custody is a high-responsibility activity and provides practical advice for managing Bitcoin securely. Stephan & NVK discuss the trade-offs associated with different wallet types, best practices for setting up and operating hardware wallets, and the significance of verifying transactions. 
+The conversation also highlights common scams and pitfalls in the cryptocurrency space, providing listeners with actionable advice on how to protect their assets. Ultimately, the speakers encourage individuals to take personal responsibility for their Bitcoin security, likening the learning process to driving a car.
+Takeaways
+🔸Self-custody is essential for true ownership of Bitcoin.
+🔸The majority of newcomers buy financialized products, not actual Bitcoin.
+🔸Private keys are crucial; losing them means losing your Bitcoin.
+🔸Confidence is key in self-custody; practice is necessary.
+🔸Different users have different needs for Bitcoin management.
+🔸Hardware wallets should prioritize security over price.
+🔸Always keep your private keys offline and secure.
+🔸Understand the trade-offs of different Bitcoin storage methods.
+🔸Use a phone wallet for small amounts and a hardware wallet for larger amounts.
+🔸Educate yourself continuously about Bitcoin and self-custody. Hardware wallets range from $100 to $200, making them accessible.
+🔸Self-custody is crucial for Bitcoin security.
+🔸Always verify addresses through multiple channels before sending Bitcoin.
+🔸Never enter your seed words into any online platform.
+🔸Use a quiet space for key generation to avoid surveillance.
+🔸Test recovery of your wallet before transferring significant amounts.
+🔸Be aware of common scams, especially phishing attempts.
+🔸Protect your Bitcoin as if its value will increase significantly.
+🔸Educate yourself continuously about Bitcoin security practices.
+🔸If you can drive, you can learn to self-custody your Bitcoin.
+Timestamps:
+(00:00) - Intro
+(01:33) - Why is self-custody important?
+(03:47) - Different forms of Bitcoin ownership
+(09:09) - Self-custody is a high responsibility activity; bitcoinsecurity.guide 
+(11:06) - What are Bitcoin private keys?; Best practices for securing your Bitcoin
+(16:13) - How to choose the right hardware wallets?
+(18:27) - Sponsors
+(24:58) - Tips for managing your Bitcoin; Trade-offs of hardware wallets
+(29:44) - What is the ‘Key Generation Ceremony’?
+(36:24) - Sponsors
+(37:42) - Best practices for Sending and Receiving Bitcoin
+(42:15) - What are the common scams to avoid?
+(44:04) - When should a person upgrade their Bitcoin security setup?
+(46:39) - Outro
+Links: 
+https://bitcoinsecurity.guide/ 
+https://coldcard.com/docs/ 
+https://x.com/nvk 
+https://x.com/Coinkite 
+Sponsors:
+Bold Bitcoin
+CoinKite.com (code LIVERA)
+Nomadcapitalist.com/apply
+Stephan Livera links:
+Follow me on X: @stephanlivera
+Subscribe to the podcast
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Wed, 22 Jan 2025 10:55:00 GMT</span>
@@ -48,6 +101,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     

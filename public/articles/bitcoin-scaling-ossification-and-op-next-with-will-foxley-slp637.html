@@ -16,6 +16,8 @@
         .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
         .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
         .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
         .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
         .meta { font-size: 12px; margin-top: 10px; }
         .meta-source, .meta-author { color: #ff9800; }
@@ -30,12 +32,77 @@
     <div class="container">
         <header>
             <h1>nonoise₿itcoin</h1>
-            <div class="price-ticker">BTC: $83,348.00</div>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$00,000</span></div>
         </header>
         <div class="article-content">
             <h2>Bitcoin Scaling, 'Ossification' and OP NEXT with Will Foxley | SLP637</h2>
             <span class="badge">(A)</span>
             <audio controls style="width: 100%; margin: 20px 0;"><source src="https://anchor.fm/s/7d083a4/podcast/play/98937896/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-1-24%2F395426316-44100-2-631a399c3f0ca.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Will Foxley, co-founder of BlockSpace Media and host of the Mining Pod chats with Stephan about the need for a dedicated Bitcoin media publication, the upcoming OP NEXT conference focused on scaling Bitcoin, and the importance of fostering conversations among Bitcoin developers, miners, and institutions. Will shares insights on the ossification debate within the Bitcoin community and the role of public Bitcoin miners in shaping the future of Bitcoin. The conversation also emphasizes the need for collaboration and open dialogue to address scaling challenges and the evolving landscape of Bitcoin. Stephan and Will also deep dive into the evolving landscape of Bitcoin mining, highlighting the impact of the China mining ban, the professionalization of the industry, and the relationship between miners and developers. The diverse perspectives on transaction fees, the challenges faced by public and private miners, and the importance of custodians in securing Bitcoin are some of the other key points that are raised as well. 
+Takeaways
+🔸BlockSpace Media aims to fill the gap in Bitcoin media.
+🔸OP NEXT is a revival of the scaling Bitcoin conference.
+🔸Scaling Bitcoin is not an urgent issue at the moment.
+🔸The conference focuses on bringing together developers and miners.
+🔸Institutions play a crucial role in Bitcoin's future.
+🔸The ossification debate is about necessary changes versus bug fixes.
+🔸Public Bitcoin miners are becoming more involved in development discussions.
+🔸The future of Bitcoin may involve more custodial solutions.
+🔸Conversations around scaling Bitcoin need to be inclusive.
+🔸The importance of self-custody in the Bitcoin ecosystem. The Bitcoin mining ecosystem has dramatically changed post-China mining ban.
+🔸Miners are increasingly professionalized and financially robust.
+🔸There is a growing need for collaboration between miners and developers.
+🔸Transaction fee dynamics reveal diverse miner perspectives.
+🔸Public miners leverage capital differently than private miners.
+🔸Diversification strategies are emerging among Bitcoin miners.
+🔸The halving event significantly impacts miner survival rates.
+🔸Custodians play a crucial role in Bitcoin security and wealth protection.
+🔸Self-custody remains a viable option for many Bitcoiners.
+🔸Engaging ossifiers can enrich the Bitcoin discourse.
+Timestamps:
+(00:00) - Intro
+(01:05) - What is BlockSpace Media?
+(04:15) - Is Scaling Bitcoin a pressing issue right now?
+(10:01) - How is OP Next different from other Bitcoin conferences?
+(14:00) - What is Will’s view on the ossification debate?
+(17:15) - Hosting OP Next at Strategy offices
+(19:53) - Sponsors
+(21:09) - Who will be at OP Next?
+(25:23) - How do people perceive Bitcoin?
+(30:50) - How has the Bitcoin mining ecosystem evolved over the years?; Impact of the China mining ban on hashrate distribution
+(35:24) - The relationship between Miners and Developers
+(36:24) - Sponsors
+(39:00) - What are the different perspectives on Bitcoin’s transaction fees?
+(44:31) - Public vs. Private miners: Efficiency and Capital Access
+(50:39) - Survival of the fittest Bitcoin miners
+(54:09) - What is the commercial feasibility of Bitcoin soft fork upgrades? 
+(57:29) - Engaging with the Ossifiers / Bitcoin conservatives
+Links: 
+ 
+https://opnext.dev/ 
+ 
+https://x.com/blockspacepod 
+  
+https://x.com/theminingpod 
+  
+https://x.com/wsfoxley 
+
+Sponsors:
+  
+Bold Bitcoin
+  
+CoinKite.com (code LIVERA)
+  
+Lana by Galoy
+
+Stephan Livera links:
+  
+Follow me on X:@stephanlivera
+  
+Subscribe to the podcast
+  
+Subscribe to Substack</p>
             <div class="meta">
                 <span class="meta-source">Stephan Livera Podcast</span> |
                 <span class="meta-date">Mon, 24 Feb 2025 12:26:43 GMT</span>
@@ -48,6 +115,21 @@
             <p>© 2023 nonoise₿itcoin</p>
         </footer>
     </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
 </body>
 </html>
     
