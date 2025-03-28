@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Covenants: CHECKTEMPLATEVERIFY (BIP 119)</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Covenants: CHECKTEMPLATEVERIFY (BIP 119)
+The first article in the Covenant series, examining the CHECKTEMPLATEVERIFY (CTV) p">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$83,744.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Covenants: CHECKTEMPLATEVERIFY (BIP 119)</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The first article in the Covenant series, examining the CHECKTEMPLATEVERIFY (CTV) proposal from Jeremy Rubin.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><strong>The is the first article deep diving into individual covenant proposals that have reached a point of maturity meriting an in depth breakdown.&nbsp;</strong></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://github.com/bitcoin/bips/blob/master/bip-0119.mediawiki" target="_blank" rel="noopener">CHECKTEMPLATEVERIFY</a> (CTV), put forward by Jeremy Rubin with BIP 119, is the most mature and fully fleshed out covenant proposal, not only out of the proposals we will be covering, but out of all of the covenant proposals in their entirety. As I mentioned in the introduction article to this series, there are many concerns in the ecosystem regarding covenants that are too flexible enabling things that wind up having very detrimental consequences for Bitcoin.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CTV was designed specifically to constrain its capabilities tightly enough to avoid any of those concerns. To first understand how CTV functions, we need to understand the individual parts of a Bitcoin transaction.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is a very high level view of a Bitcoin transaction. It has inputs, or unspent coins (<a href="https://bitcoinmagazine.com/glossary/utxo">UTXOs</a>), and outputs, the new unspent coins that the transaction will create when it is confirmed in a block. There are a lot more pieces we will go through, but this is the highest level view of a transaction’s structure.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Every transaction also has a version number field for the whole transaction, indicating applicability of new versions of rules or features. There is also the marker and the flag, which are set to specific values to indicate the transaction uses Segwit. After this is the input count, the number of inputs in the transaction. Then come the actual inputs.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Each input contains a TXID of the transaction that created the unspent coin being spent, a VOUT which marks what output in that transaction is being spent, the size of the ScriptSig, and the ScriptSig, which is the unlocking script proving the input being spent is authorized by its locking script rules, and finally a Sequence number which is used to ensure the input being spent is following relative timelock rules. i.e. the input has existed for a certain number of blocks or length of time since its creation.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The output count is the next piece of data, the number of outputs in the transaction. After this comes the actual outputs, which contain an amount of satoshis assigned to that output, the ScriptPubKey size, and the actual ScriptPubKey, which is the locking script for that output. Lastly the nLocktime field applies a timelock value in timestamp or block height that applies to the entire transaction.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Each Segwit transaction also contains a Witness section, where each input has a corresponding witness containing a Stack Items count, how many things will be put on the script stack, a Size field for each item, and the actual data Item to go on the stack.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CTV is an opcode that enables the most basic form of introspection and forward data carrying out of all the covenant proposals. It allows a script to take a pre-defined 32 byte hash and compare that against a hash of most of the fields of the spending transaction. If the hash derived from the actual spending transaction does not match the pre-defined hash, the transaction is invalid.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The fields it commits to are:</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">These are all the fields committed to by the CTV hash, in their entirety, and with no ability to pick and choose. This is the degree of introspection CTV enables, “does the hash of these fields in the spending transaction match the hash in the locking script of the input being spent,” that’s it. The hash commits to essentially the entire transaction except the actual inputs. There is a reason the hash does not include the inputs. In order to lock an output to a 32 byte hash with CTV, you need to know the hash of the transaction that you are ensuring is the only way for it to be spent. The input locked with CTV being spent will have to include this hash in order to be verified against CTV. That necessitates having the hash of that transaction <em>before</em> you create the complete transaction. That is not possible.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">You can also nest CTV scripts, i.e. have an initial CTV script commit to a transaction with outputs that also include CTV scripts. This is what allows CTV to “carry forward” data. All it carries forward in practice though is whatever data is contained in the chain of transactions. You can do this in theory to an infinite depth, but you are limited in practice to a finite depth because the nesting must be generated backwards starting from the end. This is because each level, or “hop,”&nbsp; must have the hash of the transaction moving to the next one, otherwise you can’t create the locking script in the first place. If you don’t already know the next transaction, you can’t generate the previous one.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CTV allows you to restrict an output so that it can only be spent, according to consensus rules, by an exact pre-defined transaction. Some of you might be asking what the big deal is, we can already pre-sign transactions. If the level of introspection is so limited that it can only accomplish something we can already do just pre-signing, what is the value add?&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">First, pre-signed transactions always leave open the possibility of the keyholder(s) signing new transactions and spending those coins in a different way. You have to trust that the keyholder will not do this, or will delete the key needed to sign with (which you also have to trust them on). CTV removes that trust entirely. Once the spending transaction is defined and the output locked to that CTV hash is created, there is no possibility of being spent another way, enforced by consensus.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Currently the only way around that trust is to be involved in pre-signing transactions yourself using multisig. Then you can be completely certain that unless you choose to sign one yourself, no other valid transaction spending a coin in a different way can be created. The problem is the more people are involved, the more difficult and unreliable coordinating everyone to pre-sign a transaction at the same time becomes. Past small sizes it becomes a totally impractical problem to solve reliably.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CTV gives a way for people to know a set of transactions is committed without everyone having to get online at the same time to sign them. It greatly simplifies the coordination process by allowing everyone to get the needed information to anyone else whenever they can, and once that person has everyone’s information they can create the chain of CTV transactions without anyone else’s involvement, and everyone can verify and be certain that the correct outcome is the only possible one.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">That is incredibly valuable on its own, but CTV can also enable even more valuable things in combination with other opcodes, which we’ll see in the next article.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CTV is a tightly restricted covenant that enables a degree of introspection and forward data carrying that is so limited it does not exceed the actual functionality of anything that can be done with pre-signed transactions. The value proposition is not in enabling new functionality in its own right, but drastically improving the efficiency, scalability, and security guarantees of what can be built currently using pre-signed transactions. This alone is a massive benefit to almost every currently deployed protocol using pre-signed transactions.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Here are some of the projects demonstrating how thoroughly fleshed out and explored this particular covenant is compared to the others:</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CTV is an incredibly mature proposal at this point, with a high value add, and no risk of enabling anything driving the concerns around covenants. This should not only be very seriously considered, but in my personal opinion should have been activated years ago.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Fri, 28 Mar 2025 19:24:30 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/bitcoin-covenants-checktemplateverify-bip-119" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
