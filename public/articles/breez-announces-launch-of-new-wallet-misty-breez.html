@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Breez Announces Launch of New Wallet, Misty Breez</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Breez Announces Launch of New Wallet, Misty Breez
+Breez announces their newest application, Misty Breez, built using their Nodeless ">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$85,829.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Breez Announces Launch of New Wallet, Misty Breez</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Breez announces their newest application, Misty Breez, built using their Nodeless Breez SDK on top of the Liquid sidechain.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Today, Breez launches Misty Breez, their latest application built using the <a href="https://breez.technology/sdk/" target="_blank" rel="noopener">Breez SDK</a>. The Breez SDK was initially developed to simplify the process of integrating <a href="https://bitcoinmagazine.com/guides/lightning-network">Lightning Network</a> support into different consumer applications. Dozens of existing projects and companies currently build on Lightning using the SDK.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The SDK supports two methods of Lightning integration. Native, which allows app developers to integrate a Lightning wallet or functionality utilizing the Greenlight service offered by Blockstream, which allows the wallet provider to host a cloud based Lightning node for users while keeping private keys solely in the users control, and Nodeless, which allows Liquid support to seamlessly integrate with the Lightning Network. Both models supported in the SDK give full support to the range of features available on the Lightning Network, as well as Liquid, without the complexity of having to build support from scratch.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Misty Breez is built on the Nodeless SDK tooling. This means that users’ coins are self-custodied on the Liquid sidechain, giving users the ability to fully control their own funds but also requiring the trust trade-offs involved in using the Liquid Network (i.e. that the majority Federation signers will remain honest and trustworthy).&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The wallet supports BOLT 11 and BOLT 12 invoices, LNURL-Pay, Lightning Addresses, on-chain BTC addresses, and even <a href="https://bitcoinmagazine.com/technical/using-dns-to-coordinate-bitcoin-payments">Matt Corrallo’s BIP 353</a> using DNS to fetch payment details for another user’s wallet. It also supports offline payments based on mobile notifications in the phone’s operating system.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Breez SDK’s goal is to provide developers with the tooling to build a seamless and use-case specific user experience with as little effort as possible. In that vein Misty Breez aims to set a benchmark for a simplified user experience that other developers can use as a reference for Lightning integration into their own applications, or even to build on top of Misty Breez itself. If you want, feel free to simply integrate the functionality you seek to build into Misty Breez itself and rebrand it however you want (it is 100% opensource).&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Documentation for the Breez SDK Nodeless configuration used by Misty Breez is available <a href="https://sdk-doc-liquid.breez.technology/" target="_blank" rel="noopener">here</a>. The Github for the Misty Breez implementation is available <a href="https://github.com/breez/misty-breez" target="_blank" rel="noopener">here</a>. Lastly, for users who wish to play around with the application, early access release is available <a href="https://play.google.com/store/apps/details?id=com.breez.misty" target="_blank" rel="noopener">here for Android</a>, and <a href="https://testflight.apple.com/join/nEegHvBX" target="_blank" rel="noopener">here for iOS</a>.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">All the tooling for developers to build a new UX experience for users is here today. </p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 02 Apr 2025 14:00:00 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/breez-announces-launch-of-new-wallet-misty-breez" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
