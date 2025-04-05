@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top r/Bitcoin Highlights: April 5, 2025</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>">
+</head>
+<body>
+    <div class="container">
+        
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$82,802.00</span> <small>0%</small></div>
+        </header>
+    
+        <div class="article-content">
+            <h2><img src="https://www.reddit.com/favicon.ico" class="source-logo" alt="Reddit">Top r/Bitcoin Highlights: April 5, 2025</h2>
+            <p class="summary">Today’s top Bitcoin discussions from Reddit, curated for you.</p>
+            
+            <h3>Bitcoin holders watching the stock market collapse and erase $3 trillion in 2 days.</h3>
+            <img src="https://v.redd.it/oaf2g6gaovse1" alt="Bitcoin holders watching the stock market collapse and erase $3 trillion in 2 days." />
+            <div>No content</div>
+            <p><a href="https://www.reddit.com/r/Bitcoin/comments/1jrltx8/bitcoin_holders_watching_the_stock_market/" target="_blank">View on Reddit</a></p>
+        <hr>
+            <h3>Happy Birthday Satoshi Nakamoto</h3>
+            <img src="https://i.redd.it/hrtewtonrzse1.jpeg" alt="Happy Birthday Satoshi Nakamoto" />
+            <div>
+    <p>
+    The legend, the goat, the future richest man in the universe.
+  </p>
+  </div>
+            <p><a href="https://www.reddit.com/r/Bitcoin/comments/1js09ja/happy_birthday_satoshi_nakamoto/" target="_blank">View on Reddit</a></p>
+        <hr>
+            <h3>Ya'll are amazing. I'm so damn impressed by Bitcoin</h3>
+            <img src="https://www.reddit.com/r/Bitcoin/comments/1js3czu/yall_are_amazing_im_so_damn_impressed_by_bitcoin/" alt="Ya'll are amazing. I'm so damn impressed by Bitcoin" />
+            <div>
+    <p>
+    Bitcoin is my go-to investment. I have loved it since I first bought 5 for $10 and sold them for $15 way back, and I've also bought bitcoins for other reasons that expanded my mind years ago. Nowadays, I'm actually buying and holding bitcoin, which is what I have always should have done. I bought half a bitcoin the other day at a higher price than I could have but I don't give a damn,  I will hold onto it forever, and every time I get paid I'm putting a decent amount of my paycheck into bitcoin.
+  </p><p>
+    Bitcoin is so damn resilient, 1/1.<br>and if we go by value My portfolio which is mostly bitcoin has been very resilient during the recent chaos, meanwhile my gf who mainly does large caps/big tech and has a way larger value portfolio has absolutely bled due to the tariffs. Seriously thank you for encouraging me to invest in what I always thought was the best investment. Ya'll are legends and way ahead of everyone.
+  </p>
+  </div>
+            <p><a href="https://www.reddit.com/r/Bitcoin/comments/1js3czu/yall_are_amazing_im_so_damn_impressed_by_bitcoin/" target="_blank">View on Reddit</a></p>
+        <hr>
+            <h3>Something Changed Today...</h3>
+            <img src="https://www.reddit.com/gallery/1jruxcv" alt="Something Changed Today..." />
+            <div>No content</div>
+            <p><a href="https://www.reddit.com/r/Bitcoin/comments/1jruxcv/something_changed_today/" target="_blank">View on Reddit</a></p>
+        <hr>
+            <h3>First time this has happened: Gold is down market is down and bitcoin is up</h3>
+            <img src="https://www.reddit.com/r/Bitcoin/comments/1jrico5/first_time_this_has_happened_gold_is_down_market/" alt="First time this has happened: Gold is down market is down and bitcoin is up" />
+            <div>
+    <p>
+    I don't recall a single instance where everything is crashing hard but bitcoin is rising.
+  </p><p>
+    What changed?
+  </p>
+  </div>
+            <p><a href="https://www.reddit.com/r/Bitcoin/comments/1jrico5/first_time_this_has_happened_gold_is_down_market/" target="_blank">View on Reddit</a></p>
+        
+            <div class="meta">
+                <span class="meta-source">Reddit r/Bitcoin</span> |
+                <span class="meta-date">April 5, 2025</span>
+            </div>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>© 2025 nonoise₿itcoin</footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+            const data = await response.json();
+            const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            document.getElementById('bitcoin-price').textContent = price;
+        }
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    

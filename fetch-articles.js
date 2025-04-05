@@ -532,34 +532,8 @@ function generateIndexHtml(newsItems, inDepthItems, allTweets, bitcoinPrice) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nonoise₿itcoin</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/indexformat.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
-    <style>
-        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
-        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
-        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
-        main { display: flex; gap: 20px; margin-top: 20px; }
-        .column-left { width: 25%; }
-        .column-middle { width: 50%; }
-        h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 10px; background: linear-gradient(to right, #ff9800 0%, #fff 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        article { background-color: #1f1f1f; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
-        article:hover { border-left: 2px solid #ff9800; padding-left: 13px; }
-        article h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; margin: 0 0 10px; color: #ff9800; display: inline; }
-        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
-        article h3 a { text-decoration: none; color: #ff9800; }
-        article h3 a:hover { text-decoration: underline; }
-        article p { font-size: 14px; color: #ddd; margin: 0 0 10px; }
-        .meta { font-size: 12px; margin-top: 10px; }
-        .meta-source, .meta-author { color: #ff9800; }
-        .meta-date { color: #aaa; }
-        .meta span { margin-right: 5px; }
-        .hidden { display: none; }
-        button { background-color: #ff9800; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-size: 14px; font-family: 'Roboto', sans-serif; border-radius: 5px; margin-top: 10px; transition: background-color 0.3s; }
-        button:hover { background-color: #e68900; }
-        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
-        @media (max-width: 768px) { main { flex-direction: column; } .column-left, .column-middle { width: 100%; } }
-    </style>
 </head>
 <body>
     <div class="container">
