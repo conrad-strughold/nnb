@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Covenants: CHECKSIGFROMSTACK (BIP 348)</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Covenants: CHECKSIGFROMSTACK (BIP 348)
+The second article in the Covenant series, examining the CHECKSIGFROMSTACK (CSFS) pro">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$83,669.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Covenants: CHECKSIGFROMSTACK (BIP 348)</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><strong>This is the second article in a </strong><a href="https://bitcoinmagazine.com/featured/bitcoin-covenants-what-are-they-and-what-do-they-do"><strong>series</strong></a><strong> deep diving into individual covenant proposals that have reached a point of maturity meriting an in-depth breakdown.&nbsp;</strong></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://github.com/bitcoin/bips/blob/master/bip-0348.md" target="_blank" rel="noopener">CHECKSIGFROMSTACK</a> (CSFS), put forward by Brandon Black and Jeremy Rubin with BIP 348, is not a covenant. As I said in the introductory article to this series, some of the proposals I would be covering are not covenants, but synergize or interrelate with them in some way. CSFS is the first example of that.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CSFS is a very simple opcode, but before we go through how it works let’s look at the basics of how a Bitcoin script actually works.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Script is a stack based language. That means that data is “stacked” together on top of each other on the stack, and operated on by removing an item from the top of the stack to operate on based on what an opcode does, either returning the data or a result from it to the top of the stack.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">There are two parts of a script when it is ultimately executed and verified, the “witness” provided to unlock the script, and the script included in the output being spent. The witness/unlocking script is “added” to the left side of the locking script, and then each element is added to (or operates on) the stack one by one left to right. Look at this example (the “<strong>|</strong>” marks the boundary between the witness and script):</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">1 2 <strong>|</strong> OP_ADD 3 OP_EQUAL</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This example script adds the value “1” to the stack, then the value “2” on top of that. OP_ADD takes the top two elements of the stack and adds them together, putting the result back on to the stack (so now all that is on the stack is “3”). Another “3” is then added to the stack. The last item, OP_EQUAL, takes the top two items of the stack and returns a “1” to the stack (1 and 0 can represent True or False as well as numbers).</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A script must end with the last item on the top of the stack being True, otherwise the script (and transaction executing it) fails and is considered consensus invalid.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is a basic example of a pay-to-pubkey-hash (P2PKH) script, i.e. the legacy addresses that start with a “1”:</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">&lt;signature&gt; &lt;pubkey&gt; <strong>|</strong> DUP HASH160 &lt;pubkey-hash&gt; EQUALVERIFY CHECKSIG</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">First the signature and the public key are added to the stack. Then DUP is called, which takes the top stack item and duplicates it, returning it to the top of the stack. HASH160 takes the top stack item (the public key duplicate), hashes it, then returns it to the top of the stack. The public key hash from the script is put on top of the stack. EQUALVERIFY functions the same as EQUAL, it grabs the two top stack items and returns a 1 or 0 based on the outcome. The only difference is EQUALVERIFY also runs VERIFY after EQUAL, which fails the transaction if the top stack item is not 1, and also removes the top stack item. Finally CHECKSIG is run, which grabs the top two stack items assuming them to be a signature and a pubkey, and verifies the signature implicitly against the hash of the transaction being verified. If it is valid it puts a 1 on top of the stack.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CHECKSIG is one of the most used opcodes in Bitcoin. Every transaction, with almost no exceptions, makes use of this opcode at some point in one of its scripts. Signature verification is a foundational component of the Bitcoin protocol. The problem is, there is almost no flexibility in terms of what message you are checking the signature against. CHECKSIG will only verify a signature against the transaction being verified. There is some flexibility, i.e. you can decide with some degree of freedom what parts of the transaction the signature applies to, but that’s it.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CSFS aims to change this by allowing a signature to be verified against any arbitrary message that is pushed directly onto the stack, instead of being limited to the verification of signatures against the transaction itself. The opcode follows a very basic operational structure:</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">&lt;signature&gt; &lt;message&gt; <strong>|</strong> &lt;pubkey&gt; CSFS</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The signature and message are dropped on top of the stack, then the public key on top of them, and finally CSFS grabs the top three items from the stack assuming them to be the public key, message, and signature from top to bottom, verifying the signature against the message. If the signature is valid, a 1 is placed on the stack.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">That’s it. A simple variant of CHECKSIG that lets users specify arbitrary messages instead of just the spending transaction.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">So what exactly is this good for? What is the use of checking a signature against an arbitrary message on the stack instead of against the spending transaction?&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Firstly, in combination with <a href="https://bitcoinmagazine.com/technical/bitcoin-covenants-checktemplateverify-bip-119">CTV</a> it can provide a functionality equivalent to something that Lightning developers have wanted since the very beginning, floating signatures that can attach to different transactions. This was originally proposed as a new sighash flag for signatures (the field that dictates what parts of a transaction a signature applies to). This was needed because a transaction signature covers the transaction ID of the transaction that created the output being spent. This means a signature is only valid for a transaction spending that <em>exact</em> output.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is a desired behavior for Lightning because it would allow us to do away with channel penalties. Every past Lightning state needs a penalty key and transaction in order to ensure that your channel counterparty never uses any of them to try to claim funds they don’t own. If they try you can claim all their money. A superior functionality would be something that allows you to simply “attach” the current state transaction to any previous one to stop the theft attempt by distributing funds correctly as opposed to confiscating them.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This can be accomplished with a basic script that takes a CTV hash and a signature over it that is checked using CSFS. This would allow any transaction hash signed by that CSFS key to spend any output that is created with this script.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Another useful feature is delegation of control of a UTXO. The same way that any CTV hash signed by a CSFS key can validly spend a UTXO with a script designed for that, other variables can be passed into the script to be checked against, such as a new public key. A script could be constructed that allows a CSFS key to sign off on <em>any </em>public key, which then could be validated using CSFS and used for a normal CHECKSIG validation. This would allow you to delegate the ability to spend a UTXO to anyone else without having to move it on-chain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Lastly, in combination with CAT, CSFS can be used to compose much more complex introspection functionality. As we will see later in the series though, CSFS is not actually required to emulate any of this more advanced behavior, as CAT alone is able to do so.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CSFS is a very basic opcode that in addition to offering simple useful functionality in its own right composes very nicely with even the most simple covenant opcodes to create very useful functionality. While the example above regarding floating signatures specifically references the Lightning Network, floating signatures are a generally useful primitive that are applicable to any protocol built on Bitcoin making use of pre-signed transactions.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In addition to floating signatures, script delegation is a very useful primitive that generalizes far beyond delegating control over a UTXO to a new public key. The same basic ability to “sideload” variables after the fact into a script validation flow can apply to anything, not just public keys. Timelock values, hashlock preimages, etc. Any script that hardcodes a variable to verify against can now have those values dynamically added after the fact.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">On top of that, CSFS is a very mature proposal. It has an implementation that has been live on the Liquid Network and Elements (the codebase Liquid uses) <a href="https://blog.blockstream.com/en-covenants-in-elements-alpha/" target="_blank" rel="noopener">since 2016</a>. In addition Bitcoin Cash has had a <a href="https://github.com/bitcoincashorg/bitcoincash.org/blob/master/spec/op_checkdatasig.md" target="_blank" rel="noopener">version</a> of it since 2018.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">CSFS is a very mature proposal that goes back conceptually almost as long as I have been in this space, with multiple mature implementations, and very clear use cases it can be applied to.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Fri, 04 Apr 2025 14:38:57 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/bitcoin-covenants-checksigfromstack-bip-348" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
