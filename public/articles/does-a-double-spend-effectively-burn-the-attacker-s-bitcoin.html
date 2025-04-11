@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Does a double-spend effectively burn the attacker's Bitcoin?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$82,611.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Does a double-spend effectively burn the attacker's Bitcoin?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>Some people have expressed the opinion that a successful double-spend attack would invalidate Bitcoin as a technology, and thus undermine the value of all Bitcoins (including the attacker's), making an attack an unwinnable situation.</p>
+<p>The "attack undermines the network" assumption is often used to justify why a rational actor would never attempt an attack.</p>
+<p>Bitcoin, being a public ledger, makes it very easy to detect if someone performed a double spend attack. And we would know based on the length of the re-org whether or not the attacker had over 50% of the hashpower (per the whitepaper, a &gt;=6 block re-org indicates a 51% attack with high certainty.)</p>
+<p>My thought is that if my node detected a large re-org and double spend within that re-org, I would <em>not</em> accept payment associated with the double spender. If his identity was publicly known, nobody would accept his Bitcoins because they know they are liable to be double spent. If his identity was not publicly known, his Bitcoins are still tied to the attack, and nobody ought to accept them for the same reason.</p>
+<p>But on the other side of the coin... Now, I know for a fact that all other Bitcoins not associated with the attacker <strong>cannot</strong> be double-spent, because by definition only one entity can have more than 50% of the hash power at a given time. I can actually accept Bitcoins from everyone other than the attacker with an even higher level of confidence than I could before!</p>
+<p>Would this create a situation where the attacker has effectively burnt his own coins while simultaneously increasing the trustworthiness of all other coins?</p>
+<p>Or said another way: is it valid that we do not have to assume a 51% attack would undermine the entire network's value to conclude that it would still be self-undermining for the attacker?</p>
+    </body></html></div>
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No answers available yet.</p>
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-04-10T22:02:52.000Z</span>
+                | <span class="meta-author">By Reggie Simmons</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/126082/does-a-double-spend-effectively-burn-the-attackers-bitcoin" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
