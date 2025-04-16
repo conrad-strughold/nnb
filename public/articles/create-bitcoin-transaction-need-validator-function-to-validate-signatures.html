@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Create Bitcoin Transaction: Need validator function to validate signatures</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$83,905.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Create Bitcoin Transaction: Need validator function to validate signatures</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I am trying to send the bitcoin with my private key using the script and the bitcoinjs-lib. I am constantly getting the error Need validator function to validate signatures over the line when I call const isValid = psbt.validateSignaturesOfAllInputs();.</p>
+<p>I am not able to figure out how to resolve this,</p>
+<pre class="lang-none prettyprint-override"><code>const ecc = require('tiny-secp256k1');
+const ECPairFactory = require('ecpair').default;
+const ECPair = ECPairFactory(ecc);
+const axios = require('axios');
+
+const NETWORK = bitcoin.networks.testnet
+// const network = bitcoin.networks.testnet; // Or bitcoin.networks.bitcoin for mainnet
+const sender_address = "tb1qmrhvnv0w6p9asunmsua3ua829artanps6jfza7"; // Replace with your address
+const PRIVATE_KEY_WIF = "PRIVATE_KEY"; 
+const DESTINATION_ADDRESS = "mggvPKgz8UJu6sWWdxwPKLKYoyHKhJGzCY"; 
+const FEE = 1000; 
+
+async function sendBitcoin() {
+    try {
+        // Import private key
+        const keyPair = ECPair.fromWIF(PRIVATE_KEY_WIF, NETWORK);
+
+        // Generate the address (Native SegWit - P2WPKH)
+        const { address } = bitcoin.payments.p2wpkh({
+            pubkey: Buffer.from(keyPair.publicKey),
+            network: NETWORK,
+        });
+        console.log(`Sending from: ${address}`);
+
+        // Fetch UTXOs for the address
+        const utxos = await getUtxos();
+        console.log(`Fetched UTXOs:`, utxos);
+
+        if (!Array.isArray(utxos) || utxos.length === 0) {
+            throw new Error("No UTXOs available for the given address.");
+        }
+
+        // Create a new PSBT
+        const psbt = new bitcoin.Psbt({ network: NETWORK });
+        console.log(`Initialized PSBT:`, psbt);
+
+        let totalInput = 0;
+
+        // Add inputs from UTXOs
+        utxos.forEach((utxo) =&gt; {
+            console.log(`Adding UTXO: ${JSON.stringify(utxo)}`);
+            psbt.addInput({
+                hash: utxo.txid,
+                index: utxo.vout,
+                witnessUtxo: {
+                    script: Buffer.from(bitcoin.address.toOutputScript(address, NETWORK)),
+                    value: utxo.value,
+                },
+            });
+            totalInput += utxo.value;
+        });
+
+        // Calculate the amount to send
+        const sendAmount = 2000;
+        if (sendAmount &lt;= 0) {
+            throw new Error("Insufficient funds after deducting fees.");
+        }
+
+        // Add output for destination
+        psbt.addOutput({
+            address: DESTINATION_ADDRESS,
+            value: sendAmount,
+        });
+
+        // Add change output if applicable
+        const change = totalInput - sendAmount - FEE;
+        if (change &gt; 0) {
+            const changeAddress = bitcoin.payments.p2wpkh({
+                pubkey: Buffer.from(keyPair.publicKey),
+                network: NETWORK,
+            }).address;
+            console.log(`Adding change output: ${changeAddress}`);
+            psbt.addOutput({
+                address: changeAddress,
+                value: change,
+            });
+        }
+
+        utxos.forEach((_, index) =&gt; {
+          psbt.signInput(index, {
+              publicKey: Buffer.from(keyPair.publicKey),
+              sign: (hash) =&gt; {
+                  const signature = keyPair.sign(hash);
+                  return Buffer.from(signature); 
+              },
+          });
+      });
+
+      console.log(`Signed all inputs`);
+
+        const isValid = psbt.validateSignaturesOfAllInputs();
+        console.log(`Signatures valid: ${isValid}`);
+
+        psbt.finalizeAllInputs();
+
+        const rawTransaction = psbt.extractTransaction().toHex();
+        console.log(`Raw Transaction: ${rawTransaction}`);
+
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        let raw = JSON.stringify({
+            "method": "sendrawtransaction",
+            "params": [
+              rawTransaction
+            ]
+        });
+
+        let requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        let quickNodeUrl = "https://abcd-efgh-igkl.btc-testnet.quiknode.pro/6a1xxxxxxxxxxxxxxxxxxxxxxxxx4/";
+
+        fetch(quickNodeUrl, requestOptions)
+            .then(response =&gt; response.json())
+            .then(result =&gt; {
+                console.log("Broadcast Response: ", result);
+            })
+            .catch(error =&gt; console.log('Error broadcasting transaction:', error));
+
+    } catch (error) {
+        console.error(`Error: ${error.stack}`);
+    }
+}
+
+sendBitcoin();
+
+async function getUtxos() {
+    try {
+        const response = await axios.get(`https://blockstream.info/testnet/api/address/${sender_address}/utxo`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching UTXOs: ${error.message}`);
+        return [];
+    }
+  } ```.   
+Stack Trace Error:
+``` Error: Need validator function to validate signatures
+    at Psbt._validateSignaturesOfInput (/Users/harshkushwah/Desktop/Btc_Tx_Listener/node_modules/bitcoinjs-lib/src/psbt.js:424:13)
+    at Psbt.validateSignaturesOfInput (/Users/harshkushwah/Desktop/Btc_Tx_Listener/node_modules/bitcoinjs-lib/src/psbt.js:416:17)
+    at /Users/harshkushwah/Desktop/Btc_Tx_Listener/node_modules/bitcoinjs-lib/src/psbt.js:404:12
+    at Array.map (&lt;anonymous&gt;)
+    at Psbt.validateSignaturesOfAllInputs (/Users/harshkushwah/Desktop/Btc_Tx_Listener/node_modules/bitcoinjs-lib/src/psbt.js:403:52)
+    at sendBitcoin (/Users/harshkushwah/Desktop/Btc_Tx_Listener/transfer-seqWit.js:93:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) ```
+</code></pre>
+    </body></html></div>
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No answers available yet.</p>
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-04-16T05:57:48.000Z</span>
+                | <span class="meta-author">By Harsh Kushwah</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/126102/create-bitcoin-transaction-need-validator-function-to-validate-signatures" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
