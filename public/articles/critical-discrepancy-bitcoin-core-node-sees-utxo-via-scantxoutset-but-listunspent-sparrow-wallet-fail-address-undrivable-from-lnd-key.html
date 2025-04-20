@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Critical Discrepancy: Bitcoin Core Node Sees UTXO via scantxoutset, BUT listunspent & Sparrow Wallet Fail; Address Undrivable from LND Key?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$84,314.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Critical Discrepancy: Bitcoin Core Node Sees UTXO via scantxoutset, BUT listunspent & Sparrow Wallet Fail; Address Undrivable from LND Key?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>Hello LND Developers and Community,</p>
+<p>I'm facing a highly unusual and critical issue where on-chain funds associated with a past LND channel closure are inaccessible, despite my Bitcoin Core node (v29.0.0, RPi5, fully synced after fresh IBD, txindex=1) confirming the UTXO's existence via scantxoutset. However, both listunspent and external wallet software (Sparrow) fail to see this UTXO, and crucially, the address holding the funds cannot be derived from my LND root key using standard methods.</p>
+<h2>System &amp; History:</h2>
+<p>LND: v0.18.5-beta (upgraded from v0.5.2-beta). Confirmed only one wallet.db used throughout.</p>
+<p>Bitcoin Core: v29.0.0 (RPi5), fully synced post-IBD, txindex=1 reports synced: true. Datadir /mnt/hdd/bitcoin.</p>
+<p>Channel History: Opened Mar 2019 (LND v0.5.2, Funding Tx: 7060...9d71), later force-closed by peer.</p>
+<p>Sweep Transaction: On Apr 1, 2024 (Block 837257), Tx 4c0407b1188e0ba39313b1d9c87c49f6c81d99aa2839026c8af8c989ce102244 spent the channel output, sending ~0.01495 BTC to P2WPKH address bc1qt728qplpuh6d98evkl4a990zdhwpwvur6qg8qz.</p>
+<p>On-Chain Verification: Explorers confirm this UTXO (4c04...:0) exists and is unspent at bc1qt7...g8qz.</p>
+<h2>The Core Problem &amp; Contradictions:</h2>
+<p>After a full IBD and ensuring txindex is synced on my Bitcoin Core node:</p>
+<p><code>getrawtransaction 4c04... true</code> SUCCEEDS: The node knows the history of the funding transaction.</p>
+<p><code>scantxoutset start '["addr(bc1qt7...)"]'</code> SUCCEEDS and RETURNS THE UTXO: This directly confirms that the node's chainstate (UTXO set) database IS CORRECT and contains the unspent output for bc1qt7...g8qz.</p>
+<pre><code>{
+  "success": true, ...
+  "unspents": [ { "txid": "4c04...", "vout": 0, ... "address": "bc1qt7...", "amount": 0.01495437 ... } ],
+  "total_amount": 0.01495437
+}
+</code></pre>
+<p><code>listunspent ... '["bc1qt7..."]'</code> (using <code>-rpcwallet=""</code> or other loaded wallets) returns <code>[]</code>: Despite the UTXO existing in the chainstate, the wallet-specific RPC call fails to list it.</p>
+<p>Sparrow Wallet (fresh install, connected to this node) shows 0 balance: When importing the confirmed LND root xprv and configuring for BIP84 (m/84'/0'/0', Native Segwit P2WPKH), Sparrow completes scanning but shows 0 balance and lists no UTXOs, failing to see the UTXO that the node knows exists (per scantxoutset).</p>
+<h2>Parallel Wallet Derivation Failure:</h2>
+<p>Using the confirmed root xprv (extracted from the correct wallet.db via chantools showrootkey), extensive checks with offline tools (bip39-standalone.html) on standard BIP84 paths (m/84'/0'/0'/0/* and m/84'/0'/0'/1/*) failed to derive the address bc1qt728qplpuh6d98evkl4a990zdhwpwvur6qg8qz after checking millions of addresses.</p>
+<h2>Current Status &amp; Urgent Questions:</h2>
+<p>I have on-chain funds at bc1qt7...g8qz that my node fundamentally knows about (per scantxoutset), but which are inaccessible via standard wallet RPCs (listunspent) and external wallets (Sparrow). Compounding this is the failure to derive this specific address from the LND root key using standard BIP84 paths.</p>
+<p>Seeking expert help on:</p>
+<p>Why would listunspent (even with the correct wallet specified) and external wallets like Sparrow fail to see a UTXO when scantxoutset on the same node confirms its existence in the UTXO set? Is this a known Core bug, an issue with how wallets query non-owned addresses, or something else?</p>
+<p>Given the derivation failure, is it possible for LND (esp. after major version jumps) to sweep funds to an address not derivable via standard BIP84 paths from the aezeed root key? Could a bug or specific state lead to using a different derivation scheme or even a key unrelated to the main wallet for sweep outputs?</p>
+<p>Are there any advanced methods or tools (LND debug commands, specific chantools usage, alternative wallet software known to handle edge cases) that could either:</p>
+<p>a) Force Sparrow/LND to recognize the UTXO based on the node's chainstate confirmation?</p>
+<p>b) Help definitively trace the derivation path (even if non-standard) used to generate bc1qt7...g8qz from my wallet.db/xprv?</p>
+<p>This situation seems highly anomalous. Any insights or guidance would be extremely appreciated.</p>
+<p>Thank you.</p>
+    </body></html></div>
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No answers available yet.</p>
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-04-20T06:17:30.000Z</span>
+                | <span class="meta-author">By jack</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/126124/critical-discrepancy-bitcoin-core-node-sees-utxo-via-scantxoutset-but-listunsp" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
