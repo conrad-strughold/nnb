@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin -  Bitcoin Core to unilaterally remove controversial OP-Return limit </title>
+    <meta name="description" content="Bitcoin Core developers have decided to remove a limit on transaction data in the next network upgrade, enabling more data to be included in a more ef">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$94,372.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2> Bitcoin Core to unilaterally remove controversial OP-Return limit </h2>
+            
+            
+            
+            <html><head></head><body><p>Bitcoin Core developers have decided to remove a limit on transaction data in the next network upgrade, enabling more data to be included in a more efficient way.&nbsp;</p><p>“Bitcoin Core’s next release will, by default, relay and mine transactions whose OP_RETURN outputs exceed 80 bytes and allow any number of these outputs,” read the <a data-ct-non-breakable="null" href="https://gist.github.com/instagibbs/c436110890ab25aa9997b13c2270d5ce" rel="null" target="null" text="null" title="null">announcement</a> on GitHub by Bitcoin developer Greg Sanders on May 5.&nbsp;</p><p>The long-standing limit was originally a “gentle signal that block space should be used sparingly for non-payment proof of publication data,” has outlived its utility, he added.&nbsp;</p><p>The proposal (<a data-ct-non-breakable="null" href="https://github.com/bitcoin/bitcoin/pull/32359" rel="null" target="null" text="null" title="null">PR 32359</a>) was created by Bitcoin pioneer <a data-ct-non-breakable="null" href="https://cointelegraph.com/news/peter-todd-named-satoshi-nakamoto-hbo-documentary" rel="null" target="null" text="null" title="null">Peter Todd</a> at the request of Chaincode Labs.&nbsp;</p><p>OP_RETURN is a special type of Bitcoin (<a data-ct-non-breakable="null" href="https://cointelegraph.com/bitcoin-price" rel="null" target="null" text="null" title="null">BTC</a>) transaction output that allows storing small amounts of data on the blockchain, popularized during the <a data-ct-non-breakable="null" href="https://cointelegraph.com/news/bitcoin-65-million-ordinals-8-days-before-halving" rel="null" target="null" text="null" title="null">ordinals inscriptions craze</a> in early 2024.</p><p>Unlike regular transaction outputs, OP_RETURN outputs are not spendable and don’t bloat unspent transaction outputs (<a data-ct-non-breakable="null" href="https://cointelegraph.com/press-releases/utxo-stack-launches-the-first-ever-lightning-network-airdrop-a-new-chapter-for-bitcoin-payment" rel="null" target="null" text="null" title="null">UTXOs</a>).</p><p>The original limit is no longer effective as people found ways around it, such as using fake output addresses, which are actually worse for the network, while some mining services were already ignoring the limit, said Sanders.&nbsp;</p><blockquote>“Large-data inscriptions are happening regardless and can be done in more or less abusive ways; the cap merely channels them into more opaque forms that cause damage to the network.”&nbsp;</blockquote><p><em><strong>Related: </strong></em><a data-ct-non-breakable="null" href="https://cointelegraph.com/news/bitcoin-block-size-4-mb-inscriptions-research" rel="null" target="null" text="null" title="null"><em><strong>Bitcoin block size could grow to 4 MB with inscriptions: Research</strong></em></a></p><p>Benefits of removing the limit include a cleaner UTXO set, or database of spendable outputs, more consistent behavior across the network, and better alignment with how Bitcoin is actually being used, he added.&nbsp;</p><p>Three possible paths were considered: keeping the cap, raising the cap and removing the cap, which was ultimately decided upon after earning “broad, though not perhaps unanimous, support.”&nbsp;</p><h2>A controversial change to Bitcoin&nbsp;</h2><p>“Many users find this to be an undesirable change for a number of reasons,” <a data-ct-non-breakable="null" href="https://x.com/Excellion/status/1919484628601131218" rel="null" target="null" text="null" title="null">said</a> Bitcoiner Samson Mow on X on May 5. He added that users “can refuse to upgrade and stay on 29.0 or run another implementation” of the network.&nbsp;</p><p>Critics said that the proposal was introduced without a proper consensus process.&nbsp;</p><p>“I think one thing is pretty clear, there is no consensus at the moment on this OP_RETURN issue,” <a data-ct-non-breakable="null" href="https://x.com/MartyBent/status/1919226199529677042" rel="null" target="null" text="null" title="null">said</a> Ten31 Fund managing partner Marty Bent.</p><p>Some also expressed concerns about deprioritizing Bitcoin’s financial utility and raised questions about undisclosed conflicts of interest.</p><figure><img src="https://s3.cointelegraph.com/uploads/2025-05/0196a420-2c99-7a0e-b586-e6a189d30d2e" title=""><figcaption style="text-align: center;"><em>Critics of OP_RETURN limit removal. Source: </em><a data-ct-non-breakable="null" href="https://x.com/monsterbitar/status/1919115038809268270" rel="null" target="null" text="null" title="https://x.com/monsterbitar/status/1919115038809268270"><em>moonsettler</em></a></figcaption></figure><p><em><strong>Magazine: </strong></em><a data-ct-non-breakable="null" href="https://cointelegraph.com/magazine/bitcoin-price-million-cia-bitcoin-instutional-adoption-trends-ethereum-hodlers-digest/" rel="null" target="null" text="null" title="null"><em><strong>Bitcoin to $1M ‘by 2029,’ CIA tips its hat to Bitcoin: Hodler’s Digest</strong></em></a></p></body></html>
+            <div class="meta">
+                <span class="meta-source">Cointelegraph.com News</span> |
+                <span class="meta-date">Tue, 06 May 2025 07:04:53 +0100</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://cointelegraph.com/news/bitcoin-core-unilaterally-remove-controversial-op-return-limit?utm_source=rss_feed&utm_medium=rss_tag_bitcoin&utm_campaign=rss_partner_inbound" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
