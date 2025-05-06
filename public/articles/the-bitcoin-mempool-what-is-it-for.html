@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - The Bitcoin Mempool: What Is It For?</title>
+    <meta name="description" content="Bitcoin Magazine
+
+The Bitcoin Mempool: What Is It For?
+A look at what the mempool is, how it functions, and why a healthy and open public mempool is i">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$95,061.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>The Bitcoin Mempool: What Is It For?</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A look at what the mempool is, how it functions, and why a healthy and open public mempool is important for Bitcoin. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Everyone who has used bitcoin has made use of the mempool, or a mempool. So what is the mempool?</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Well technically, there is no such thing as “the” mempool. Every individual full Bitcoin node operates its own mempool, a cache of valid bitcoin transactions that have been broadcast to the network but have yet to be confirmed in a block. Nodes exchange messages with each other to see what transactions they have or not, and exchange ones they don’t have.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Each mempool is its own independent island essentially, with its own set of unconfirmed transactions, and sometimes its own configuration variables and settings. There is a size value to configure, set to 300 MB by default. In addition to this there is a minimum feerate that dynamically adjusts itself, and can have a configured value. This is used to decide which transactions to kick out of your mempool when it gets full and more transactions keep coming. There are a few other configurable options, such as the datacarrier and datacarriersize options affecting transactions containing OP_RETURN outputs.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Different nodes have different reasons for running a mempool, and therefore different needs, but it is ultimately through everyone in synchrony running their own mempools interacting with each other that those individual needs are met.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Think of each mempool as a literal pool, all connected to each other by channels in the ground. The larger a mempool is the deeper the pool in the ground is. Miners, exchanges, block explorers, these are all going to be the deepest pools. They all have different reasons motivating them to want to know of every unconfirmed transaction that is waiting to get into a block. Miners, to be sure they have the most profitable transactions for their next block. Exchanges, to be sure they are aware of all pending transactions. Block explorers, because their entire service is displaying as complete a dataset about the blockchain and mempool as possible. Your average nodes only really need to be deep enough to contain the top feerate slice of the “mempool.”&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Now think of each transaction as a drop of liquid, the higher the feerate, the denser the drop of liquid. These drops flow in the channels between the pools, and upon arriving at each pool, a drop received is duplicated and then sent on through the channels to any other pool that hasn’t gotten that drop already. As pools fill up, upon overflowing the less dense liquids (lower feerates) will spill over the edge and out of the pool first.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Eventually some lucky miner gets to scoop a size restricted amount of liquid out of the bottom of its pool, and dump that into the newest glass tank in a long snaking line of glass tanks being filled with liquid to sit there forever (the blockchain). This is just a way to think about the system intuitively and encompass most of its dynamics.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This arrangement of pools interlinking serves different purposes for different users.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Users making transactions have two uses for the mempool. First and foremost, is to get their transactions to the miners. If they don’t get to a miners mempool, then there is no possible way for them to wind up in a block. Mempools interlinking and sharing transactions with each other guarantees that eventually, once a transaction is put into one mempool, it will wind up in the mempools of all of the miners. Having a robust and decentralized network to guarantee that transactions will eventually get from a user to all the miners regardless of changing and fragmented connections on the network is a valuable thing.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The second use is fee estimation, which is especially important for Layer 2 users who could at any time have to ensure a response transaction to an invalid state is confirmed in a timely manner. It is possible to get some degree of fee estimation just looking at the feerate of transactions in those blocks, but that does not tell you anything about the current state of the mempool after the most recent block. It doesn’t account for sudden spikes, or opportunistic actors flooding the mempool, or the next wave of a growing transaction spike that hasn’t finished yet. Without a view of the mempool, fee estimation cannot be sure it is taking into account the current state of pending transactions.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">When you receive bitcoin, your node verifies that transaction as well as the entire block containing it. The transaction paying you is broadcast, winds up in a miner’s mempool, they find a block, that block is broadcast to the network, and then your node downloads and verifies it.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Except that’s not how that actually works (unless you disable your node’s mempool and run in blocksonly mode). Your node validates each transaction when it is first received in its mempool and caches that as a valid bitcoin transaction. When a miner finds a block, they actually only relay the blockheader and a small piece of compressed information, for lack of a better simple explanation, that can be used to figure out which transactions are in a block. Your node then grabs the pre-validated transactions, verifies the header, and if it all passes forwards the “compact block” onwards.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This optimization is actually why miners no longer depend on centralized and permissioned relay networks like FIBRE, formerly maintained by Matt Corrallo, and the short lived Falcon Network, which used to be necessary for miners to connect to in order to guarantee low block relay latency to other miners due to the poor relay speed across the peer-to-peer network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Miners obviously want to see everything. They are profit driven entities that want to be able to select from the largest set of pending transactions possible the ones that include the highest paying fee. This is how they maximize profit and earn revenue to continue expanding their operation and remain competitive.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">They literally get money out of the mempool. Their incentive to acquire any valid fee paying transaction is so strong that they have, historically, presently, and almost certainly in the future, built numerous systems, and even informal arrangements available socially, designed to allow users to directly submit transactions to the miners rather than through the open peer-to-peer network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">They, like miners, want to see every pending transaction that has been created and broadcast to the world. The major difference between the groups is miners directly monetize these transactions collecting fees, blockchain explorers and analytics companies indirectly monetize those transactions by displaying, analyzing, and providing that analysis of the information in a product that is monetized.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">I can’t point to any concrete examples involving cached mempool data, but chain analytics companies have been known to regularly buy privately acquired metadata regarding transaction activity on-chain. They have also been known to operate sybil Bitcoin nodes that peer as widely as possible with nodes across the entire network to be able to narrow down which set of nodes originally broadcast a transaction.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Block explorers as well monetize visual displays of blockchain and mempool data, their entire business model is focused around that. Access to more data to display to their users is more information to potentially monetize if useful or novel ways to display that information or information derived from it.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">All of these different classes of users benefit from there being “a” public mempool because of one simple dynamic: information flows freely across them. As long as there is a sufficient fee to get past minimum relay filters, it is consensus valid, and does not present a legitimate denial of service or resource exhaustion risk to individual nodes, it provides value for every class of user in propagating across each individual mempool in the network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Without a functional public mempool, the only viable alternatives to all of these different uses for individual users is centralized solutions or an unmanageable chaos of slapdash and disorganized attempts at fragmented public mempools that each user will need to individually track.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">That not only introduces the potential for manipulation of feerate data, deceiving users, and Miner Extractable Value concerns caused by private relaying of transactions. Without a healthy and open public mempool, these are the types of issues that Bitcoin will have to confront.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In a follow up article I’ll be looking at these issues, as well as different types of mempool filters and why they exist.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Tue, 06 May 2025 19:29:00 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/the-bitcoin-mempool-what-is-it-for" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
