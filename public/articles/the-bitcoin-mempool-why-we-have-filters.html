@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - The Bitcoin Mempool: Why We Have Filters</title>
+    <meta name="description" content="Bitcoin Magazine
+
+The Bitcoin Mempool: Why We Have Filters
+A look at different relay policy filters, and why they have always been a standard part of ">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$103,611.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>The Bitcoin Mempool: Why We Have Filters</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A look at different relay policy filters, and why they have always been a standard part of a node's mempool. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In my prior <a href="https://bitcoinmagazine.com/technical/the-bitcoin-mempool-what-is-it-for">article on the mempool</a>, I laid out a simple conceptual framework to reason about the basic functionality of the mempool, and how it was used by different kinds of users of the Bitcoin network. In this piece I will be looking at the differences between relay policy and consensus rules, and why by default Bitcoin nodes do not relay some types of bitcoin transactions despite being consensus valid.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">First and foremost, regardless of the peer-to-peer network refusing to relay certain kinds of consensus valid transactions, if those transactions were to find up in a miner’s mempool and be selected for inclusion in a block, they will be received and downloaded by nodes when they receive that block. Nothing can prevent this short of consensus changes to make those classes of transactions invalid under consensus rules.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">There are different types of filters for different reasons. The three general types of filters are those protecting nodes (and therefore the network) from Denial of Service (DoS), those protecting upgrade hooks for future softforks, and those gently discouraging things that Bitcoiners might not like but otherwise present no serious harm to individual nodes or the network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://bitcoinmagazine.com/guides/what-is-bitcoin">Bitcoin</a> nodes are computer programs running on computers. This means they have all the technical constraints of any programming running on any computer, limitations for storage, memory, processing power, etc. This is the root of why the blocksize limit was introduced and maintained, so as to create a global constraint keeping the verification costs reasonable for normal devices.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This class of filters is designed specifically to ensure that even with the blockspace limit individual transactions that can be created that can consume too much of a node’s resources do not do so.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The simplest example of such a filter is the minimum feerate needed for a transaction to propagate, and the Replace-By-Fee (RBF) rules dictating when a different version of the same transaction can replace the previous one, i.e. only when it pays a higher fee than the last version. Once you sign a transaction with a fee, you are on the hook. Unless you doublespend it, any miner who gets that transaction can mine it and collect that fee. There is no way to escape paying that cost other than spending your UTXO in a different transaction first (which also requires a fee).&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The reason for this is DoS protection. Without having to put themselves on the hook for a fee that they can’t escape paying, a user could simply create infinite variations of a single transaction and spam the mempools of every node on the network, eating bandwidth and memory in the process. Nothing would be stopping them from doing this forever. Nodes on the network would outright crash, or bandwidth costs become so exorbitantly high that users couldn’t afford them.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Another example of transactions filtered by relay policy are expensive to validate transactions. It is possible to create transactions that are incredibly expensive to verify. Some blocks can be created that will take a Bitcoin node running on normal consumer hardware over an hour to verify. This is done by creating large custom scripts that are designed to create the maximum amount of signature checks that can be and stuffing a block full of nothing but these transactions.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Such script structures have been constructed before and verification times tested on different types of machines, but the exact structure of those scripts has not been publicly revealed by the developers who did so for obvious reasons. These are transactions that could literally stall the entire network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A last example of DoS protection would be the dust limit. Transactions creating UTXOs with a satoshi value below the dust limit are not relayed because the fee to spend that UTXO would be higher than the satoshi value of the output. This makes it uneconomical and unlikely that it would ever be spent, meaning that the UTXO set would have to store these outputs forever. This could create a bloating UTXO set that makes block validation more computationally intensive.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">All major upgrades to the Bitcoin protocol have been done with softforks, an upgrade mechanism that allows new script functionality to be added to the protocol in a way that un-upgraded nodes will still accept as valid.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is possible because Bitcoin script includes “undefined” opcodes, meaning that any use of them automatically is considered valid because no verification rules are currently defined for them. When people upgrade their nodes to enforce the new rules, upgraded nodes will apply the new rules against that opcode, and older ones will simply accept any use of them. As long as miners do not mine transactions violating the new rules before the network of nodes all upgrade, everyone stays on the same blockchain and everything is backwards compatible.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Transactions using these undefined opcodes are filtered by relay policy. This is done in order to preserve the upgradeability of the Bitcoin protocol in the future.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If users were to make UTXOs using such undefined opcodes, say in combination with a defined ones so that they weren’t spendable by anyone, if that undefined opcode were given verification rules in a softfork that UTXO would become unspendable. The structure of the script would not be able to meet the new verification rules applied during the softfork.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Allowing these to propagate and be confirmed could allow UTXOs using undefined opcodes to turn any potential softfork upgrade in the future into a philosophical dilemma of not upgrading or rendering some user’s coins unspendable.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">There are some types of transactions that while causing no actual harm to nodes on the network, i.e. crashing nodes, using excessive memory or resources, a large segment of network users find undesirable or contrary to the primary purpose of Bitcoin.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Examples of such transactions would be those making use of large OP_RETURN outputs, or Inscriptions making use of the Witness field, to write arbitrary information to the blockchain. These are discouraged because they are not seen as a primary use case of the Bitcoin network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">These different classes of filters in relay policy are very clearly distinctly different things. Not all relay filters exist for the same reason, not all of them involve the same incentives for miners to mine (or not mine) them. Each of them exists for a specific purpose to protect your node, or the blockchain, from different types of things that are either legitimately damaging or just undesirable.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">All filters are not the same, and the difference between the things they are filtering is massive. Everything from problematic transactions that could crash the network (which should be fixed at the consensus level), to just discouraging harmless transactions that people find undesirable.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It’s important to realize the difference between these things. For instance, a miner might mine a simply undesirable transaction if a user pays for it, but no rational miner would construct and mine a block full of transactions that would crash the entire network. That would undermine their investment.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Tue, 13 May 2025 13:35:37 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/the-bitcoin-mempool-why-we-have-filters" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
