@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Not ECDSA. Not Schnorr. Meet DahLIAS.</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Not ECDSA. Not Schnorr. Meet DahLIAS.
+Meet DahLIAS, a full aggregation signature scheme that works with secp256k1, Bitcoin's cryptog">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$108,239.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Not ECDSA. Not Schnorr. Meet DahLIAS.</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Meet DahLIAS, a full aggregation signature scheme that works with secp256k1, Bitcoin's cryptographic curve. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Aggregate signatures aren’t new. They’ve been around since the early 2000s. But building one that actually works in Bitcoin’s security model, with Bitcoin’s elliptic curve, has never been proven. Developers speculated it might be possible. They shared hand-wavy sketches and said, “maybe it’d work like <a href="https://blog.blockstream.com/musig2-simple-two-round-schnorr-multisignatures/" target="_blank" rel="noopener">MuSig2</a>, but across transaction inputs.” The idea lingered for years as <em>developer folklore</em>, close, never provably confirmed.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">That changed recently, when Jonas Nick and Tim Ruffing of Blockstream Research, together with Yannick Seurin of Ledger, published a paper that turned this cryptographic ghost story into a concrete, provable result. <a href="https://eprint.iacr.org/2025/692" target="_blank" rel="noopener"><strong>DahLIAS</strong></a> is the first formal, secure construction of a <strong>full constant-size aggregate signature (CISA) scheme</strong> that works on Bitcoin’s native curve!&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">But that’s a lot of words, so let’s break that down:</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It adds no significant new assumptions beyond those already relied on by Bitcoin. DahLIAS builds a new cryptographic primitive using the same math Bitcoin already relies on, unlocking an entirely new kind of signature.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Digital signatures are how Bitcoin proves that a user has authorized a transaction. When you go to spend bitcoin, your wallet uses a private key to sign a message, and the network verifies that signature using the matching public key.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin uses the <strong>secp256k1</strong> curve. It is fast, efficient, and has been battle-tested over time. It supports signature schemes like <strong>ECDSA</strong> (Bitcoin’s original signature algorithm) and <strong>Schnorr</strong> (added through Taproot in 2021), which are currently the only signature schemes permitted by Bitcoin consensus.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Traditionally, full signature aggregation relied on mathematical operations not supported by Bitcoin’s curve, secp256k1, which made it seem out of reach. These features have typically relied on other types of elliptic curves. For example, BLS (Boneh–Lynn–Shacham) signatures use a special kind of curve called a pairing-friendly curve, which enables advanced operations like combining many signatures, even on different messages, into one.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The problem is that BLS signatures do not work on secp256k1. While Schnorr was a natural upgrade from ECDSA, since both rely on the same kind of elliptic curve, adding BLS would be a much bigger leap and a departure from Bitcoin’s existing security model. Though technically possible, it would introduce new cryptographic assumptions and add significant complexity to the protocol. Supporting a curve that is pairing-friendly, like <strong>BLS12-381</strong>, would be <em>a major change for Bitcoin</em>.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is part of why full signature aggregation has never been done on secp256k1.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Until now.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Most Bitcoin users are familiar with multisignatures. In a <strong>multisig</strong> wallet, multiple people jointly authorize the spending of a single UTXO or some specific “coin”. Everyone signs the same input data. This setup is useful for things like shared custody wallets.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><strong>Aggregate signatures</strong> work differently. Instead of multiple people signing the same input or coin, each signer authorizes a different UTXO in a transaction. These separate signatures are then compressed into one compact proof. With DahLIAS, that means a <strong>single 64-byte signature</strong> on Bitcoin’s secp256k1 curve that verifies all inputs at once.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">That means if you have five inputs from five different people, the transaction needs five different signatures. With an aggregate signature, all of those can be bundled into one. Even if each signer is spending a different input and signing a different part of the transaction, the result is one signature that proves the entire transaction was properly authorized.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It’s like zipping a whole list of approvals into one file. The signature is compact, but still verifiably proves that each signer authorized their specific UTXO.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Instead of verifying 10 separate signatures, you verify one.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This helps realign incentives for privacy. By reducing the signature overhead to a single 64-byte proof, <strong>DahLIAS lowers the cost of combining inputs in CoinJoins, </strong>making it financially smarter to choose privacy than to go without it<strong>.</strong></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Shortly after Schnorr signatures were introduced on Bitcoin, developers explored <a href="https://blog.blockstream.com/half-aggregation-of-bip-340-signatures/" target="_blank" rel="noopener"><strong>half-aggregation</strong></a>, as a way to compress multiple signatures but they were not fixed size. Each input contributes to the size of the signature, so the transaction still grows with every participant. DahLIAS fixes this by enabling <strong>full-aggregation</strong> across inputs and signers. No matter how many people are involved or what they’re signing, all their signatures compress into one constant-size, 64-byte proof.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The main benefit here is that DahLIAS are reducing the size of complex transactions.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">DahLIAS uses a two-round interactive signing process. It’s similar to MuSig2 in that regard, but it isn’t a multisignature protocol because it doesn’t require all participants to co-sign the same message. Instead, it aggregates different signatures on different messages across the transaction.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">DahLIAS is also faster to verify than checking each signature individually, up to twice as fast in some cases. Lower verification costs make it easier for more people to run full nodes, which helps preserve Bitcoin’s decentralization over time.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Importantly, DahLIAS comes with strong cryptographic guarantees. The scheme includes formal security proofs. Earlier ‘folklore’ approaches to full signature aggregation lacked this, and some were even later shown to be insecure. Fortunately they weren’t adopted prematurely.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It’s worth repeating: <strong>DahLIAS is not a multisig protocol.</strong> It isn’t comparable to MuSig2 or FROST from a functional standpoint, even if it shares similar cryptographic building blocks. It serves a different purpose. It offers a new way to encode many independent approvals into one clean, verifiable package.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">You might think: if DahLIAS is so powerful, why isn’t it a BIP? Why not propose it for Bitcoin consensus?</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">DahLIAS signatures don’t look like Schnorr or ECDSA signatures. The verification algorithm is different. Instead of taking a single public key, message, and signature, a DahLIAS verifier takes <strong>lists</strong> of public keys and messages, and a single 64-byte proof.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This makes DahLIAS incompatible with Bitcoin’s current consensus rules. Supporting it at the base layer would require a consensus change. This paper doesn’t propose that change, but it does something equally important.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><strong>This paper shows that a full signature aggregation scheme for Bitcoin’s native curve is possible.</strong></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">That alone is a major step forward.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To make DahLIAS part of Bitcoin, someone would need to write a Bitcoin Improvement Proposal (BIP), maybe even using <a href="https://bitcoinmagazine.com/technical/secp256k1lab-an-insecure-python-library-that-makes-bitcoin-safer">secp256k1lab</a>. That means specifying the scheme in detail, considering its implications for consensus and implementation, and building community support. This paper lays the cryptographic foundation for that conversation.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The real value of the DahLIAS paper is what it proves. Full signature aggregation on secp256k1 is not just a thought experiment. It’s concrete. It’s efficient. It’s secure. For years, the idea lived in developer folklore. Now, it’s written down, analyzed, and proven. All that’s left is to bring it to Bitcoin—if we want it.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>This is a guest post by Kiara Bickers. Opinions expressed are entirely their own and do not necessarily reflect those of BTC Inc or Bitcoin Magazine.</em><br></p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 21 May 2025 21:24:34 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/not-ecdsa-not-schnorr-meet-dahlias" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
