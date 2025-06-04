@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Layer 2: The Key To Scaling Bitcoin</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Layer 2: The Key To Scaling Bitcoin
+Bitcoin and other blockchains are robust and decentralized systems, but they do not scal">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$104,983.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Layer 2: The Key To Scaling Bitcoin</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin and other blockchains are robust and decentralized systems, but they do not scale. In order to make them work, a layered approach is necessary.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin, and for that matter all blockchains, do not scale. It is a fundamental limitation of blockchain based systems that they are incapable of facilitating transactional use at a truly global scale without completely sacrificing the decentralization and verifiability that make them valuable in the first place.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This has been an existential issue that Bitcoiners have grappled with from the very beginning of Bitcoin. This is a comment from James A. Donald, a Canadian cypherpunk who was the first person to reply to Satoshi’s original post on the cryptography mailing list:&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>Satoshi Nakamoto wrote:</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>    “The bandwidth might not be as prohibitive as you<br>    think. A typical transaction would be about 400 bytes<br>    (ECC is nicely compact). Each transaction has to be<br>    broadcast twice, so lets say 1KB per transaction.<br>    Visa processed 37 billion transactions in FY2008, or<br>    an average of 100 million transactions per day. That<br>    many transactions would take 100GB of bandwidth, or<br>    the size of 12 DVD or 2 HD quality movies, or about<br>    $18 worth of bandwidth at current prices.”</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>The trouble is, you are comparing with the Bankcard<br>network.</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>But a new currency cannot compete directly with an old,<br>because network effects favor the old.</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>You have to go where Bankcard does not go.</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>At present, file sharing works by barter for bits. This,<br>however requires the double coincidence of wants. People<br>only upload files they are downloading, and once the<br>download is complete, stop seeding. So only active<br>files, files that quite a lot of people want at the same<br>time, are available.</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>File sharing requires extremely cheap transactions,<br>several transactions per second per client, day in and<br>day out, with monthly transaction costs being very small<br>per client, so to support file sharing on bitcoins, we<br>will need a layer of account money on top of the<br>bitcoins, supporting transactions of a hundred<br>thousandth the size of the smallest coin, and to support<br>anonymity, chaumian money on top of the account money.</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>Let us call a bitcoin bank a bink. The bitcoins stand<br>in the same relation to account money as gold stood in<br>the days of the gold standard. The binks, not trusting<br>each other to be liquid when liquidity is most needed,<br>settle out any net discrepancies with each other by<br>moving bit coins around once every hundred thousand<br>seconds or so, so bitcoins do not change owners that<br>often, Most transactions cancel out at the account<br>level. The binks demand bitcoins of each other only<br>because they don’t want to hold account money for too<br>long. So a relatively small amount of bitcoins<br>infrequently transacted can support a somewhat larger<br>amount of account money frequently transacted.</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Despite the era of the Blocksize Wars, the big blockers, and the naive assumptions by many early Bitcoiners that simply raising the blocksize was a viable solution to scale the system, it has been understood by competent observers and engineers from the very beginning that this would undermine the core value proposition of that made it useful in the first place. Hal Finney also spoke of the need for such a settlement layer on top.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Scaling in layers has always been the only rational plan to make Bitcoin work in the long term, but for a long period of Bitcoin’s early history how to do so without relying on trusted third parties was an elusive problem.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">One of the first ideas on how to do this was sidechains, independent blockchains with a peg to facilitate locking bitcoin on the mainchain to utilize on the sidechain, and at any point unlocking funds on the mainchain to move them back by proving legitimate control of bitcoin on the sidechain. These systems however have yet to achieve a way to operate a peg without either 1) introducing some form of trusted third party, no matter how well mitigated, or 2) creating centralization pressure for the primary Bitcoin network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Since those early days there have been many more ideas developed that have found better ways to peg into second layer systems, specifically schemes like the Lightning Network and Ark which allow end users to unilaterally exit back to the mainchain without needing the permission or approval of some operator.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Scaling Bitcoin in a way that facilitates higher transactional volumes without degrading the security properties of Bitcoin to the point of being indistinguishable from third party operated custodians is one of the most critical problems to solve in order for Bitcoin to truly succeed in the long term.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This article series will explore the architectures of different Layer 2 systems for Bitcoin, both those deployed live on the network right now and those that are simply design proposals at this point.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Listed below are the systems I will be covering. The design space of Layer 2s is much more expansive than many people are familiar with, so this list should not be taken as comprehensive and complete, and will be updated over time to reflect additional Layer 2s that are covered.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 04 Jun 2025 19:13:59 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-the-key-to-scaling-bitcoin" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
