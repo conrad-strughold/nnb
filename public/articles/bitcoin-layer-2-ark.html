@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Layer 2: Ark</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Layer 2: Ark
+The first article in the Bitcoin Layer 2 series. This article covers the Ark protocol designed by Burak, being ">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$104,260.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Layer 2: Ark</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The first article in the Bitcoin Layer 2 series. This article covers the Ark protocol designed by Burak, being built by Ark Labs and Second.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Ark is a novel off-chain transaction batching mechanism originally proposed by Burak, a young Turkish developer. There are currently two implementations being built, one by Ark Labs, and the other by Second, neither of which Burak is involved with.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The original proposal for Ark was much more complicated, and involved some design goals more focused around privacy than the implementations currently being built. It was also originally envisioned to require <a href="https://bitcoinmagazine.com/technical/bitcoin-covenants-checktemplateverify-bip-119">CHECKTEMPLATEVERIFY</a> (CTV) in order to be built.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The protocol depends on a central coordinating server in order to function properly, but despite that is able to provide the same functionality and security guarantees that the Lightning Network does. As long as a user stays online during the required time period, at all times (unless they choose to trust the operator for short periods of time) every user is capable at any time of unilaterally exiting the Ark system at any time and taking back full unilateral control of their funds onchain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Unlike Lightning, Ark does not require users to have pre-allocated liquidity assigned to them in order to receive funds. An Ark user can simply onboard to a wallet and receive funds immediately with no liquidity pre-allocation at all.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Let’s walk through the different constituent pieces of Ark.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Coins held on Ark are called Virtual <a href="https://bitcoinmagazine.com/glossary/utxo">UTXOs</a> (vUTXOs). These are simply pre-signed transactions that guarantee the creation of a real UTXO under the unilateral control of a user once submitted onchain, but are otherwise held offchain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Every user’s vUTXOs are nested inside a tree of pre-signed transactions, or a “batch.” Ark works by having the coordinator server, or Ark Service Provider (ASP), facilitate the coordination between users necessary to create a batch. Whenever users are receiving funds, onboarding to Ark, or offboarding, it is necessary to construct a transaction and the associated transaction tree to create a new batch.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The tree is constructed to take the single root UTXO confirmed onchain, locked with an n-of-n multisig including all users holding vUTXOs in the tree as well as the ASP, and slowly split into more and more UTXOs until eventually reaching the leaves, which are each users vUTXO. Each vUTXO is guaranteed using a script that has to be signed by a 2-of-2 multisig, one key held by the user, and the other by the ASP, or just the user after a timelock.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Each time the tree splits, vUTXOs are created onchain, but so are more internal UTXOs that have yet to actually split into vUTXOs. Each of these internal UTXOs is locked with an n-of-n multisig composed of the ASP, and all users who have a vUTXO further down the tree. During the batch creation process, users start at their respective vUTXOs, and go through a signing process all the way back down the root of the tree. This guarantees that the root will never be signed before each user’s claim to a vUTXO is, ensuring they always have unilateral access in a worst case scenario to their funds.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Each batch also has an expiry time (which will make sense in the next section). This expiry spend path, which exists as an alternate spending condition for the root UTXO onchain as well as every internal UTXO, allows the ASP to unilaterally spend all funds by itself.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">When it comes to transacting on Ark, there are two possible mechanisms that are possible, both with their own costs and implications in terms of security model. There are out-of-round transfers, or preconfirmed transactions, and there are in-round transfers, or actually confirmed transactions.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To conduct an out-of-round transfer is a very simple process. If one user (Alice) wants to pay another (Bob), they simply contact the ASP and have them co-sign a transaction spending the vUTXO to Bob. Bob is then given that pre-signed transaction, as well as all the other ones preceding it back to the batch root onchain. Bob is now capable of unilaterally exiting the Ark with this transaction, <em>but</em>, he must trust the ASP not to collude with Alice to doublespend it. These out-of-round transactions can even be chained multiple times before finally confirming them.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To finalize an Ark transaction, users have to engage in a “batch swap.” Users cannot actually trustlessly confirm a transfer within a single batch, they have to atomically swap a vUTXO in an existing batch with a fresh vUTXO created in a new batch. This is done using the ASP as a facilitator of the swap, and with the aid of what is called a “connector input.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">When a user goes to finalize an Ark transaction with a batch swap, they relinquish control of the vUTXO to the ASP. This could be problematic, what is to stop the ASP from simply keeping it and not giving them a confirmed vUTXO in a new batch? The connector input.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">When a new batch is created, a second output is created in the transaction that is confirmed on chain instantiating a new tree composed of connector UTXOs. When Bob goes to sign over a forfeit transaction to the ASP to conduct the batch swap, the transaction includes as an input one of the connector UTXOs <em>from the new batch</em>.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This creates an atomic guarantee. Bob’s confirmed vUTXO is included in a batch in the same transaction the connector input is created in that is necessary for his forfeit transaction to be valid. If that batch is never created onchain, i.e. Bob never actually receives the new confirmed vUTXO, then the forfeit transaction he signed for the ASP will never be valid and confirmable onchain.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">All of the liquidity necessary to create new batches in order to facilitate transfers between users is provided by the ASP. They are required to have enough liquidity to create new batches for users until old ones have expired and the ASP can unilaterally sweep them to reclaim old liquidity previously locked up to create vUTXOs for users.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is the core of the liquidity dynamic at the center of the Ark protocol. While in one sense this is a massive efficiency win, not requiring liquidity providers to assess users and essentially guess which ones will actually receive large volumes of payments before they can receive any funds, in another it is an efficiency loss as the ASP must have enough liquidity to continue creating new batches for users for however long they configure the expiry time to be and they can start reclaiming allocated liquidity.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This can be mitigated to a decent degree by how often an ASP offers to create new batches to finalize pending transactions. In the event of an ASP attempting to create new batches in real time as transactions are coming in, the liquidity requirements would be exorbitantly high. However, an ASP can lower the frequency at which they create new batches and drastically lower their liquidity requirements.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This dynamic also has implications for blockspace use. Unlike Lightning, which can provide strong confirmation guarantees entirely offchain, in order for an Ark transaction to have an equivalent trustless degree of finality a new batch <em>has</em> to be created onchain. This means that unlike Lightning, where transaction volume does not reflect itself onchain, the velocity of Ark transactions inherently requires a proportional amount of blockspace use, albeit in a very compressed and efficient manner. This creates a theoretical upper limit of how many Ark batches can be created during any given time interval (although Ark trees can be smaller or larger depending on this dynamic).&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Ark presents in many ways an almost opposite set of tradeoffs to the Lightning Network. It is a massive blockspace efficiency improvement for offchain transactions, and does away with the problem of liquidity allocation on the Lightning Network, but it does have a much closer tied throughput limit that is correlated with the blockchains throughput limit.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This dynamic of almost opposite tradeoffs makes it a very complementary system to the Lightning Network. It can also interoperate with it, i.e. vUTXOs can be swapped atomically in transactions entering or exiting the Lightning Network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Ultimately how it fits into the broader Bitcoin ecosystem is yet to be seen, but it is an undoubtedly valuable protocol stack that will find some functional niche, even if it is different than originally intended.</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Fri, 06 Jun 2025 14:00:00 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-ark" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
