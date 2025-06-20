@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - A Seed Phrase Isn’t Self Custody, It’s A Liability.</title>
+    <meta name="description" content="Bitcoin Magazine
+
+A Seed Phrase Isn’t Self Custody, It’s A Liability.
+Seed phrases were an improvement a decade ago. They’re long overdue for an upgra">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$103,224.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>A Seed Phrase Isn’t Self Custody, It’s A Liability.</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Seed phrases were an improvement a decade ago. They’re long overdue for an upgrade.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">For as long as bitcoin has existed, self-custody–the ability to transact with and hold your own wealth without the need for a third party intermediary like a bank or other financial institution–has been central to the offer.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">For some, self custody is a firmly-held belief in the right to “be your own bank.” For others, it’s a practical step taken to safeguard a valuable asset that can be–and has been–lost to exchange hacks, mismanagement, or FTX-style collapse. A bit like keeping a safe full of cash at home, if there’s a run on the “bank,” your coins are immune.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">And while the “how” of self custody has changed forms throughout bitcoin’s history, today’s de facto industry standard for recovery–the seed phrase–often leaves users at a (sometimes enormous) loss when things go wrong.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In the early days of bitcoin, there was only self custody. At the risk of oversimplying, self custody meant managing private key material–a string of 64 random characters that gave whoever held it access to the underlying bitcoin. Tools for managing private keys were pretty limited: memorize them or write them down and store them somewhere safe. But put just one character out of place, and oops, your key doesn’t work. Even if you do everything right, there’s still the very real possibility of loss–to theft, accident, or disaster.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Seed phrases meant to make private keys easier to manage. Instead of securing long strings of random characters, <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki" target="_blank" rel="noopener">Bitcoin Improvement Proposal-39 (BIP-39)</a> let a handful of simple words essentially stand in for a private key. As long as you have the right sequence of words, you’ll always get the same private key and have access to your funds.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">While it is definitely easier to deal with a few common words than a long string of characters, the risk of loss through human error, theft, or disaster is essentially the same with a seed phrase as it ever was with private keys. For anyone who has lost a backup when they really needed it, it’s a distinction without a difference. When it’s gone, it’s gone, and there’s no getting it back.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Somewhere along the way, the whole idea of self-custody became synonymous with seed phrases in a lot of people’s minds. But self custody isn’t an object; it’s a capability. And seed phrases are a lot more liability than they are capability.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Sure, a seed phrase lets you regenerate your keys or easily move your funds to another wallet, but it lets anyone who sees it even briefly do that, too. It’s a nuclear option–one that grants anyone who holds it access to its entire payload. That’s why most people who use them are forced to rely on pretty archaic security measures to protect them: bury them, use book ciphers, distribute copies and bury those, stamp them on increasingly heat-resistant alloys, and so on.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">But the idea that the height of security for digital cash could be anything close to burying a coffee can in the backyard borders on the absurd. That’s stone age security for a space age asset. And the idea that most people’s only recovery tool is something they themselves can pretty easily lose begs the question: if you can lose it easily, is it even a recovery tool at all?</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Managing a seed phrase might be better than dealing with private key material, but it still isn’t good–not for security or safety, not for user experience, and ultimately not for bitcoin’s growth and widespread adoption.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin itself began as, and is intended to be, electronic cash. It is ultimately software, meant to run to be used. For too many people, securing it has become a source of great anxiety and practical difficulty. There’s a better way.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The future of money should feel like and work like and ultimately be secured like the future of money, not money’s long ago past. It should open up new capabilities, inspire confidence, be intuitive and even pleasant to use–and you shouldn’t lose access to your coins just because you make a typo or lose a slip of paper.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Even hardcore, self-sovereign bitcoiners will admit: seed phrases are a pain. They’re a clunky stopgap and were never meant to be the end game for an ostensibly digital currency. We should stop treating them like they’re the defining characteristic of self custody.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>This is a guest post by Max Guise. Opinions expressed are entirely their own and do not necessarily reflect those of BTC Inc or Bitcoin Magazine.</em><br></p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Fri, 20 Jun 2025 19:32:57 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/a-seed-phrase-isnt-self-custody-its-a-liability" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
