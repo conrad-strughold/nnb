@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Lightning Labs Releases Taproot Assets v0.6 With Updates to Stablecoin Support On Bitcoin</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Lightning Labs Releases Taproot Assets v0.6 With Updates to Stablecoin Support On Bitcoin
+The update adds grouped asset identifiers,">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$105,801.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Lightning Labs Releases Taproot Assets v0.6 With Updates to Stablecoin Support On Bitcoin</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The update adds grouped asset identifiers, improves Lightning Network payment flows, and expands support for stablecoin transactions on Bitcoin.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Today, Lightning Labs has <a href="https://lightning.engineering/posts/2025-6-24-tapd-v0.6-launch/" target="_blank" rel="noopener">announced</a> it has released <a href="https://github.com/lightninglabs/taproot-assets/releases/tag/v0.6.0" target="_blank" rel="noopener">Taproot Assets v0.6</a>, an update to the first multi-asset Lightning protocol on Bitcoin mainnet. The update improves how stablecoins can be minted, sent, and received over the Bitcoin <a href="https://bitcoinmagazine.com/guides/lightning-network">Lightning Network</a>.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">We’re excited to release Taproot Assets v0.6 to make Lightning a decentralized FX layer for stablecoins on bitcoin. 💱💸<br><br>With larger, more reliable transactions, we're one step closer to trillions of dollars flowing on Lightning. ⚡📈<br><br>Read more below.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“We are incredibly grateful to the bitcoin and Lightning developer community for their support in providing feedback on the protocol, testing early versions of the software, and building the initial products for end users,” the company said. “We are continually impressed by the level of building and excitement from developers pushing Taproot Assets adoption forward.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Since the last release, Lightning Labs CEO Elizabeth Stark and Tether CEO Paolo Ardoino announced that Tether is bringing USDT to <a href="https://bitcoinmagazine.com/guides/what-is-bitcoin">Bitcoin</a>, with support for both on-chain transactions and the Lightning Network.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The release includes changes aimed at simplifying asset issuance and usage. Developers can now use the “–new_grouped_asset” <a href="https://lightning.engineering/api-docs/api/taproot-assets/mint/mint-asset/" target="_blank" rel="noopener">option when minting</a> to allow assets to share a “<a href="https://docs.lightning.engineering/lightning-network-tools/taproot-assets/first-steps#docs-internal-guid-3bcd56b4-7fff-bfc0-8abd-da4246828716" target="_blank" rel="noopener">group_key</a>” identifier. This ensures that tranches of the same asset remain interchangeable. Each batch still has a separate “asset_id,” but using a shared “group_key” simplifies handling for stablecoins with multiple tranches.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“Previously, when using Taproot Assets on Lightning, developers and users had to use the asset_id to fund channels, send, and receive payments,” stated the announcement. “With assets like stablecoins where there are multiple tranches, this asset_id-based workflow became cumbersome for developers to juggle. So, in the latest release, developers can now use the group_key identifier for all Lightning flows including funding a channel, paying an invoice, and receiving payments.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The update also includes changes to the Request for Quote (<a href="https://docs.lightning.engineering/lightning-network-tools/taproot-assets/rfq" target="_blank" rel="noopener">RFQ</a>) protocol. The software now handles “group_key” identifiers and lets users agree on time-limited price quotes with edge nodes using the existing <a href="https://github.com/lightning/bolts/blob/master/11-payment-encoding.md" target="_blank" rel="noopener">BOLT 11 invoice format</a>.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“As mentioned above, the Request for Quote (RFQ) functionality allows for the receiver of the payment to ask the node providing liquidity on Taproot Assets for a time-limited price quote between the relevant asset and bitcoin,” mentioned the announcement. “These edge nodes provide a critical service by converting assets to and from bitcoin at the edges of the network, enabling Taproot Assets on Lightning to act as a decentralized foreign exchange network.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In previous releases, versions used a single edge node path for payments. The update allows receivers to use up to 20 inbound Taproot Assets channels, increasing routing options and supporting larger transactions.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is big 👀<br><br>Previously, when sending a payment, there was only one route to the recipient. If it failed, the payment failed.<br><br>Now, recipients can open up to 20 routes (or “channels”) to receive money, making payments much more reliable, especially for large amounts. 🚀… <a href="https://t.co/NbEl7VKglX" target="_blank">https://t.co/NbEl7VKglX</a></p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Tue, 24 Jun 2025 17:36:22 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/lightning-labs-releases-taproot-assets-v0-6-with-updates-to-stablecoin-support-on-bitcoin" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
