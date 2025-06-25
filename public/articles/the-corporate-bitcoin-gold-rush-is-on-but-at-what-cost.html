@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin -  The corporate Bitcoin gold rush is on — but at what cost? </title>
+    <meta name="description" content="Cointelegraph investigates how public companies are fueling Bitcoin’s rise with a high-stakes strategy that could supercharge the bull run or trigger ">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$107,192.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2> The corporate Bitcoin gold rush is on — but at what cost? </h2>
+            
+            
+            
+            <html><head></head><body><p>They’re being called “infinite money machines” by some, and “a ticking time bomb” by others. Welcome to the world of Bitcoin treasury companies, publicly traded firms that are rewriting the rules of corporate finance by converting capital into Bitcoin. </p><p>These companies are leveraging gains to boost their stock price, and using momentum to buy even more Bitcoin (<a href="/bitcoin-price">BTC</a>). It’s a cycle that, so far, has been wildly profitable.</p><p>At the heart of this movement is Strategy — formerly MicroStrategy — which holds more than 590,000 BTC valued at over $60 billion. The company has become one of the most prominent corporate holders of Bitcoin. And it’s not alone. Over 130 companies have added the cryptocurrency to their balance sheets, and the number keeps growing.</p><p>These companies are following the playbook pioneered by Michael Saylor: raise capital, buy Bitcoin, watch stock price climb, repeat. But behind the gains lies a risk few are talking about, a vulnerability that could shake the entire crypto ecosystem if things turn south.</p><p>Among Bitcoin investors and enthusiasts, questions are mounting about what happens next. Is this the fuel behind Bitcoin’s next bull run? Or are we looking at a structural risk that could trigger the next crash?</p><p>Check out Cointelegraph's YouTube channel for a <a href="https://youtu.be/NpzQD7tSqMg" rel="nofollow noopener" target="_blank" title="https://youtu.be/NpzQD7tSqMg">detailed breakdown</a> of Bitcoin's corporate adoption. Don’t forget to like, comment, and subscribe so you never miss a new episode.<br><br><em><strong>Related: </strong></em><a href="https://cointelegraph.com/news/june-bitcoin-danger-zone-sp500-summer-rally" rel="" target="_self" title="https://cointelegraph.com/news/june-bitcoin-danger-zone-sp500-summer-rally"><em><strong>June remains Bitcoin’s danger zone, while S&amp;P 500 eyes summer rally</strong></em></a></p></body></html>
+            <div class="meta">
+                <span class="meta-source">Cointelegraph.com News</span> |
+                <span class="meta-date">Wed, 25 Jun 2025 18:00:00 +0100</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://cointelegraph.com/news/the-corporate-bitcoin-gold-rush-is-on-but-at-what-cost?utm_source=rss_feed&utm_medium=rss_tag_bitcoin&utm_campaign=rss_partner_inbound" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
