@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Trustodial: An Ontological Dilemma</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Trustodial: An Ontological Dilemma
+"Trustodial" systems like statechains introduce a dilemma in terms of what constitutes self custo">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$107,930.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Trustodial: An Ontological Dilemma</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">"Trustodial" systems like statechains introduce a dilemma in terms of what constitutes self custodial.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A lot of criticism has been circulating after the recent announcement that Wallet of Satoshi will be returning to the United States shortly thanks to the integration of Lightspark’s recent “Spark” system, specifically focusing around the issue of trust models and whether the new version of Wallet of Satoshi constitutes a noncustodial wallet or not.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Spark is a system based on <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-statechains">statechains</a> (explainer article there). Statechains don’t have the most clear cut trust model. Spark is essentially the channel factory version of statechains, with numerous statechains nested inside of a transaction tree built on a single on-chain UTXO.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Statechains are a Layer 2 system that allow entire UTXOs to be freely transferred off-chain with no liquidity constraints, but with the requirement of accepting some trust tradeoffs. You must trust that an operator, the service provider essentially, will delete private key material every time the statechain is transferred.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">So let’s look at what makes something noncustodial.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The first quality definitively applies to statechains. Just like a Lightning channel a user has the ability to use a pre-signed transaction to reclaim their funds after a timelock period to ensure honest settlement. The second quality isn’t so clear cut in terms of applying or not applying.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The statechain protocol requires the operator and original user to collaboratively generate a key that neither party ever has full knowledge of. Using their shares they can collaborate to pre-sign the users withdrawal transaction. When the original user transfers it to someone else, the original user, new user, and operator all collaborate to “regenerate” the same key but with a different set of shares between the new user and operator.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">After signing the new user’s withdrawal transaction, the operator is then supposed to delete the share they generated with the original users. This prevents the operator from ever signing a new transaction with the original user, and the shorter timelock on the new user’s transaction guarantees that they can spend theirs before the original user can spend his.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If the operator does not delete old key shares, then it would be possible for them to collaborate with any past user who kept their key share to steal the funds in the statechain.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If the operator is doing what they are supposed to and deleting their old key shares every time the statechain is transferred, they are not a custodial system. They physically are incapable of signing any transactions in collaboration with anyone except the current and rightful owner of the statechain. The pre-signed transactions decrementing timelock guarantees that the current owner can <em>always</em> confirm their withdrawal transaction before any previous owner.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Operators can even run their software in an SGX enclave or other secure computing environment, and have the enclave enforce the correct behavior of the software. It can even provide proofs (granted you trust the environment to not be broken) of this that others can verify.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">They also have a strong incentive to operate the protocol honestly, because in doing so they are not required to comply with the regulations that come along with being a custodial service holding other people’s money.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">End users have a unilateral withdrawal transaction. This can be used any time after the timelock for their ownership expires and before the timelock for the previous owners time window expires. If the operator stops responding or disappears, they have this option.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">But they have to trust that the operator is operating the protocol honestly, and deleting past key shares. There is no way for them to <em>really</em> verify that. As mentioned above, something like the SGX enclave could handle security for the operator’s software and sign proofs it is running honest software. But all that is doing is moving the point of trust away from the operator and onto Intel, the makers of the SGX enclave.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Even when dealing with a truly honest operator, who has only ever run honest software and never cheated a single user, a user can never actually <em>know</em> that they are an honest operator. They can only see that the operator <em>has been</em> honest, and hope they will continue to be.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">There is no real clear cut answer. In the situation where an operator is <em>actually</em> being honest, it fits all the criteria I laid out above to be noncustodial. The user has an unimpeded ability to gain full access to their funds, and no one else is able to stop them from doing that or steal their funds.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The problem is <em>that it isn’t verifiable</em>.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">There is no way to trustlessly verify as a user that you have trustless control over your funds. Even if you actually do.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">So there is a problem with labeling it as noncustodial, because even if it is it is not possible for a user to ever truly verify it. But there is also a problem with calling it custodial, because the operator cannot do anything to move funds without collaborating with another user and the current user has a unilateral withdrawal transaction. This creates a dilemma in terms of categorizing tools in the space.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">I don’t know what the solution is, but the first step I think is acknowledging the technical realities occurring before jumping to label things one way or another (why not a new category?) because of your own incentives.&nbsp;These types of questions, especially in an environment of glacially slow Bitcoin protocol changes, will become more frequent as developers struggle with the trade offs of Bitcoin’s current limitations. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin is a programmable money, and the ways people will program it won’t always fit neatly into our predefined boxes.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Mon, 07 Jul 2025 20:10:22 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/trustodial-an-ontological-dilemma" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
