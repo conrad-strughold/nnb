@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - White Noise: Anonymous Nostr DMs and Encrypted Group Chat</title>
+    <meta name="description" content="Bitcoin Magazine
+
+White Noise: Anonymous Nostr DMs and Encrypted Group Chat
+White Noise launches public alpha, integrating top of the line privacy enc">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$109,130.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>White Noise: Anonymous Nostr DMs and Encrypted Group Chat</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">White Noise launches public alpha, integrating top of the line privacy encryption with Bitcoin powered messaging tech.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://whitenoise.chat/" target="_blank" rel="noopener">White Noise</a>, a new privacy centric messaging app, launched its alpha v0.1.0 in public beta.&nbsp;Built on <a href="https://bitcoinmagazine.com/video/nostr-in-2025-is-a-lot-like-bitcoin-in-2012">Nostr</a>’s Bitcoin native, decentralized identity system and the <a href="https://messaginglayersecurity.rocks/" target="_blank" rel="noopener">Messaging Layer Security (MLS)</a> protocol, White Noise introduces an anonymization protocol to the growing Nostr social media ecosystem that hides sensitive metadata. Paired with end-to-end encrypted group chats and direct messages (DMs), it promises to take Nostr from an early adopter, hobbyist technology to a viable alternative, in the world of privacy branded messaging apps like Whatsapp, Telegram.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://nostr.com/" target="_blank" rel="noopener">Nostr</a>, short for “Notes and Other Stuff Transmitted by Relays,” is a decentralized, open-source protocol launched in 2021 to enable censorship-resistant communication and social networking. Unlike centralized platforms like Twitter or WhatsApp, Nostr operates on an open network of independent relays—servers that store and forward messages—allowing users to publish posts, send private messages, and share data without depending on a single company.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The protocol is cryptographically native, users authenticate with private keys and public keys that can also be used in Bitcoin for payments and require no identifiable user information to function. Providing users much greater control over their identity without needing to disclose emails or phone numbers. While the protocol has gained significant popularity among Bitcoin users, it lacked the right tools for private group chats and anonymized direct messages.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“We started this project because we saw no alternatives.” <a href="https://bitcoinmagazine.com/culture/video-wasabi-crypto-anarchy-and-freedom-w-max-hillebrand">Max Hillebrand</a>, founder of White Noise and former contributor to Wasabi Wallet told Bitcoin Magazine. “Existing encrypted apps fail at scale: adding 100 people to a group chat slows encryption to a crawl. Decentralized platforms lack private messaging. Meanwhile, Nostr’s open relay network lets anyone broadcast ideas, but direct messages remain woefully underprotected. We realized: to protect freedom, we needed to merge these systems.”&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">White Noise addresses these problems in Nostr privacy with the use of <a href="https://messaginglayersecurity.rocks/" target="_blank" rel="noopener">MLS</a>, the ‘Messaging Layer Security’ encryption standard developed by The Internet Engineering Task Force (IETF), which was founded in 1986, and is a premier standards development organization (SDO) for the Internet.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Unlike with Nostr DMs and public posts today, White Noise’s app promises to obfuscate who is sending what to who, using the mature MLS encryption scheme, which is similar to the one used by Signal, the popular privacy messaging app.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The <a href="https://github.com/parres-hq/whitenoise?tab=readme-ov-file#contributing" target="_blank" rel="noopener">open-source</a> alpha invites audits and feedback from the privacy and Bitcoin community. Users can find details about the app at <a href="https://www.whitenoise.chat/" target="_blank" rel="noopener">whitenoise.chat</a> or <a href="https://x.com/whitenoisechat" target="_blank">connect with them on X</a>.&nbsp;&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 09 Jul 2025 17:35:58 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/white-noise-anonymous-nostr-dms-and-encrypted-group-chat" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
