@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Layer 2: Sidechains</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Layer 2: Sidechains
+The fourth article in the Bitcoin Layer 2 series. This article covers sidechains, a concept originally p">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$110,797.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Layer 2: Sidechains</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The fourth article in the Bitcoin Layer 2 series. This article covers sidechains, a concept originally proposed by the founders of Blockstream.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The original concept of a <a href="https://blockstream.com/sidechains.pdf" target="_blank" rel="noopener">Bitcoin sidechain</a> was proposed by Adam Back, Matt Corallo, Luke Dashjr, Mark Friedenbach, Gregory Maxwell, Andrew Miller, Andrew Poelstra, Jorge Timón, and Pieter Wuille, who all went on to found Blockstream, in 2014.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The idea was proposed to allow a more liberal development environment, where people could try new ideas and technologies on a sidechain without risking the security of the main Bitcoin blockchain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Since then the design space of sidechains has grown rather large.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">At the end of the day sidechains is a very broad term that encompasses a large range of very diverse and different systems. They can be as varied and arbitrary as the entire ecosystem of altcoins and other blockchains can be. That is after all what they are, other blockchain systems.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Regardless of the specific designs of any given sidechain, they have two primary components: a peg, and a consensus mechanism and rules. The peg functions as the vehicle for “locking” and “unlocking” coins on the mainchain to move them back and forth between Bitcoin’s base layer and the sidechain. The consensus mechanism and rules are how the sidechain itself functions, i.e. how new blocks are created, and the rules for what behaviors and transactions or contracts are allowed.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">These are the necessary pieces for a sidechain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The 2014 Blockstream design proposed the use of merge mining for a consensus mechanism, reusing the work from current Bitcoin miners by having sidechain blockheaders be committed indirectly in the mainchain blockheader, and Simplified Payment Verification proofs (SPV proofs) in order to operate the peg mechanism.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To facilitate merge mining, all sidechains would construct their blockheader as a “subheader” committed to in the coinbase transaction of a mainchain block. This would allow all miners to simultaneously mine the mainchain as well as whatever sidechains they choose to commit to. Any mainchain blockheader that meets a sidechain difficulty target, even if it does not meet the target for the mainchain, can be submitted to the sidechain network as a valid block.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Pegging required merkle proofs showing that certain transactions were included in a block. The proposed peg mechanism could work one of two ways, using symmetric SPV proofs, or asymmetric SPV proofs.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The symmetric scheme would require SPV proofs of both deposits and withdrawals, with a contest period. To deposit, users would need to send coins to a script on the mainchain that could only be spent by producing an SPV proof. After waiting for the contest period to elapse, the user could unlock coins on the sidechain with an SPV proof that they have deposited coins to the sidechain script on the mainchain. Any proof that a reorg with more work has occurred on the mainchain can be used to invalidate the claim transaction on the sidechain, and every sidechain user would have an incentive to produce that proof to prevent the peg from losing 1:1 backing.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Withdrawals would require the inverse, locking sidechain coins in a script requiring SPV proofs from the mainchain to unlock. After waiting for the contest period to elapse, the user can then unlock coins on the mainchain using an SPV that they locked coins on the sidechain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The asymmetric variant does away with the need to produce SPV proofs of the mainchain for deposits by requiring sidechain nodes to also run and verify the mainchain by consensus. This would allow for faster and more secure deposits, but increase the validation costs of a sidechain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">While merge mining has been deployed for numerous sidechains, as well as completely independent altcoin networks, the SPV peg proposed in the original paper, and the needed consensus changes to Bitcoin, have never been implemented or deployed.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In the Appendix A to the original paper, the authors proposed in lieu of (or until) the softfork necessary to implement their SPV peg design the use of a federated peg. The proposal was to use a multisig of functionaries to operate the peg, custodying users coins while used on the sidechain and enforcing the validity of withdrawals. This was done with the implementation of Liquid, which also used the functionaries to sign blocks for the sidechain with cryptographic keys, and Rootstock, which made use of merged mining for sidechain consensus.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Since the launch of these sidechains, there have been numerous other design proposals for different sidechain consensus mechanisms, as well as different sidechain peg mechanisms. While many of them have been deployed, not all of them have, and none of them have truly achieved any serious level of adoption.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Below are links to a previous article series I have written looking at the different aspects of other proposed sidechain designs. While this series is not entirely complete, it includes most of the biggest proposals.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Thu, 10 Jul 2025 14:00:00 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-sidechains" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
