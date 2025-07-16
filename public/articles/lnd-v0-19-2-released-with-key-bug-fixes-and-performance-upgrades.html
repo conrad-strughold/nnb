@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - LND v0.19.2 Released with Key Bug Fixes and Performance Upgrades</title>
+    <meta name="description" content="Bitcoin Magazine
+
+LND v0.19.2 Released with Key Bug Fixes and Performance Upgrades
+The latest LND update fixes major stability issues, reduces memory ">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$119,920.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>LND v0.19.2 Released with Key Bug Fixes and Performance Upgrades</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The latest LND update fixes major stability issues, reduces memory usage, improves peer connections, and adds better support for test networks, built using go1.23.9.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Today, a new version of the Lightning Network Daemon (<a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-lightning-network">LND</a>), version <a href="https://github.com/lightningnetwork/lnd/releases/tag/v0.19.2-beta" target="_blank" rel="noopener">0.19.2</a>, has been released. This update focuses primarily on bug fixes and performance improvements.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">lnd v0.19.2 has just been released! <br><br>⚡️<a href="https://t.co/ZRd4rZutQ6">https://t.co/ZRd4rZutQ6</a> ⚡️<br><br>this a bug fix release fixes:  a bug related to missed spend notifications, a rare deadlock start up bug, a memory leak, resolves issue w/ connection limiting (increasing stability of p2p connections), and adds… <a href="https://t.co/AorIxl237d">https://t.co/AorIxl237d</a></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Some of the major fixes include a bug that caused missed payment confirmations, a rare issue that could freeze the node during startup, and a memory leak that made the software use more resources over time. It also fixes crashes that could happen when the node was starting up in certain modes or handling backups.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The release includes an optional migration to reduce the size of the “decayed log database” (sphinxreplay.db), which helps lower disk and memory usage. This cleanup runs automatically unless turned off in the settings.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“The migration is optional but turned on by default,” stated the release notes. “If you encounter issues, you can opt-out of the migration by setting no-gc-decayed-log=true in the config. This migration does not prevent downgrading to earlier v0.19.x-beta versions.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Other changes include better handling of peer-to-peer (P2P) connections, improved tracking of <a href="https://bitcoinmagazine.com/technical/bitcoin-payment-protocol-explained-1406652662">payments</a> in logs, and more accurate fee calculations. The update also improves compatibility with test networks and adds small updates to command line tools (lncli).</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Additional improvements include better connection handling, improved aux traffic shaping, and updates to the RPC interface for easier debugging. The Lightning Seed service now supports testnet4 and signet, making peer discovery easier for new <a href="https://bitcoinmagazine.com/guides/how-to-set-up-a-lightning-network-node">nodes</a>.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The update was built using go1.23.9 and allows others to confirm that the released files match the original source code. Docker users can also run a script to check the installation before starting the container.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The release can be verified using PGP signatures and OpenTimestamps to confirm it hasn’t been tampered with. Full details and instructions are available <a href="https://github.com/lightningnetwork/lnd/releases/tag/v0.19.2-beta" target="_blank" rel="noopener">here</a>.</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 16 Jul 2025 21:15:02 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/lnd-v0-19-2-released-with-key-bug-fixes-and-performance-upgrades" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
