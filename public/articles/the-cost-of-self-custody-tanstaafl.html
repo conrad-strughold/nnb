@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - The Cost Of Self Custody: TANSTAAFL</title>
+    <meta name="description" content="Bitcoin Magazine
+
+The Cost Of Self Custody: TANSTAAFL
+The cost of an on-chain transaction is an inescapable variable in the cost of self custody, even">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$119,569.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>The Cost Of Self Custody: TANSTAAFL</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The cost of an on-chain transaction is an inescapable variable in the cost of self custody, even for off-chain layers. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Last week <a href="https://bitcoinmagazine.com/technical/trustodial-an-ontological-dilemma">I touched on the nuances and complexities of “Trustodial” systems</a>, systems that can’t be fully categorized as non-custodial <em>or</em> custodial, and how this causes issues when it relates to us categorizing different tools in this space. This is not the only issue being oversimplified in general conversation as it relates to categorizing ways of using Bitcoin.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Another major factor, with its own bag of complexity and nuances, is the cost of self custody.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">I laid out these two core requirements for something to be considered self-custodial in the last article:&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Let’s add another core requirement:</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If a user has claim to some funds through some enforcement mechanism, but it would cost 95% of those funds to actually exercise that enforcement mechanism, does he actually have self custody of those funds?&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This is one of the chief scaling limitations of existing <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-the-key-to-scaling-bitcoin">Layer 2</a> designs, such as <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-lightning-network">Lightning</a>, <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-statechains">Statechains</a>, <a href="https://bitcoinmagazine.com/technical/bitcoin-layer-2-ark">Ark</a>, etc. Any Layer 2 that makes use of pre-signed transactions to function is subject to this problem. Bitcoin has a blocksize limit, and whenever the pending transaction demand in the mempool is greater than the throughput capacity of the blockchain, fees go up. We have no mechanism, despite what some big blockers might say, to maintain a constant low fee level for users. Blockchains don’t scale without destroying their core value propositions.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This leaves us with no option but to construct off-chain scaling mechanisms, and so far the only viable trustless and self custodial solution is to use pre-signed transactions to facilitate this. That means that if a user ever has to actually make use of those pre-signed transactions, they have to pay the fees for them.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Because of this, the structure, size, and number of transactions that are necessary to enforce ownership are the deciding factors when it comes to the cost to enforce ownership claims on-chain. The more complex the script, the larger the transactions, the higher the number of transactions necessary, the more expensive it becomes to enforce ownership. All of these factors ultimately add up to create a minimum viable value to self custody with these systems.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If it is going to cost 10,000 satoshis to enforce ownership on-chain, then the idea of holding less than 10,000 satoshis in that system is just economically irrational. You would pay more in fees than the value you have a claim to is worth. Even 10,000 satoshis is too small in practice, would you want to pay 100% of the value you have in order to actually enforce ownership?&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To be realistically cost effectively self-custodied, the value being secured must be some comfortable multiple of the cost to enforce it, say 3-5x. If it isn’t, then that value cannot actually be enforced on-chain, it will be eaten by fees if someone tries.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Just like Trustodial systems, this introduces an ambiguous gray area. After considering the new third requirement to be considered self-custodial, a small value below the fees required to enforce it on-chain is clearly not self-custodial, but it’s not custodial either. While the rightful owner might not be able to cost effectively enforce their ownership on-chain, whatever party they are interacting with in a Layer 2 protocol cannot cost effectively steal it either.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This creates a sort of Mexican stand off when it comes to lower values secured on what would otherwise be unambiguously self-custodial Layer 2s. The rightful owner cannot cost effectively enforce their ownership on-chain, but because any other users participating in the Layer 2 cannot as well, they have no positive incentive to try to steal it by using old off-chain state transactions or refusing to cooperate to update balances off-chain. They can burn the rightful owner’s money by forcing them to submit transactions on-chain, but they gain nothing themselves in doing so.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This creates a dynamic where as long as the involved parties continue cooperating, these small values can be utilized and exchanged off-chain, but in the event that cooperation breaks down these small value balances essentially evaporate when they cannot be cost effectively enforced on-chain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This problem is exacerbated in two ways. The first is fees going up. The bigger the transactional demand is for blockspace, the higher the feerates go, making the minimum viable self-custodial value higher. This is an unavoidable consequence of demand for Bitcoin increasing (as long as that demand is for bitcoin itself and not custodial balances with some service).&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The second is actually a result of the current solutions for the first problem. The higher feerates get, the more expensive on boarding and off boarding from Layer 2s gets, necessitating coming up with designs that allow more people to share an individual UTXO, allowing on-chain fees (at least in the cooperative situation) to be spread between more people. This requires using either larger transactions, or more transactions, generally structured as trees that split up funds until eventually distributing them to individual users, to account for more users.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This means that not only has the baseline fee for a single transaction gone up, but users need to pay fees for either larger than average transactions or more than one transaction to enforce their ownership in non-cooperative situations!</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To tell a harsh truth, this might be a fundamentally unsolvable problem, at least in the scope of maintaining a security model that is more or less the same as Layer 1. The crux of the problem comes down to this: in higher fee environments the cost to enforce ownership on-chain goes up, necessitating finding ways for more and more people to share a single UTXO. While reducing the fees to utilize funds in the cooperative case, this <em>increases</em> the cost (magnified by whatever the higher feerate is) in the noncooperative case. However, the ability to exercise the noncooperative case is what actually enforces ownership.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">As of right now, the best we can do is find more blockspace efficient ways to enforce ownership noncooperatively. This would mean new opcodes, specifically covenants, that would allow a single user to withdraw their share of funds from a shared UTXO while at the same time guaranteeing that the rest of the funds go back into the covenant to ensure other users can do the same.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This could prevent creating the problem of more users requiring more transactions to enforce ownership, but it still doesn’t deal with the fundamental problem of feerates going up themselves. Even in the theoretical best case a user would still need to make a single transaction to enforce their ownership over funds, and in higher feerate environments that will be more expensive. This is the aspect that might be fundamentally unsolvable.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Whether solvable, insolvable, or somewhere in between, this is a dynamic that is critical for users to understand. It is a gray area in which things can go wrong, and when things go wrong it can result in users losing their funds.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 16 Jul 2025 18:55:02 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/the-cost-of-self-custody-tanstaafl" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
