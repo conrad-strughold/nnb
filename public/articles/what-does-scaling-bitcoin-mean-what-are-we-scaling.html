@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - What Does Scaling Bitcoin Mean? What Are We Scaling?</title>
+    <meta name="description" content="Bitcoin Magazine
+
+What Does Scaling Bitcoin Mean? What Are We Scaling?
+Scaling Bitcoin needs to be defined. What part of Bitcoin are we trying to scal">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$119,166.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>What Does Scaling Bitcoin Mean? What Are We Scaling?</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Scaling Bitcoin needs to be defined. What part of Bitcoin are we trying to scale? What are we trying to preserve in that process? </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin has a scaling problem.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It was designed to facilitate payments not dependent on trusted third parties, and in order to accomplish this the system needs to be verifiable for all users to ensure payments are valid without trusting the word of a third party.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">These two things are diametrically opposed.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If the system facilitates everyone who wants to transact doing so on the blockchain, then the cost for people to verify all of these transactions increases enormously, forcing most people to trust a third party who can afford those costs. If the system maintains a low cost of verification for participants, then everyone who wants to cannot cost effectively transact on the blockchain.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">So we’ll scale Bitcoin with Layer 2s, right? But what does that mean? I’m sure most people reading this hear the word scaling and immediately think purely in terms of transactions per second. The more transactions we can do with bitcoin the asset per second, the more we have scaled, right?&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">I would argue no. That is a huge component of it, but that is not the only thing we are trying to scale. We are trying to scale the important properties of Bitcoin as a censorship resistant system. If we didn’t care about that aspect of scaling, we could already call it a day. We have exchanges, banks, and other centralized custodians.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">We want solutions we build for throughput scalability to preserve trustlessness. Users should not have to depend on the honesty of another party in order to guarantee the security of their funds. Within some constraints users must have the ability to guarantee the ownership of their funds while depending on the action of no party other than themselves.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This doesn’t necessarily mean the same security model as the blockchain, i.e. send your funds to an address and then no other action is required beyond keeping your keys safe. Users might need to stay online, or check in online periodically within some defined time window, or store data that can’t be deterministically regenerated, but they should be capable of unilaterally ensuring that their funds remain in their control.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Users need to have a high degree of certainty that transactions they have conducted are final, and cannot be wound back. This is the entire core function that the blockchain fulfills in the system, processing a transaction and ensuring settlement finality.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Currently no Layer 2 system <em>actually</em> provides settlement finality off-chain. What they provide is a settlement guarantee backstopped by a third party, such as a federation, custodian, or system operator, or an <em>option</em> to exercise settlement finality when the user wants in the form of pre-signed transactions.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The theoretically ideal Layer 2 system would provide actual settlement finality itself off-chain. While this might not actually be possible, we should be searching for stronger settlement guarantees provided by third parties, and more flexible and efficient designs for finality “options” in the form of unilateral exit schemes for Layer 2s.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">We must minimize the cost for users to utilize these systems. This relates very heavily to settlement finality efficiency. If the exercising of a settlement finality option is too expensive, users will opt for systems where they delegate finality guarantees to third parties.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The cost of using a blockchain is based on how much data your use of it requires. The more data, the more expensive. As blockspace becomes more demanded and fees increase, users must be able to afford to exercise a finality option.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">All current Layer 2s that actually provide an option for settlement finality have some form of liveness requirement, i.e. the user must remain online or get online periodically in order to guarantee the trustless nature and settlement properties of that Layer 2.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Systems like Lightning require you to be online all the time, use a third party to be online and monitor the blockchain for you, or explicitly trust the people you have channels open with not to try to steal your money with old states. A system like Ark requires you to check in online and rotate your coins because an Ark batch expires and the operator can sweep all funds.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The only way out of this is to delegate settlement finality and trustless security of funds to a third party. We need to be reducing the liveness requirements as much as possible for systems that do <em>not</em> delegate control to a third party.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Only after we think about these properties that we want to retain while scaling throughput can we actually start to think about the functionalities needed in the Bitcoin protocol itself to facilitate that scaling.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">For current Layer 2s to be trustless, the users themselves must be involved in authorizing balance updates off-chain. This requires users to interact with each other to approve updates. Obviously then, any opcode or change to Bitcoin that would allow users to interact with each other more efficiently and quickly to pre-sign transactions enforcing settlement finality would be beneficial for maintaining trustlessness while scaling.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To go even further, an opcode that allowed some portion of a UTXO to be freely used by one authorized user, but the rest of the balance remained restricted and only accessible to other users, could maintain trustlessness while doing away with the need for users to all coordinate together at all, or minimize that need to only the starting point of a protocol.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Thinking about the end result we want, in specific terms of the desired properties we want it to have, is what is necessary to actually scale this protocol in a meaningful way long term. Only then can we take a step back and think about the concrete functionality that the desired end result will need on a technical level.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">To scale Bitcoin is more than just increasing the number of transactions it can process per second. We can do that right now with custodians. To scale Bitcoin is to increase the number of transactions that can occur trustlessly, with censorship resistant finality, without burdensome requirements of liveness placed on the user, and for a cost that a larger set of users can afford.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If we can’t scale those properties, then Bitcoin hasn’t actually scaled, no matter how many transactions a second are occurring with bitcoin the asset.&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Thu, 24 Jul 2025 18:02:18 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/what-does-scaling-bitcoin-mean-what-are-we-scaling" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
