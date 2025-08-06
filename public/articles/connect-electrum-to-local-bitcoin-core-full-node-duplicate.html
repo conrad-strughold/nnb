@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Connect Electrum to local Bitcoin Core full-node? [duplicate]</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$115,105.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Connect Electrum to local Bitcoin Core full-node? [duplicate]</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I installed bitcoin core pruned node today on my laptop. I want to connect my blue wallet to my bitcoin node I created with bitcoin core. I read somewhere that for it to happen I need to have electrum server. So can someone explain how to create electrum server with my bitcoin core to connect to my blue wallet</p>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>You need to install an Electrum server from outside of the Bitcoin Core software, there are various options: <a href="https://github.com/chris-belcher/electrum-personal-server" rel="nofollow noreferrer">Electrum Personal Server</a>, <a href="https://github.com/romanz/electrs" rel="nofollow noreferrer">electrs</a>, <a href="https://github.com/spesmilo/electrumx" rel="nofollow noreferrer">ElectrumX</a>.</p>
+<p>Alternatively you may be interested in <a href="https://github.com/bwt-dev/bwt" rel="nofollow noreferrer">Bitcoin Wallet Tracker</a> (BWT) which offers more options including a one click setup and Electrum wallet plugin option.</p>
+<p>BlueWallet also provides <a href="https://github.com/BlueWallet/BlueWallet/wiki/Electrum-servers-pool" rel="nofollow noreferrer">some Electrum servers</a> to connect to if you want to use those.</p>
+    </div>
+                    
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 2</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>I struggled a lot to connect Electrum &lt;-&gt; EPS &lt;-&gt; Bitcoin Core, especially 'cause of the .cookie path, the certificat problem, the configuration of config.ini and the 127.0.0.1 cookie file of Electrum.</p>
+<p>There aren't lots of helps on Windows. That's why i've decided yesterday to do a full-explained tutorial on youtube, which explains everything: how to do, how to resolve all configuration problems, etc...
+Link: <a href="https://www.youtube.com/watch?v=wxiH8hG9G-4&amp;ab_channel=ProfEduStream" rel="nofollow noreferrer">https://www.youtube.com/watch?v=wxiH8hG9G-4&amp;ab_channel=ProfEduStream</a>
+It's in french, but you can add subtitles on your own langage.</p>
+<p>Hope it gonna help the community.</p>
+<p>Bye 👋</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-08-04T23:46:19.000Z</span>
+                | <span class="meta-author">By Geremia</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/127728/connect-electrum-to-local-bitcoin-core-full-node" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
