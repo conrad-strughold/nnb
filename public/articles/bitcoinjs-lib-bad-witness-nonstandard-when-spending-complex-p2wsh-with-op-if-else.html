@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - bitcoinjs-lib: "bad-witness-nonstandard" when spending complex P2WSH with OP_IF/ELSE</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$116,428.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>bitcoinjs-lib: "bad-witness-nonstandard" when spending complex P2WSH with OP_IF/ELSE</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I'm trying to create and spend a P2WSH transaction on testnet with a "complex" script, but I'm running into a bad-witness-nonstandard error that I can't figure out.</p>
+<p><strong>My Goal</strong></p>
+<p>I want to create a P2WSH output with a script that allows spending under two conditions:</p>
+<p>A 3-of-4 multisig signature is provided.
+OR
+A timelock (e.g., 5 minutes) has passed AND a single recovery signature is provided.
+The script logic uses OP_IF for the multisig path and OP_ELSE for the timelock path.</p>
+<p><strong>The Problem</strong></p>
+<p>I can generate a wallet, derive the P2WSH address, and fund it correctly. The funding transaction creates a standard P2WSH output (OP_0 &lt;32-byte-hash&gt;).</p>
+<p>However, when I try to spend this UTXO via the 3-of-4 multisig path, my transaction is rejected by my Bitcoin Core node's testmempoolaccept with the error: mandatory-script-verify-flag-failed (bad-witness-nonstandard)</p>
+<p><strong>What I've Already Verified</strong></p>
+<p>The P2W</p>
+<ol>
+<li>SH address derived from my scripts matches the address I funded.</li>
+<li>A debug script confirms that my redeemScript is generated deterministically and its SHA256 hash correctly matches the hash in the funded UTXO's scriptPubKey.</li>
+<li>The funding transaction is correct and standard.</li>
+</ol>
+<p><strong>To Reproduce the Error</strong></p>
+<p>Here is all the code and data needed to reproduce the problem.</p>
+<ol>
+<li>package.json dependencies:</li>
+</ol>
+<blockquote>
+<pre><code>{
+  "dependencies": {
+    "@types/node": "^20.12.12",
+    "bitcoinjs-lib": "^6.1.5",
+    "ecpair": "^2.1.0",
+    "ts-node": "^10.9.2",
+    "tiny-secp256k1": "^2.2.3",
+    "typescript": "^5.4.5"
+  }
+}
+</code></pre>
+</blockquote>
+<ol start="2">
+<li>Wallet Generation Script (index.ts): This script generates the keys and wallet.json.</li>
+</ol>
+<blockquote>
+<p>import * as bitcoin from 'bitcoinjs-lib'; import ECPairFactory from
+'ecpair'; import * as ecc from 'tiny-secp256k1'; import * as fs from
+'fs';</p>
+<p>// Initialisation const ECPair = ECPairFactory(ecc);
+bitcoin.initEccLib(ecc);</p>
+<p>const network = bitcoin.networks.testnet;</p>
+<p>// --- 1. Key Generation --- const multisigKeys = [
+ECPair.makeRandom({ network }),
+ECPair.makeRandom({ network }),
+ECPair.makeRandom({ network }),
+ECPair.makeRandom({ network }), ]; const multisigPubkeys = multisigKeys.map(key =&gt; Buffer.from(key.publicKey)).sort((a, b) =&gt;
+a.compare(b)); const recoveryKey = ECPair.makeRandom({ network });
+const recoveryPubkey = Buffer.from(recoveryKey.publicKey);</p>
+<p>// --- 2. Timelock Definition (5 minutes for testing) --- const date =
+new Date(); date.setMinutes(date.getMinutes() + 5); const lockTime =
+Math.floor(date.getTime() / 1000); const lockTimeBuffer =
+bitcoin.script.number.encode(lockTime);</p>
+<p>// --- 3. Redeem Script Construction --- const redeemScript =
+bitcoin.script.compile([
+bitcoin.opcodes.OP_IF,
+bitcoin.opcodes.OP_3,
+...multisigPubkeys,
+bitcoin.opcodes.OP_4,
+bitcoin.opcodes.OP_CHECKMULTISIG,
+bitcoin.opcodes.OP_ELSE,
+lockTimeBuffer,
+bitcoin.opcodes.OP_CHECKLOCKTIMEVERIFY,
+bitcoin.opcodes.OP_DROP,
+recoveryPubkey,
+bitcoin.opcodes.OP_CHECKSIG,
+bitcoin.opcodes.OP_ENDIF, ]);</p>
+<p>// --- 4. Address Creation --- const p2wsh = bitcoin.payments.p2wsh({
+redeem: { output: redeemScript, network },
+network, });</p>
+<p>// --- 5. Save Data --- const wallet = {
+network: 'testnet',
+lockTime: lockTime,
+lockTimeDate: date.toISOString(),
+p2wshAddress: p2wsh.address,
+redeemScriptHex: redeemScript.toString('hex'),
+multisigKeysWIF: multisigKeys.map(k =&gt; k.toWIF()),
+recoveryKeyWIF: recoveryKey.toWIF(), };</p>
+<p>fs.writeFileSync('wallet.json', JSON.stringify(wallet, null, 2));</p>
+<p>console.log('Wallet generated and saved to wallet.json');
+console.log('P2WSH Deposit Address:', wallet.p2wshAddress);</p>
+</blockquote>
+<ol start="3">
+<li>Multisig Spending Script (1_spend_multisig.ts): This is the script that fails with bad-witness-nonstandard.</li>
+</ol>
+<blockquote>
+<p>import * as bitcoin from 'bitcoinjs-lib'; import ECPairFactory from
+'ecpair'; import * as ecc from 'tiny-secp256k1'; import * as fs from
+'fs';</p>
+<p>// --- UTXO Configuration --- const UTXO_TXID =
+'PASTE_YOUR_FUNDING_TXID_HERE'; const UTXO_INDEX = 0; // Or 1,
+depending on the output const UTXO_VALUE_SATS = 10000; // Amount in
+satoshis const DESTINATION_ADDRESS = 'PASTE_A_TESTNET_ADDRESS_HERE';
+const FEE_SATS = 2000;</p>
+<p>// --- Initialization --- const ECPair = ECPairFactory(ecc);
+bitcoin.initEccLib(ecc); const network = bitcoin.networks.testnet;</p>
+<p>// --- 1. Load Wallet --- const wallet =
+JSON.parse(fs.readFileSync('wallet.json', 'utf-8')); const
+redeemScript = Buffer.from(wallet.redeemScriptHex, 'hex'); const p2wsh
+= bitcoin.payments.p2wsh({ redeem: { output: redeemScript, network }, network }); const multisigKeys = wallet.multisigKeysWIF.map((wif:
+string) =&gt; ECPair.fromWIF(wif, network));</p>
+<p>// --- 2. Build PSBT --- const psbt = new bitcoin.Psbt({ network });
+psbt.addInput({
+hash: UTXO_TXID,
+index: UTXO_INDEX,
+witnessUtxo: { script: p2wsh.output!, value: UTXO_VALUE_SATS },
+witnessScript: redeemScript, }); psbt.addOutput({ address: DESTINATION_ADDRESS, value: UTXO_VALUE_SATS - FEE_SATS });</p>
+<p>// --- 3. Sign Transaction --- const createSigner = (key: any) =&gt; ({<br>
+publicKey: Buffer.from(key.publicKey),   sign: (hash: Buffer): Buffer
+=&gt; Buffer.from(key.sign(hash)), }); // Sign with 3 of the 4 keys psbt.signInput(0, createSigner(multisigKeys[0])); psbt.signInput(0,
+createSigner(multisigKeys[1])); psbt.signInput(0,
+createSigner(multisigKeys[2]));</p>
+<p>// --- 4. Finalize Transaction --- const finalizer = (inputIndex:
+number, input: any) =&gt; {
+const emptySignature = Buffer.from([]); // Placeholder for OP_CHECKMULTISIG bug
+const partialSignatures = input.partialSig.map((ps: any) =&gt; ps.signature);
+const witnessStack = [
+emptySignature,
+...partialSignatures,
+bitcoin.script.number.encode(1), // Standard way to push OP_1
+redeemScript,
+];
+const witness = witnessStack.reduce((acc, item) =&gt; {
+const push = bitcoin.script.compile([item]);
+return Buffer.concat([acc, push]);
+}, Buffer.from([witnessStack.length]));
+return { finalScriptWitness: witness }; }; psbt.finalizeInput(0, finalizer);</p>
+<p>// --- 5. Extract and create validation command --- const tx =
+psbt.extractTransaction(); const txHex = tx.toHex();
+console.log('\n--- testmempoolaccept command ---');
+console.log(<code>bitcoin-cli -testnet testmempoolaccept '["${txHex}"]'</code>);</p>
+</blockquote>
+<ol start="4">
+<li>Data to reproduce:</li>
+</ol>
+<p>wallet.json (TESTNET KEYS, NO VALUE):</p>
+<blockquote>
+<p>{   "network": "testnet",   "lockTime": 1723986942,   "lockTimeDate":
+"2025-08-18T13:15:42.339Z",   "p2wshAddress":
+"tb1qztq5rg30lv8y7kup7tftuelppcy2f9u9ygm8daq7gv4lgf0dw3ss3hj9qw",<br>
+"redeemScriptHex":
+"6353210200847c4a13f98cb1e3138bda175ba6f4c7ffd9e03a4c8617878ab03cf4a4a97921024b3e2544b4e311985477d88ac77ea00aa68f85490d0c663fba38fcdf582d043f2102c822f5026d382a93476d20de66c87c5e4e4997654817bfacc69b29f2dc8b6a10210328c2213b0813b4dac9c063f674b2c61dc50344c6e093df045c8ee2fe09f67bd854ae6704c413a368b1752103c5512e31f8a2555a116146262382be4be774fca326a2ee01d71e0fe33ffe4925ac68",
+"multisigKeysWIF": [
+"cT5h8LgJ2a4V3c4yF5g6H7j8K9L0M1n2p3q4R5s6T7u8V9w0XyZ",
+"cT5h8LgJ2a4V3c4yF5g6H7j8K9L0M1n2p3q4R5s6T7u8V9w0XyZ",
+"cT5h8LgJ2a4V3c4yF5g6H7j8K9L0M1n2p3q4R5s6T7u8V9w0XyZ",
+"cT5h8LgJ2a4V3c4yF5g6H7j8K9L0M1n2p3q4R5s6T7u8V9w0XyZ"   ],   "recoveryKeyWIF":
+"cT5h8LgJ2a4V3c4yF5g6H7j8K9L0M1n2p3q4R5s6T7u8V9w0XyZ" }</p>
+</blockquote>
+<p>(Note: this will be generated using index.ts).</p>
+<blockquote>
+<p>Funding Transaction:</p>
+<p>Funded Address:
+tb1qztq5rg30lv8y7kup7tftuelppcy2f9u9ygm8daq7gv4lgf0dw3ss3hj9qw Funding
+TXID: e9e764b3c63740d0eef68506970e80f819d360bdfc173d0b983f1e3d5411096d
+Funding VOUT: 1 Funding ScriptPubKey: OP_0
+12c141a22ffb0e4f5b81f2d2be67e10e08a49785223676f41e432bf425ed7461</p>
+</blockquote>
+<p>Any idea why my manually constructed witness would be considered non-standard? Thank you.</p>
+    </body></html></div>
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No answers available yet.</p>
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-08-18T14:15:54.000Z</span>
+                | <span class="meta-author">By Quantique</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/127785/bitcoinjs-lib-bad-witness-nonstandard-when-spending-complex-p2wsh-with-op-if" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
