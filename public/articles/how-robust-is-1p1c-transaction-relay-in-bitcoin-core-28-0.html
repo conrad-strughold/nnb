@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - How robust is 1p1c transaction relay in bitcoin core 28.0?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$111,346.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>How robust is 1p1c transaction relay in bitcoin core 28.0?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I’m reading the description of PR [28970</p>
+<blockquote>
+<p>Rationale: This is "non-robust 1-parent-1-child package relay" which is immediately useful.</p>
+</blockquote>
+<p>A couple of questions:</p>
+<ol>
+<li><p>What exactly does non-robust mean in this context? What risks do I take on if I just rely on the normal CPFP-based flow? Are there situations where my parent transaction could still fail to confirm?</p>
+</li>
+<li><p>From the 28.0 release <a href="https://bitcoincore.org/en/releases/28.0/" rel="nofollow noreferrer">notes</a>, it looks like Bitcoin Core 28.0 will automatically form a 1p1c package when I broadcast transactions via sendrawtransaction. Is that correct, or do I need to use the package relay APIs explicitly?</p>
+</li>
+</ol>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<blockquote>
+<p>What exactly does non-robust mean in this context?</p>
+</blockquote>
+<p>Non-robust means "not guaranteed to work, particularly in the presence of adversaries or when volume is really high so we miss things." Also, "package relay" in quotes refers to the fact that there isn't a package relay <em>protocol</em>, just an opportunistic piece of logic that can see when an orphanage transaction happens to be CPFPing a transaction that failed for being low feerate.</p>
+<p>Perhaps a good analogy is if you're a restaurant cook that doesn't have a dedicated server. You can opportunistically bring food to tables when you finish cooking them, which is often fine, but you'll fall behind during rush hour. The ticket system also doesn't rate-limit: when you can't hold all the tickets, random ones fall to the ground and you forget those orders. One annoying customer can ruin others' dining experience by ordering 100 diet cokes.</p>
+<p>We can hire another person to serve food, which will certainly make the restaurant more efficient (e.g. BIP 331, still WIP) but doesn't solve everything. From 30.0, we'll have a strategy that rate-limits customers to ensure we don't forget anybody's order unless they send huge volumes (see "p2p: improve TxOrphanage denial of service bounds" <a href="https://github.com/bitcoin/bitcoin/pull/31829" rel="nofollow noreferrer">https://github.com/bitcoin/bitcoin/pull/31829</a>).</p>
+<blockquote>
+<p>Are there situations where my parent transaction could still fail to confirm?</p>
+</blockquote>
+<p>The most important restriction in 28.0 is that cooks can only serve very simple things (1p1c packages). <em>Nothing beyond 1p1c works.</em> If the child has another unconfirmed parent, even if it's already in mempools, the opportunistic logic doesn't work. This has changed as well ("package validation: relax the package-not-child-with-unconfirmed-parents rule" <a href="https://github.com/bitcoin/bitcoin/pull/31385" rel="nofollow noreferrer">https://github.com/bitcoin/bitcoin/pull/31385</a>).</p>
+<blockquote>
+<p>Bitcoin Core 28.0 will automatically form a 1p1c package when I broadcast transactions via sendrawtransaction</p>
+</blockquote>
+<p>That's correct: once you've submitted the transactions to your mempool, nodes will do everything automatically. If it's a 0-fee parent + child package, <code>sendrawtransaction</code> might complain about the fee, so you might want to use the <code>submitpackage</code> RPC (the multi-transaction equivalent of <code>sendrawtransaction</code> with a very similar API). The RPC accepts single transactions as well, so it might be most convenient to use all the time.</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-09-04T09:07:18.000Z</span>
+                | <span class="meta-author">By sanket1729</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/127873/how-robust-is-1p1c-transaction-relay-in-bitcoin-core-28-0" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
