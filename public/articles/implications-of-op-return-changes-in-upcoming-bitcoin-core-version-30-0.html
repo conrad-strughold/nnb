@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Implications of OP_RETURN changes in upcoming Bitcoin Core version 30.0</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$115,142.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Implications of OP_RETURN changes in upcoming Bitcoin Core version 30.0</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>As you may know, there has been a debate around the upcoming release of Bitcoin Core. I hear the arguments against it and I agree that Bitcoin is money, not a storing database, and strictly only monetary data should be on the blockchain.</p>
+<p>I still find it hard to understand the argument on favor to this change. As far as I understand the size of "<code>OP_RETURN</code> outputs" will be relaxed from 80 Bytes to 100k bytes, allowing the storage of arbitrary data, like images and even small videos. Why?</p>
+<p>I hear often "Arbitrary data is already been placed on the blockchain", but then why the complacent attitude towards it? Why not fight the spam instead?</p>
+<p>I also hear the argument "Blocks are empty" so Miners need generate revenue. To which I also respond; Bitcoin mining is a free market and the difficulty adjustment helps miners set their output accordingly to balance their electricity bill. They could partially set their output off/on.</p>
+<p>Is this changed being pushed by people who want to put a storage business model on top of bitcoin, like the altcoins do?
+How will it affect Node runners (like me) who don't want to store dumb JPEGs and possible illicit material on their hard drives?</p>
+<p>I am not the ultimate expert on Bitcoin neither a noob, so I may be wrong on some concepts, that's why i am seeking clarification here.</p>
+<p>Thank you in advance.</p>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>Given the debate around the issue I think this is probably an opinion-based question, but I'd still like to try to clear up some misconceptions.</p>
+<p>Disclaimer: I'm a Bitcoin Core contributor, <a href="https://groups.google.com/g/bitcoindev/c/d6ZO7gXGYbQ/m/g9SIY4iqDQAJ" rel="nofollow noreferrer">argued</a> in favor of dropping the OP_RETURN restriction, and co-authored a document on the matter that was signed by several other contributors and got <a href="https://bitcoincore.org/en/2025/06/06/relay-statement/" rel="nofollow noreferrer">published</a> on the bitcoincore.org website (which I recommend you read). While I'm only going to give my own view below, I think I have a good idea on at least the proponents' opinion on the matter.</p>
+<hr>
+<blockquote>
+<p>I agree that Bitcoin is money, not a storing database, and strictly only monetary data should be on the blockchain.</p>
+</blockquote>
+<p>I <strong>agree</strong> with this, and have argued strongly in the past against developing solutions that relied on using the chain purely as a publishing mechanism for non-financial data. Blockchain space can be expensive, slow, unreliable, and costly (in terms of bandwidth/processing by nodes). It should be used for what it's good for: proving that censorship-resistant payments are valid to the world; a use case for which no better alternative exists, as opposed to many data-publishing use cases that have no such requirements.</p>
+<p>I believe that in the long term, such (in my view) sub-optimal use will be driven to alternative solutions anyway as on-chain space grows more valuable, and that deviations to this, like we see now, are temporary convenience solutions driven by hype. It's worth warning people that they likely won't persist with changing economics, and provide some discouragement for it - but not when that discouragement becomes harmful on itself (see further).</p>
+<p><strong>However</strong>, as developers and community of node runners, we also do not really get to decide what people use the chain for, beyond agreeing on consensus rules(*). The contents of blocks is decided by miners, who are - by design - driven by economic incentives. And if people are willing to - hopefully temporarily - pay more for "dumb" data storage on chain than real payment activity, there is little that can be done about this, for a multitude of reasons:</p>
+<ul>
+<li>Data can always be disguised as payments, making attempts to stop or even discourage it a cat-and-mouse game, which at best pushes those who pay for these use cases to slightly less efficient techniques (like encoding the data in addresses, amounts, signatures, ...).</li>
+<li>Given enough economic demand for data storage, nothing prevents submitting transactions directly to willing miners (which fundamentally can't be prevented(*)), bypassing non-mining nodes, <strong>the software they choose to run</strong>, and thus ultimately, their influence entirely.</li>
+<li>Philosophically, would you <strong>want</strong> a Bitcoin in which some (significant, but far from universal) subset of node runners get to decide which transactions are allowed or not, given that that, if effective, the same mechanism could be used to block "undesirable" payments, while providing a censorship-resistant payment system was the very thing Bitcoin was designed to enable? Of course, ultimately the agreement of <strong>all</strong> Bitcoin users (the consensus rules, see below(*)) determines what transactions are allowed, but this being hard to change is a feature, not a bug.</li>
+</ul>
+<blockquote>
+<p>I still find it hard to understand the argument on favor to this change. As far as I understand the OP_RETURN will be relaxed from 80 Bytes to 100k bytes, allowing the storage of arbitrary data, like images and even small videos. Why ?</p>
+<p>I hear often "Arbitrary data is already been placed on the blockchain", but then why the complacent attitude towards it ? and not fight the spam instead ?</p>
+</blockquote>
+<p>To be clear, Bitcoin Core v30 <strong>lets node runners configure the OP_RETURN size limit</strong> (the <code>-datacarriersize</code> config option). The only change is that its default value is increased (to effectively unlimited). It is marked deprecated, which means the option is expected to be removed in a future version, but given the current political dispute around it, I do not expect that will happen any time soon.</p>
+<p>The reason for changing the default isn't just that OP_RETURN is already used, and data storage through other means is already possible (including through ways that are cheaper than through OP_RETURN); it is that attempting to address this at the relay level is not more than a mild discouragement, and given enough incentives to bypass it (as we've seen exist) is harmful on itself, both for the ecosystem at large, and for individual node runners, in addition to being ineffective.</p>
+<p>The <strong>reason it is harmful for the ecosystem at large is mining centralization</strong>. Given enough demand for transactions that the network of nodes shuns (for whatever reason), large miners are incentivized to develop means for users and companies to submit these shunned transactions directly to them (this is already happening to some extent). If these "out-of-band translation relay rails" end up becoming economically relevant enough (through the out-of-band fees they involve) that miners not using them become uncompetitive, the ecosystem has a <em>huge problem</em>, far bigger than some temporary JPEG hype drivel: the inability for new small miners to enter the ecosystem (because who would bother sending transactions to a tiny miner), especially anonymously (the best protection the ecosystem has long term against miner censorship). In addition, it incentives the development of one or a few centralized "payment submission network" companies that all big transaction creators and miners contract with (something we've seen in other blockchains), imposing a large censorship risk on this company, and making the entire goal of decentralization a shim of what it was supposed to be.</p>
+<p>The <strong>reason it is harmful for individual node runners</strong> is that the entire point of participating in transaction relay is having a reliable view of what transactions will be mined in the future, for at least these reasons:</p>
+<ul>
+<li>For performing <strong>decentralized fee estimation</strong> (avoiding the need for centralized services for this).</li>
+<li>For <strong>accelerating relay of blocks</strong>. When a node already has (most, or ideally all) transactions that are included in a block downloaded and/or validated, it does not need to redo those things when transactions actually appear in a block. The BIP152 compact blocks protocol relies on this principle. The faster the node network can propagate blocks through the network, the more it <strong>reduces the benefit of large miners over small miners</strong> (this is related to selfish mining), contributing to decentralization by not hurting new small miners entering the market.</li>
+<li>When miners accept transactions that a node shunned, the node is <em>still</em> required to download, process, validate, and store its result, forgoing any benefits related to moral stance or resource usage the shunning might have had in the first place.</li>
+</ul>
+<p>Of course, nodes are in no way required to participate in transaction relay. They can use whatever policy they like, including not relaying transactions at all (the <code>-blockonly</code> setting), if they are uninterested in having a reliable view of future transactions.</p>
+<blockquote>
+<p>I also hear the argument "Blocks are empty" so Miners need generate revenue. To which I also respond; Bitcoin mining is a free market and the difficulty adjustment helps miners set their output accordingly to balance their electricity bill. They could partially set their output off/on.</p>
+</blockquote>
+<p>Miners have huge capital investments in their hardware that needs to be paid off, the actual electricity costs of running the miners are only part of their bill. In the long term you're right of course that miners can and will shut down if they are unprofitable, and this will result in the difficulty compensating for it, making costs lower for the remaining miners. But even then, those remaining miners in the new equilibrium will prefer earning more fees over less fees! And if people are willing to pay those, for whatever reasons, including ones you and I dislike, they'll find ways to do so.</p>
+<hr>
+<blockquote>
+<p>So is this changed being pushed by people who want to put a storage business model on top of bitcoin, like the altcoins do ? What does will affect Node runners (like me) who don't want to store dumb JPGS and possible illicit material on their hard drives.</p>
+</blockquote>
+<p>Speaking for myself, I hope you believe me when I say that is not the motivation at all. I think these use cases are temporary hype cycles, and not rational use of blockchain space, but the market can stay irrational for a long time. However, I believe that attempts to discourage these use cases through node relay policy, in the presence of widespread evidence that miners accept these transactions anyway, are <strong>ineffective</strong>, akin to <strong>making nodes bury their heads in the sand</strong>, and ultimately <strong>harmful to the decentralization of the system at large</strong>.</p>
+<p>(*) One small note however, <strong>the ecosystem does have an actual means of blocking transactions</strong>: consensus rule changes. If there is widespread agreement throughout the ecosystem that a certain class of transactions is harmful, the possibility exists in theory to adopt a consensus rule change that makes these transactions outright invalid, <strong>forcing miners to reject them</strong> (because otherwise they'd be producing invalid blocks, forgoing all revenue). This process is slow, should be used very carefully not to undermine fundamental properties (like censorship!) and is unsuitable for anything resembling a cat-and-mouse game like this, in my view. However, I do want to bring this up to make it clear that in the presence of widespread, fatally-harmful behavior, node runners are not entirely powerless in this matter.</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-09-12T09:01:36.000Z</span>
+                | <span class="meta-author">By juancho</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/127895/implications-of-op-return-changes-in-upcoming-bitcoin-core-version-30-0" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
