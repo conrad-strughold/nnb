@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin’s Quantum Risk Is Real – One Solution Might Start with Taproot</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin’s Quantum Risk Is Real – One Solution Might Start with Taproot
+Taproot could be used to "hide" quantum safe spending conditi">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$115,697.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin’s Quantum Risk Is Real – One Solution Might Start with Taproot</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Taproot could be used to "hide" quantum safe spending conditions inside Bitcoin UTXOs to deal with the risk of quantum computing. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Roughly <a href="https://www.projecteleven.com/bitcoin-risq-list" target="_blank" rel="noopener">a quarter of all Bitcoin</a> is exposed to the risk of a quantum attack, tied to public keys that have been revealed on the blockchain. But if that much of the supply is vulnerable, it raises a deeper concern: is trust in Bitcoin’s entire security model at risk?</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Imagine waking up, checking your phone, and your bitcoin balance is zero. Not just your cold storage, your exchange balances too. Gone. Overnight, millions of UTXOs drained in a silent, coordinated attack.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It sounds extreme, but this kind of event would be more than just theft. It would be a direct attack on Bitcoin’s value, a public signal that its core cryptography is no longer secure. A state-level actor might attempt something like this, not just to steal coins, but to destroy trust and deliberately cause chaos.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Not every attacker would act so loudly. A more self-incentivized one might take the opposite approach. With access to a quantum computer, they could quietly target older UTXOs, draining coins from forgotten or inactive wallets. Their goal would be to siphon off as much as possible before the rest of the world catches on.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">But whether the attack is loud or quiet, fast or slow, the end result is more or less the same. The assumptions that secure Bitcoin are no longer true in a post-quantum world. The math that secured Bitcoin from its beginning could be broken at any point, by a machine none of us have seen yet, but we know is theoretically possible.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A quantum computer isn’t just a faster version of computers we have today. It’s a fundamentally different type of machine. For most tasks, it wouldn’t be much faster than a regular computer. But for very specific problems, it would be powerful enough to break a lot.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin’s digital signatures today, including Schnorr and ECDSA, rely on something called the <strong>discrete logarithm problem</strong>. Think of it as a kind of mathematical one-way street. It’s easy to go one direction, but extremely hard to go back. You can take a private key and generate a public key or signature, but doing the reverse, deriving the private key from the public key, is practically impossible. And this is why you can share your public key on the blockchain safely, because it’s infeasible for anyone to reverse it and derive your corresponding private key.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">But with a large enough quantum computer, that assumption breaks. Using <strong>Shor’s algorithm</strong>, a quantum attacker could solve the discrete logarithm problem. And that “one-wayness” no longer holds. Given any public key on the blockchain, an attacker can derive its corresponding private key.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">There are no perfect solutions here. Any plan to defend Bitcoin against these quantum attacks involves some big trade-offs. Some are technical. Some are social. All of them are hard.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">One possibility is to introduce a new kind of output type that uses only post-quantum signatures. Instead of relying on discrete logarithms, which quantum computers can break, you would lock coins using quantum-safe signature schemes from the beginning. Anyone sending funds to that address knows they are choosing stronger, future-proof security.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A big trade-off here is size. Most post-quantum signatures are huge, often measured in kilobytes instead of bytes. This means post-quantum signatures can be 40-600 times bigger than current Bitcoin signatures. If an ECDSA/Schnorr signature fits inside a text message, a post-quantum signature could be as large as a small digital photo. They cost more to broadcast, and more to store on the blockchain. HD wallets, multisig setups, and even basic key management, become more complex or may not even work at all. Doing threshold signatures with post-quantum signatures is still an open research problem.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A related proposal for going fully post-quantum comes from <a href="https://groups.google.com/g/bitcoindev/c/uUK6py0Yjq0/m/L_V2A-WFAAAJ" target="_blank" rel="noopener">Jameson Lopp, who proposed a fixed 4-year migration window</a>. After the introduction of post-quantum signatures, give the Bitcoin ecosystem a few years to rotate into quantum-safe outputs. After that, coins that have not been moved are treated as lost. An aggressive approach, but it sets a clear deadline and gives the network time to adapt before any crisis hits.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Until the threat becomes more real, we’d prefer to rely on the cryptography we already trust. But if we all agree that Bitcoin needs a plan, what is it going to be?</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No one wants to rush into chance Bitcoin with unproven assumptions. Rather than pushing in something entirely new, Bitcoin might already have a built-in starting point. Taproot!</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://bitcoinmagazine.com/technical/bitcoin-taproot-explainer">Taproot</a>, introduced in 2021, is mostly known for improving privacy and efficiency. What many users don’t realize is that it could also be the basis for a smoother transition into a post-quantum world.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Every Taproot output contains an initially hidden set of alternative spending conditions. These alternative script paths are never revealed unless used. Right now, most Taproot coins are spent using Schnorr signatures, but those hidden paths can be used for almost anything. That includes post-quantum (PQ) signature checks.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The idea that Taproot’s internal structure could withstand quantum attacks goes back to Matt Corallo, who first propagated it. And recently, <a href="https://eprint.iacr.org/2025/1307.pdf" target="_blank" rel="noopener">Tim Ruffing of Blockstream Research published a paper</a> showing that this approach is in fact secure: fallback paths inside Taproot can remain trusted, even if Schnorr and ECDSA are broken.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This opens the door to a simple but powerful upgrade path.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The first step is to introduce support for post-quantum signatures in Bitcoin Script. This could be done by adding new opcodes that allow Taproot scripts to verify PQ signatures, using algorithms currently being standardized and evaluated.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">That way, users could start creating Taproot outputs with two spending paths:</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Nothing changes in the short term. Coins behave the same. But if a quantum threat appears, the fallback is already in place.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Later, if a large quantum computer is developed and the risk becomes real, Bitcoin could disable Schnorr and ECDSA spending.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This kill switch would protect the network by preventing coins in vulnerable outputs from being stolen. As long as users have moved their coins to upgraded Taproot outputs that include post-quantum fallbacks, those coins would remain safe and spendable.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The transition will unavoidably cause some friction, but hopefully it would be less disruptive than a last-minute scramble. And thanks to Taproot’s hidden script paths, most of this work could happen quietly in advance.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">There is no countdown clock to the quantum threat. We have no idea when this breakthrough in quantum computing will happen. It could be a decade away, or it could be much closer. No one knows.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">None of this is simple. There are still open questions about which post-quantum algorithms we should use, how to make them efficient enough for Bitcoin, and how to preserve core features like threshold multisig and key derivation. But the most important thing is to start. Ideally not after the first cryptographically relevant quantum computer has been built, but now, while the system is still secure and upgrade paths are still available.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">By enabling post-quantum signature support within Bitcoin Script today, we give users time to prepare. Education can happen gradually, without panic. And users can start to migrate coins at their own pace. If we wait too long, we lose that luxury. Upgrades done under stress rarely go smoothly.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Tim Ruffing’s work lays out a possible path forward. A plan that makes use of tools Bitcoin already has. Read his <a href="https://eprint.iacr.org/2025/1307.pdf" target="_blank" rel="noopener">full paper to understand how this works in detail</a>.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>This is a guest post by Kiara Bickers from Blockstream. Opinions expressed are entirely their own and do not necessarily reflect those of BTC Inc or Bitcoin Magazine.</em><br></p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Fri, 19 Sep 2025 17:41:09 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/technical/bitcoins-quantum-risk-is-real-one-solution-might-start-with-taproot" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
