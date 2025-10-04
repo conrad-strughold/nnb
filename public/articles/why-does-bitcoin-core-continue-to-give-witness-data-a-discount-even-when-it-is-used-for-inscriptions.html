@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Why does Bitcoin Core continue to give witness data a discount even when it is used for inscriptions?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$122,399.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Why does Bitcoin Core continue to give witness data a discount even when it is used for inscriptions?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>When SegWit was introduced in 2017, the “witness discount” was justified as a way to encourage adoption and to fix signature malleability. This discount made sense when witness data was primarily signatures and spending conditions.</p>
+<p>With Taproot in 2021, the same discount applied. However, witness fields are now widely used for inscriptions, embedding large amounts of arbitrary data. This means inscription transactions pay less in fees per byte than they would if the same data was stored in OP_RETURN.</p>
+<p>My questions:</p>
+<ol>
+<li>Why is the witness discount still applied to inscription data, given that it is not signatures but arbitrary payloads?</li>
+<li>Was the possibility of abuse for data storage considered when SegWit and Taproot were designed?</li>
+<li>Would removing or adjusting the discount for non-signature witness data be technically feasible, and if so, why has it not been proposed or merged?</li>
+<li>How do current Core defaults ensure that block space remains prioritized for monetary transactions rather than subsidized storage?</li>
+</ol>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>The witness discount remains because changing it would require a contentious hard fork. The Bitcoin Core development philosophy is generally conservative; they don't alter fundamental economic rules like block space pricing lightly.</p>
+<p>When SegWit was designed, the primary concern was fixing technical issues and scaling by separating witness data. The potential for it to be used for arbitrary data storage was understood by some, but considered a secondary concern. The discount was a key incentive for adoption and is now a permanent part of the protocol's economics.</p>
+<p>Removing the discount is technically feasible but politically nearly impossible. It would split the community and the network, as it would invalidate the current consensus rules that nodes follow. It's not just a default setting; it's a core rule.</p>
+<p>Ultimately, the market decides what constitutes a "monetary transaction." If someone is willing to pay the fee for a block space that includes inscribed data, then by the network's own rules, that transaction is valid and deserves inclusion. The protocol provides the rules; users provide the value.</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-10-03T10:11:44.000Z</span>
+                | <span class="meta-author">By BitcoinFanatic</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/128028/why-does-bitcoin-core-continue-to-give-witness-data-a-discount-even-when-it-is-u" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
