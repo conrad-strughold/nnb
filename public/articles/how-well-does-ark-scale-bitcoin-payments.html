@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - How well does Ark scale bitcoin payments?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$109,778.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>How well does Ark scale bitcoin payments?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I am not an expert here but it is my understanding that making a payment with ark means at least creating a vtxo  - potentially destroying several. If I understand correctly the liquidity requirements of the ASP hold until vtxo  expiry and not until it is spent?</p>
+<ul>
+<li>How much liquidity - for how long -does the ASP have to provide to execute this?</li>
+<li>What happens if two ark users send back and forth small payments?</li>
+<li>Are the liquidity requirements of the asp proportional to the payment volume of its users within the supported timelock of the vtxos?</li>
+</ul>
+<p>What I am really asking is: How far can Ark - when being used for Bitcoin payments - scale?</p>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p><strong>Disclaimer</strong>: <em>The following answer was created with the help of an LLM - though I checked and verfied it to the best of my ability</em></p>
+<h1>How Ark spending actually pulls on ASP liquidity</h1>
+<ul>
+<li>In each <strong>round</strong>, users “spend” one or more vTXOs and receive new vTXOs (recipient + usually a change vTXO). Conceptually this mirrors UTXOs on L1: inputs are destroyed, outputs are created. (<a href="https://ark-protocol.org/intro/vtxos/index.html" rel="nofollow noreferrer" title="VTXOs :: Ark Protocol">Ark Protocol</a>)</li>
+<li><strong>Who fronts the outputs?</strong> The ASP does. Users <em>forfeit</em> their input vTXOs to the ASP, and the ASP “fronts” the on-chain liquidity that backs all the <em>new</em> vTXOs created in that round. The ASP can only <strong>unlock</strong> (reclaim) that forfeited value <strong>later</strong>, when the forfeited vTXOs expire. Think of it as the ASP advancing short-term working capital and receiving IOUs that mature at the vTXO expiry. (<a href="https://ark-protocol.org/intro/connectors/index.html" rel="nofollow noreferrer" title="Connectors :: Ark Protocol">Ark Protocol</a>)</li>
+<li><strong>Expiry / duration:</strong> vTXOs have an <strong>absolute timelock</strong>. In the reference docs it’s shown as <strong>14 days</strong>; some write-ups (and implementations) discuss <strong>~4 weeks</strong>. The mechanism is the same: before expiry, users must roll their vTXOs into a new round; after expiry, the ASP can sweep the funds, recovering the fronted liquidity. So the ASP’s liquidity is tied up roughly <strong>until the expiry window elapses</strong> for the inputs of that round. (<a href="https://ark-protocol.org/intro/vtxos/index.html" rel="nofollow noreferrer" title="VTXOs :: Ark Protocol">Ark Protocol</a>)</li>
+</ul>
+<h1>“At least one vTXO created, potentially destroying several”—what that implies</h1>
+<p>Yes. A single payment typically:</p>
+<ol>
+<li>consumes one or more input vTXOs, and</li>
+<li>creates at least <strong>two</strong> outputs: the receiver’s vTXO and the <strong>sender’s change vTXO</strong> (unless it’s perfectly exact).
+Because the ASP must fund <strong>every new output</strong> in the round (including change), ASP liquidity consumed per payment can be <strong>larger than the payment amount</strong>. This “change amplification” is a big deal. (<a href="https://blog.arklabs.xyz/liquidity-requirements/" rel="nofollow noreferrer" title="Understanding Ark Liquidity Requirements">Blog - Ark Labs</a>)</li>
+</ol>
+<h1>How much liquidity—and for how long?</h1>
+<p>A practical mental model:</p>
+<ul>
+<li>Define <strong>M</strong> = total user funds “inside this ASP’s Ark” (sum of users’ vTXOs).</li>
+<li>Define <strong>V</strong> = “velocity” over the expiry window = total value <em>spent</em> by users within that window divided by <strong>M</strong>.</li>
+<li><strong>First-order demand</strong> on ASP working capital across a window is on the order of <strong>V × M</strong> (the value of outputs the ASP must front for internal transfers during that window).</li>
+<li><strong>But</strong> because most payments create a receiver output <strong>and</strong> a change output, the ASP fronts <em>more</em> than just the transferred amount. With naïve splitting, the multiplier can be several-fold. Concrete simulations from Ark Labs show cases where spending ~0.33 BTC of a 1 BTC balance required <strong>2.67 BTC</strong> of ASP liquidity (≈8× the actually traded amount) — and with many small splits it got worse (≈25×). That’s the “change amplification” effect. (<a href="https://blog.arklabs.xyz/liquidity-requirements/" rel="nofollow noreferrer" title="Understanding Ark Liquidity Requirements">Blog - Ark Labs</a>)</li>
+<li><strong>Tenor:</strong> that fronted liquidity is tied up <strong>until the forfeited inputs expire</strong> (the vTXO expiry, e.g., ~14 days / ~4 weeks), at which point the ASP can reclaim it. So the ASP’s “peak liquidity” is the <em>maximum</em> net value of new outputs it has created <strong>minus</strong> the value of forfeits that have already matured—measured over the expiry horizon. (<a href="https://ark-protocol.org/intro/vtxos/index.html" rel="nofollow noreferrer" title="VTXOs :: Ark Protocol">Ark Protocol</a>)</li>
+</ul>
+<h1>What if two Ark users ping-pong lots of tiny payments?</h1>
+<ul>
+<li>Each tiny payment tends to create <strong>two</strong> new outputs (receiver + change). If they ping-pong <em>within the same expiry window</em>, the ASP keeps <strong>fronting</strong> more outputs while the forfeited inputs from previous rounds <strong>haven’t matured yet</strong>.</li>
+<li>Net effect: the ASP’s outstanding working capital keeps climbing roughly with the <em>number of times those coins circulate during the window</em>, <strong>multiplied</strong> by the change-amplification factor from poor denomination/coin-selection. That’s exactly the pathological case highlighted in the liquidity write-up. (<a href="https://blog.arklabs.xyz/liquidity-requirements/" rel="nofollow noreferrer" title="Understanding Ark Liquidity Requirements">Blog - Ark Labs</a>)</li>
+</ul>
+<h1>Is ASP liquidity proportional to user payment volume?</h1>
+<ul>
+<li><p><strong>Roughly, yes—but with important caveats.</strong></p>
+<ul>
+<li>Proportional to <strong>payment volume over the expiry window</strong> (that’s the V×M intuition).</li>
+<li><strong>Super-linear</strong> when payments fragment balances and produce lots of change outputs (amplification factor).</li>
+<li>Bounded in time by the <strong>expiry</strong>: once inputs roll past expiry, the ASP’s forfeits mature and liquidity recycles. (<a href="https://blog.arklabs.xyz/liquidity-requirements/" rel="nofollow noreferrer" title="Understanding Ark Liquidity Requirements">Blog - Ark Labs</a>)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>TL;DR answer</h2>
+<ul>
+<li><strong>How much liquidity and for how long?</strong> Enough to cover the <strong>sum of all new outputs</strong> created in rounds (receiver + change) across the expiry window, until forfeited inputs <strong>expire</strong> and can be swept by the ASP. Tenor ≈ the <strong>vTXO expiry</strong> (e.g., ~14 days or ~4 weeks, depending on policy/implementation). (<a href="https://ark-protocol.org/intro/vtxos/index.html" rel="nofollow noreferrer" title="VTXOs :: Ark Protocol">Ark Protocol</a>)</li>
+<li><strong>What if two users send back and forth small payments?</strong> Liquidity requirements can blow up because each tiny payment creates multiple outputs; the ASP keeps fronting outputs while forfeits are unspendable. This can require <strong>multiples of the actually traded value</strong> within the window. (<a href="https://blog.arklabs.xyz/liquidity-requirements/" rel="nofollow noreferrer" title="Understanding Ark Liquidity Requirements">Blog - Ark Labs</a>)</li>
+<li><strong>Are requirements proportional to payment volume within the vTXO timelock?</strong> <strong>Approximately proportional</strong> to volume over the window (<strong>velocity × total user funds</strong>), but <strong>amplified</strong> by change/fragmentation; good denomination and policies can bring it closer to linear. (<a href="https://blog.arklabs.xyz/liquidity-requirements/" rel="nofollow noreferrer" title="Understanding Ark Liquidity Requirements">Blog - Ark Labs</a>)</li>
+</ul>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-10-23T07:07:54.000Z</span>
+                | <span class="meta-author">By Rene Pickhardt</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/128113/how-well-does-ark-scale-bitcoin-payments" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
