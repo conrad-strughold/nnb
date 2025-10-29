@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - btcrecover create-address-db: inconsistent Bitcoin address retrieval</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$112,549.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>btcrecover create-address-db: inconsistent Bitcoin address retrieval</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I'm trying to create a Bitcoin address database using btcrecover and Google BigQuery data. While the Ethereum database works fine, my Bitcoin database fails to return any addresses, even though test addresses and random addresses from the blockchain exist in the dataset.</p>
+<p>Here’s what I tried:</p>
+<p>1.Created the database using:</p>
+<pre><code>python create-address-db.py --inputlistfile C:\Users\test\Desktop\btc-addresses-db-20250816 --dbfilename btc-addresses-db-20250816.db --dblength 31
+</code></pre>
+<p>2.Checked addresses using:</p>
+<pre><code>python check-address-db.py --dbfilename btc-addresses-db-20250816.db --checkaddresslist ./addressdb-checklists/BTC.txt
+
+python check-address-db.py --dbfilename btc-addresses-db-20250816.db --checkaddresses bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+</code></pre>
+<p>Observations:</p>
+<ul>
+<li>Ethereum DB works with --dblength 29.</li>
+<li>When I create the Bitcoin DB with --dblength 31 using the full dataset (~2000 BigQuery files, 16 GB DB), it finds no addresses.</li>
+<li>A smaller subset (4 BigQuery files out of 2000) works correctly, with both --dblength 27 (1GB DB) and --dblength 31 (16GB DB).</li>
+<li>Splitting the dataset into halves or subsets leads to inconsistent results: some address ranges are found, others are not, even within the same database.</li>
+<li>Tried multiple Python versions (3.9–3.13) and btcrecover versions (1.6.0, 1.12.0, master) with the same results.</li>
+<li>64-bit system, all dependencies installed, Rust installed, virtual environments used.</li>
+<li>Official Bitcoin database from the author (<a href="https://cryptoguide.tips/btcrecover-addressdbs/" rel="nofollow noreferrer">addresses-BTC-2011-to-2021-03-31.zip</a>) works correctly.</li>
+</ul>
+<p>Example of inconsistent results from subsets:</p>
+<div class="s-table-container"><table class="s-table">
+<thead>
+<tr>
+<th>File Range</th>
+<th>Addresses Found?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>500–520</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>500–599</td>
+<td>No</td>
+</tr>
+<tr>
+<td>500–570</td>
+<td>No</td>
+</tr>
+<tr>
+<td>550–570</td>
+<td>No</td>
+</tr>
+<tr>
+<td>550–559</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>560–569</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>570–579</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>563–579</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table></div>
+<p>As you can see, some databases successfully returned addresses, while others did not. Initially, I thought the problem might be caused by file 570. However, in a subsequent test, the database that included file 570 worked correctly.</p>
+<p>In another test, I created a database from files 550–570 and tested addresses from each file as samples for this database. The results were as follows:</p>
+<ul>
+<li>Sample address from file 570: found</li>
+<li>Sample address from file 553: not found</li>
+<li>Sample address from file 563: found</li>
+</ul>
+<p>So even within the same database, some addresses were successfully retrieved while others were not. This pattern suggests that the issue is not simply with a single file, but might be related to how certain addresses are indexed or stored in the database.</p>
+<p>Question:
+Has anyone experienced similar issues creating large Bitcoin databases with btcrecover? Could this be a dataset issue, a bug in btcrecover, or a problem with how addresses are indexed when --dblength is large?</p>
+    </body></html></div>
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No answers available yet.</p>
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-10-28T22:12:26.000Z</span>
+                | <span class="meta-author">By sajad</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/129143/btcrecover-create-address-db-inconsistent-bitcoin-address-retrieval" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
