@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Core wins rare praise as independent audit finds no serious flaws</title>
+    <meta name="description" content="Bitcoin Core’s first independent audit found no serious vulnerabilities, with reviewers praising the project’s security, testing depth and overall cod">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$91,667.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Core wins rare praise as independent audit finds no serious flaws</h2>
+            
+            
+            
+            <html><head></head><body><p data-ct-non-breakable="undefined">Bitcoin Core has cleared its first-ever third-party security audit, with results confirming that the software securing the world’s largest decentralized network is highly mature. </p><p>The review, conducted by French security firm Quarkslab and commissioned by OSTIF on behalf of Brink, examined the project’s most sensitive components, particularly the <a href="https://cointelegraph.com/learn/articles/what-are-peer-to-peer-p2p-blockchain-networks-and-how-do-they-work" rel="" target="_self" title="https://cointelegraph.com/learn/articles/what-are-peer-to-peer-p2p-blockchain-networks-and-how-do-they-work">peer-to-peer (P2P)</a> layer and block validation logic, over a 104-day period between May and September.</p><p>According to the <a href="https://github.com/quarkslab/public-reports/blob/main/Reports/Bitcoin-Core_25-05-2133-REP_v1.3.pdf" rel="noopener nofollow" target="_blank">report</a>, Bitcoin Core’s codebase is “the most mature and well-tested,” the auditors evaluated, despite its size, which includes more than 200,000 lines of C++ and over 1,200 tests already in place. </p><p>The team found no high- or medium-severity vulnerabilities, identifying only two low-severity issues and a series of improvement suggestions related mostly to fuzzing harnesses and test coverage. None of the findings had any impact on consensus, denial-of-service resilience or transaction validation.</p><figure>    <img alt="" src="https://s3.cointelegraph.com/uploads/2025-11/019aa0c6-65e9-7303-9851-cc1c05d45d17" title=""><figcaption style="text-align: center;"><em>Bitcoin Core audit identifies only two low-severity issues. Source: Quarkslab</em></figcaption></figure><p data-ct-non-breakable="undefined"><em><strong>Related: </strong></em><a href="https://cointelegraph.com/news/institutions-lean-into-crypto-bitcoin-price-slump"><em><strong>Institutions lean into crypto despite Bitcoin price slump</strong></em></a></p><h2>Reviewers find no exploitable bugs</h2><p>The audit placed heavy emphasis on Bitcoin’s P2P networking layer, the component responsible for relaying blocks, transactions and peer discovery across roughly 125 connections per node. Reviewers reported no cases where malicious data could bypass validation or the ban mechanism designed to isolate misbehaving peers. </p><p>The team also examined the mempool logic, chain-state transitions and reorganization handling, all areas where subtle bugs could create network-wide disruptions. No exploitable pathways were identified in these areas either.</p><p data-ct-non-breakable="undefined">“No significant security issues were identified. Most recommendations focus on refining existing fuzzing harnesses to further improve their effectiveness and coverage,” the report concluded. </p><p><em><strong>Related: </strong></em><a href="https://cointelegraph.com/news/us-won-t-start-bitcoin-reserve-until-other-countries-do-mike-alfred"><em><strong>US won’t start Bitcoin reserve until other countries do</strong></em></a></p><h2>Bitcoin Core vs. Knots debate</h2><p data-ct-non-breakable="undefined">The audit comes amid the recent dispute between supporters of Bitcoin Core and Bitcoin Knots. The months-long debate, triggered by the Bitcoin Core v30 update, centers on whether non-financial data should be allowed on the blockchain, with critics warning the changes could “open the floodgate” to spam.</p><p data-ct-non-breakable="undefined">Knots supporters argue that filtering out such data is necessary to prevent illegal or unethical content from being embedded in Bitcoin’s ledger. Bitcoin Core developers, however, say imposing restrictions would harm network cohesion, confuse users and run counter to the technology’s foundational principles of openness and neutrality.</p><p>According to Galaxy Digital’s head of research, Alex Thorn, most institutional Bitcoin (<a href="/bitcoin-price" rel="/bitcoin-price" target="/bitcoin-price" title="/bitcoin-price">BTC</a>) investors <a href="https://cointelegraph.com/news/bitcoin-core-vs-knots-debate-institutional-investors-response">appear unfazed by the dispute</a>. Based on Thorn’s poll of 25 institutional clients, 46% weren’t aware of it, 36% said they didn’t care, and the remaining 18% all sided with Bitcoin Core. </p><p><em><strong>Magazine:</strong></em><a href="https://cointelegraph.com/magazine/2026-pragmatic-privacy-crypto-canton-zcash-ethereum-foundation/"><em><strong> 2026 is the year of pragmatic privacy in crypto — Canton, Zcash and more</strong></em></a></p><p data-ct-non-breakable="undefined"><br></p></body></html>
+            <div class="meta">
+                <span class="meta-source">Cointelegraph.com News</span> |
+                <span class="meta-date">Thu, 20 Nov 2025 10:39:31 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://cointelegraph.com/news/bitcoin-core-audit-confirms-highly-mature-codebase?utm_source=rss_feed&utm_medium=rss_tag_bitcoin&utm_campaign=rss_partner_inbound" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
