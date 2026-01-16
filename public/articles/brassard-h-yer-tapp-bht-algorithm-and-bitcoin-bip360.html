@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Brassard-Høyer-Tapp (BHT) Algorithm and Bitcoin (BIP360)</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$95,665.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Brassard-Høyer-Tapp (BHT) Algorithm and Bitcoin (BIP360)</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p><strong>Background</strong></p>
+<p>When thinking about quantum computing, the focus is on Shor's algorithm impacting ECC, and to a lesser extent Grover's algorithm impacting hash functions.</p>
+<p>If I understand correctly, Grover's algorithm can theoretically find a preimage with the square root of the operations of a classical computer, in other words the bits of security is cut in half (e.g. HASH160 addresses are reduced to 80 bits of security, and P2WSH addresses are reduced to 128 bits of security).</p>
+<p>Since 128 bits is secure, SHA256 still appears secure in a world with Grover's algorithm.</p>
+<p><strong>Question</strong></p>
+<p>However I learned about the Brassard-Høyer-Tapp (BHT) algorithm as well, which is relevant to finding collisions. It seems that it could reduce the collision security of SHA256 from half the bits (birthday paradox) to one third of the bits, about 85 bits, which is below typical standards.</p>
+<p>There is at least one context where a collision attack is relevant: in a collaborative multisignature scenario. In fact this scenario is what prompted P2WSH avoiding HASH160 (80 bits of collision security) and instead just use SHA256 (<a href="https://bitcoin.stackexchange.com/questions/54841/birthday-attack-on-p2sh/54847#54847">reference</a>).</p>
+<p>It's a bit of a niche issue (it seems to have been overlooked when designing P2SH) and I haven't seen mention of it in the post-quantum discussions. In fact, I wonder if the current version of proposed <a href="https://github.com/bitcoin/bips/blob/532acfb535e12174704fce5b05ee55c56888794b/bip-0360.mediawiki" rel="nofollow noreferrer">BIP 360</a> overlooks this, because the proposed P2TSH address follows BIP 173, using only 32 bytes (256 bits). But could this abstract issue warrant a larger address, like was done with P2WSH?</p>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>Grover's is related and some considerations were discussed <a href="https://bitcoin.stackexchange.com/questions/115782/post-quantum-preimage-resistance-of-hash160-addresses/115849#115849">here on Stackexchange, too</a>.</p>
+<blockquote>
+<p>We could design a black box function to break both P2PKH and P2SH (and P2WSH, etc.) addresses in 2^80 single-threaded quantum computer cycles. Assuming a clock speed on scale of GHz, this would take about 10 million years. Important to note is that splitting the work and doing it in parallel is not as beneficial as with classic computers because it would offer only a quadratic speedup (Fluhrer, S., Reassessing Grover's Algorithm). In other words, doing the work in 1 year would require building 100 trillion quantum computers because sqrt(100T) == 10M. Therefore, we can say that breaking a 160-bit hash preimage is physically possible because 10M years is a finite amount of time and less than age of the universe. However, it is still infeasible.</p>
+</blockquote>
+<p>If 2^80 is infeasible for a QC then 2^85 will be infeasible, too, assuming BHT is limited by the same square root scaling law.</p>
+<p>The other implementation of Bitcoin produced some work on this, too. In <a href="https://gitlab.com/bitcoin-cash-node/announcements/-/blob/master/2022-06-09_bitcoin_cash_pay_to_script_hash_p2sh_past_present_and_future_EN.md" rel="nofollow noreferrer">Technical Bulletin - Bitcoin Cash Pay-to-Script-Hash (P2SH): Past, Present, and Future</a> some of this was discussed. In 2023 BCH <a href="https://gitlab.com/0353F40E/p2sh32" rel="nofollow noreferrer">introduced P2SH32</a> for the same reason BTC introduced P2WSH (collision resistance). It suggested P2SH48 as the solution, but did not propose introducing it any time soon since network can't be surprised by 2^85 QC capability suddenly becoming available, and it's questionable whether it will ever be feasible.</p>
+<p>The important thing here is that capability for a collision attack CAN NOT affect addresses created before the capability became available. P2SH wasn't at risk until ASICs became advanced enough that they could find a collision in less than a day and for less than $4M/collision (2022 estimate from the CHIP).</p>
+<p>Shor and Grover are a bigger threat as those could be used to perform non-interactive attacks on addresses at rest. Successful attacks would reveal existence of capable enough QCs, and then maybe networks would need to consider 384-bit addresses.</p>
+<p>The above bulletin suggests that practical Grover's implementation would have a cost greater than the bare number of cycles implies, and references a passage from <a href="https://www.cs.sfu.ca/%7Emeamy/Papers/breakingsha.pdf" rel="nofollow noreferrer">Amy M. et. al. "Estimating the cost of generic quantum pre-image attacks on SHA-2 and SHA-3" (2016)</a>:</p>
+<blockquote>
+<p>We showed that attacking SHA-256 requires approximately 2^153.8 surface code cycles and that attacking SHA3-256 requires approximately 2^146.5 surface code cycles.
+For both SHA-256 and SHA3-256 we found that the total cost when including the classical processing increases to approximately 2^166 basic operations.
+Our estimates are by no means a lower bound, as they are based on a series of assumptions.</p>
+</blockquote>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2026-01-16T00:22:33.000Z</span>
+                | <span class="meta-author">By Tom</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/130431/brassard-h%c3%b8yer-tapp-bht-algorithm-and-bitcoin-bip360" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
