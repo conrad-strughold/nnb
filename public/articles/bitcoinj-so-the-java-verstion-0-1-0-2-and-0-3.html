@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - BitcoinJ so the JAVA verstion 0.1 0.2 and 0.3</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$87,709.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>BitcoinJ so the JAVA verstion 0.1 0.2 and 0.3</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>Does anyone know where to find the old BitCoinJ version 0.1 and 0.2 and 0.3
+But I believe 0.3 with a release date of november 25 2011 is to new because bitcoincore 0.4.0 was released with wallet encryption</p>
+<p>Why I wan't those old versions is because I want to understand how they encrypted the raw private key and how they made that visible in windows 7/8 because bitcoin 0.3.24 didn't use dumpprivkey and had no debug option
+And if/how they would handle mined btc because I have a string starting with 3C and after that 32 characters, I believe utf-8, a address starting with a 3 was operational with bip0016 in 2012 and I mined before that so that 3C would be a xml &lt; what I believe is a cyphertext and then aes-128-cbc or 256-cbc, so I would like to learn how my secret key of 16 characters fit in with that, in the period of openssl 0.9.8* I know Mike Hearn, Sipa and Schildbach where the main programmers back then
+<a href="https://github.com/bitcoinj/bitcoinj/commits/8809872a3212e12c8d71f97d68f3ccfcf6ea2a47/?after=8809872a3212e12c8d71f97d68f3ccfcf6ea2a47+104" rel="nofollow noreferrer">https://github.com/bitcoinj/bitcoinj/commits/8809872a3212e12c8d71f97d68f3ccfcf6ea2a47/?after=8809872a3212e12c8d71f97d68f3ccfcf6ea2a47+104</a></p>
+<p>even when gemini said Mike Hearn and sipa where active with p2sh back then</p>
+    </body></html></div>
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No answers available yet.</p>
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2026-01-27T01:12:41.000Z</span>
+                | <span class="meta-author">By roy</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/130450/bitcoinj-so-the-java-verstion-0-1-0-2-and-0-3" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
