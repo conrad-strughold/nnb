@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - The v2 Transport: Bitcoin P2P Traffic Goes Dark</title>
+    <meta name="description" content="Bitcoin Magazine
+
+The v2 Transport: Bitcoin P2P Traffic Goes Dark
+From The Core Issue: Learn about the v2 transport protocol upgrade from 2024 that ai">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$66,350.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>The v2 Transport: Bitcoin P2P Traffic Goes Dark</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">From The Core Issue: Learn about the v2 transport protocol upgrade from 2024 that aims to keep your nodes internet traffic private from snooping.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">For nearly 15 years, all communication between nodes on the Bitcoin network was transmitted completely in the clear, without any encryption. That changed in 2024 with the adoption of BIP 324, which introduced the “v2” <em>transport protocol </em>for communication between nodes. This new protocol features opportunistic encryption, making the traffic unreadable to passive adversaries capable of monitoring messages between nodes. Since adding support for it in Bitcoin Core 26.0, and enabling it by default in 27.0, it is now used for the majority of global Bitcoin P2P traffic.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Taking a step back, a Bitcoin node’s primary function is exchanging pieces of information that are fundamentally public: blocks in the blockchain, transactions in the mempool, and IP addresses of other Bitcoin nodes. Because this is not secret information, it is not immediately obvious why encrypting it along the way would be beneficial. But on closer inspection, there is plenty of <em>metadata</em> associated with Bitcoin traffic that is worth protecting. If a large-scale adversary can see which transaction is relayed when and by which IP address, they can infer which node was the likely originator – and thus creator – of a transaction. In addition to that, seeing the connections between nodes themselves may reveal who certain nodes belong to, allowing nodes of specific companies or miners to be targeted for attacks. And for some users running nodes in oppressive regimes, it may be undesirable to reveal they are running a Bitcoin node at all.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In the P2P protocol as designed by Satoshi, nodes connect to each other, and over those connections send messages like <strong>inv</strong> (“I have new blocks/transactions for you”), <strong>getdata</strong> (“give me that block/transaction”), <strong>addr</strong> (“here is an IP address of another node”), and many others. The set of messages and features they support has changed significantly over time, including support for early SPV clients with BIP 37, compact block relay with BIP 152, support for Tor v3 addresses with BIP 155, and dozens of others. But the way those messages are encoded into bytes that are sent over the wire – what we call the transport protocol – had essentially never changed since 2009. The only exception to this was the introduction of checksums to the protocol in May 2010. BIP 324 was the first change of this nature since then.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Note that despite being a rather fundamental change to what can be described as part of the “Bitcoin protocol”, it is entirely optional. It is not a consensus change, and did not need any coordination or activation mechanism. It is simply used between individual nodes that support it, but when a BIP 324 supporting node talks to another one that does not, they fall back to speaking the old (“v1”) transport protocol. This is how, without much fanfare not two years after the release of client software that enables it by default, the majority of communication between Bitcoin nodes wound up using the encrypted v2 transport protocol.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The idea of encrypting Bitcoin traffic was not new. Back in 2016, Bitcoin Core developer Jonas Schnelli proposed BIP 151, which would allow upgrading connections to switch them to an encrypted mode. The proposal did not make it far, and since that approach couldn’t hide the initial handshake between two nodes from prying eyes, BIP 324 was proposed in 2019 to instead revamp the transport protocol entirely. This more modern approach instead introduced an entirely new class of connections that are encrypted from the start. Progress on it accelerated when it was picked up by Dhruv Mehta in 2021, and together with Tim Ruffing and myself, turned into a full proposal that included a few new features like a fully pseudorandom bytestream, affordances for traffic shaping, and optional extensions. We announced it on the bitcoin-dev mailing list in 2022, and after receiving several comments, implemented it over the course of 2022 and 2023. The full feature was merged in Bitcoin Core in 2023. After further testing, it was enabled by default for all connections (with supporting peers) in 2024.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The fully pseudorandom bytestream feature offered by the new protocol means it exhibits no recognizable patterns in the bytes sent over the wire. For example TLS, used for communication with secure websites (“https://” URLs), encrypts the contents of websites, but not the fact that TLS is being used, or (until 2020 with Encrypted Client Hello, “ECH”) which hostname the site was being requested from. The v1 transport used before BIP 324 sent a very recognizable fixed first 16 bytes over every connection, making it easy for censoring firewalls to block any connection with that pattern. In contrast, the v2 transport has no such pattern at all; every byte is uniformly random from the perspective of a third party, and thus completely unpredictable. Any entity that intends to block Bitcoin traffic using it would need to block anything that looks random, which might be politically more difficult than just narrowly blocking Bitcoin-like traffic. The hardest part of making the entire protocol pseudorandom was the fact that during the handshake – before encryption is set up – the nodes need to exchange public keys, and public keys are not just random bytes. Only thanks to a fairly modern cryptographic technique called Elligator (2013), and specifically a variant called ElligatorSwift (2022) that allows encoding elliptic curve public keys in random-looking bytes, was it possible to avoid even this pattern.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">It is worth pointing out that due to the public nature of the Bitcoin network, there are significant limitations to the privacy protections that an encrypted transport layer between nodes can offer. Bitcoin nodes do not place trust in their peers, and thus do not really care who they are talking to. Bitcoin nodes do not have known public keys, which is why the encryption offered by the v2 transport is opportunistic and non-authenticated; both sides just make up a new temporary key for each connection. This means it is possible for active adversaries (e.g., your ISP) to perform a man-in-the-middle attack: talk v2 to both sides of the connection, but decrypt and re-encrypt all communication flowing between them, still allowing spying, and possibly tampering or censoring while doing so. However, the point is that this is significantly more expensive to do at scale, compared to simply inspecting unencrypted individual messages like is possible in the v1 transport. And of course, since most Bitcoin connections are arbitrarily made to random untrusted nodes, an adversary who wants to spy at scale on other nodes always has the option of just spinning up a large amount of nodes themselves, and getting a large portion of the network to connect to them. Like man-in-the-middle attacks, this is more expensive to do at scale than simply inspecting v1 packets.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">BIP 324 is thus best seen not as a privacy improvement in and of itself, but as part of a larger effort of raising costs for large-scale surveillance of the Bitcoin network, without relying on alternate networks like Tor or I2P, which have their own trade-offs like increased latency and denial-of-service risk that would not be acceptable for all nodes on the network. BIP 324 also offers a number of features that are as of yet unimplemented, like traffic shaping to avoid revealing information about transactions being relayed just through observing the sizes of encrypted packets. Hopefully, those will be taken advantage of further in the coming years.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://store.bitcoinmagazine.com/collections/drop-001"><strong>Don’t miss your chance to own&nbsp;<em>The Core Issue</em></strong>&nbsp;</a>— featuring articles written by many Core Developers explaining the projects they work on themselves!</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><em>This piece is the Letter from the Editor featured in the latest&nbsp;<a href="https://store.bitcoinmagazine.com/collections/magazines">Print&nbsp;</a>edition of Bitcoin Magazine, The Core Issue. We’re sharing it here as an early look at the ideas explored throughout the full issue.</em></p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Thu, 05 Feb 2026 19:16:34 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/print/the-v2-transport-bitcoin-p2p-traffic-goes-dark" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
