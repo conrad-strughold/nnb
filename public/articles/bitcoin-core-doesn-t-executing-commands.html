@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - bitcoin core doesn't executing commands</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$66,967.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>bitcoin core doesn't executing commands</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p><a href="https://i.sstatic.net/JpjrcZ92.png" rel="nofollow noreferrer"><img src="https://i.sstatic.net/JpjrcZ92.png" alt="enter image description here"></a>I joined the Bitcoin community early, between 2011 and 2014. Unfortunately, college took most of my time, so I couldn't continue mining and trading. I had 8–10 old wallets, many of which contained a significant amount of Bitcoin.</p>
+<p>When I attempted to recover my old laptop and PC hard drives, I managed to retrieve three of those wallets. Fortunately, they still hold balances: 1.2 BTC, 1.00 BTC, and 0.2 BTC. However, the issue is that I have been unable to access my private key files, leaving the balance stuck.</p>
+<p>now I remember my passphrase, but after executing the command, nothing happens. Only a blank line appears, and the command doesn't proceed."
+<a href="https://i.sstatic.net/Lh2g9tFd.png" rel="nofollow noreferrer"><img src="https://i.sstatic.net/Lh2g9tFd.png" alt="enter image description here"></a>
+UPDATE 02/09/2024:
+I'm entering my passphrase, but the issue is with it. When I try to unlock the wallet in the CLI, it gets unlocked but doesn't send or execute any commands. I tried creating a new wallet with the same passphrase and had the same issue. There seems to be a programming issue here, and I need to talk to the developers. Can anyone guide me on how to do that?</p>
+<p>Update 01 10/02/2025: I have the wallet backup files. I'm trying to open them with the wallet encryption passphrase. As I posted in the previous photo, I ran a command that gave no response. When I try to send funds, the software asks me to re-enter the passphrase again, which means the decryption isn't going through.</p>
+<p>So, I tried opening a fresh wallet with the same passphrase I used for my old wallets, and I had exactly the same issue. My conclusion is that the software has a problem with this specific passphrase.</p>
+<p>Please, I need a developer to fix this issue. A total of 2.4 BTC is stuck, and I can't do anything about it.</p>
+<p>Update 02 10/02/2025:</p>
+<p>I believe I have discovered a flaw in the wallet decryption system within your software. The passphrase I set for my wallet appears to work with any other wallet as well, and I am unsure of the exact extent of its functionality. This seems to be a vulnerability that requires immediate attention and resolution, as it could potentially be exploited by malicious individuals.</p>
+<p>Coincidentally, the passphrase I use for my wallets seems to have a programming flaw in the way it interacts with the system.</p>
+<p>I urge you to address this issue as soon as possible</p>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<blockquote>
+<p><strong>after executing the command, nothing happens. Only a blank line appears,</strong></p>
+</blockquote>
+<p>I think that is what is supposed to happen. It means nothing went wrong and the walletpassphrase has been set.  See where in your screen shot it says the return is "null" -- that means nothing is reported back if the command succeeds. This is a normal convention for commands, you also see this in command interpreters that follow Unix conventions.</p>
+<blockquote>
+<p><strong>and the command doesn't proceed.</strong></p>
+</blockquote>
+<p>There is nothing for the command to do further.</p>
+<p>According to <a href="https://bitcoincore.org/en/doc/0.20.0/rpc/wallet/walletpassphrase/" rel="nofollow noreferrer">https://bitcoincore.org/en/doc/0.20.0/rpc/wallet/walletpassphrase/</a></p>
+<blockquote>
+<p>Stores the wallet decryption key in memory for 'timeout' seconds.
+This is needed prior to performing transactions related to private keys such as sending bitcoins</p>
+</blockquote>
+<p>So it prepares the way for further commands to succeed.</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2025-02-07T13:05:26.000Z</span>
+                | <span class="meta-author">By Amer Emad</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/125573/bitcoin-core-doesnt-executing-commands" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
