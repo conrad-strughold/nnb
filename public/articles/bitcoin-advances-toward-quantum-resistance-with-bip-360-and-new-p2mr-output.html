@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Advances Toward Quantum Resistance with BIP 360 and New P2MR Output</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Advances Toward Quantum Resistance with BIP 360 and New P2MR Output
+BIP 360, a proposal to make Bitcoin more resistant to fu">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$65,776.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Advances Toward Quantum Resistance with BIP 360 and New P2MR Output</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">BIP 360, a proposal to make Bitcoin more resistant to future quantum computing threats, has been updated and merged into the official BIP GitHub repository.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">BIP 360, a proposal aimed at preparing Bitcoin for future computing threats, has been updated and merged into the official Bitcoin Improvement Proposal (BIP) GitHub repository, marking a new step in efforts to strengthen the network against <a href="https://bitcoinmagazine.com/news/jefferies-bitcoin-over-quantum-computing">emerging cryptographic and quantum computing risks</a>.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The proposal introduces a new Bitcoin output type called Pay-to-Merkle-Root (P2MR), designed to support quantum-resistant script tree functionality while maintaining compatibility with existing Tapscript infrastructure, according to a note seen by <em>Bitcoin Magazine.</em></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Supporters of BIP 360 describe the proposal as an early move toward <a href="https://bitcoinmagazine.com/news/strategy-mstr-will-lead-bitcoin-effort">quantum-hardening Bitcoin</a> at the protocol level.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A merge into the BIP repository does not signal endorsement or future activation. BIPs are merged as part of the open process for documenting or discussing potential upgrades.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">BIP 360: Pay to Merkle Root<br><br>was published <a href="https://t.co/GXkmTHnDoL">pic.twitter.com/GXkmTHnDoL</a></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Quantum computing has raised concerns across the cryptography and cybersecurity fields because sufficiently advanced machines may be able to break widely used cryptographic systems. In Bitcoin’s case, the threat centers on the possibility that computers could derive private keys from exposed public keys, which could lead to stolen funds.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">While all Bitcoin addresses become vulnerable when spending reveals a public key, some output types carry greater exposure.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Taproot addresses, along with Pay-to-Public-Key (P2PK) outputs and reused addresses, are considered more at risk because public keys are visible on-chain.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">P2MR is conceptually similar to Taproot but removes a key weakness. Taproot includes a key-path spending method that can expose public keys. The proposed P2MR output type disables that key-path spend and commits only to the script path, reducing the surface area for potential attacks.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The BIP’s authors say the proposal is meant to serve as a foundation for later upgrades that could introduce post-quantum signature schemes into Bitcoin through follow-on soft forks. The note points to algorithms such as ML-DSA (Dilithium) and SLH-DSA (SPHINCS+) as possible candidates.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“Ultimately, the introduction of BIP 360 and P2MR is a first step in a larger set of quantum-resistance proposals that will be necessary to quantum-harden Bitcoin,” said co-author Hunter Beast, a Bitcoin developer and senior protocol engineer at MARA.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Beast added that the team is also exploring proposals to address vulnerable coins that are unlikely to move, including long-dormant holdings.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The latest update adds Isabel Foxen Duke as a co-author alongside Beast and cryptographic researcher Ethan Heilman.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Duke, a technical communications specialist, said the goal was to make the proposal understandable beyond the developer community.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“Given the sensitivity of the subject matter, we aimed to ensure the BIP was written in a manner that was clear and understandable to the general public,” Duke said.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The proposal arrives as governments and major technology firms <a href="https://www.sec.gov/files/cft-written-input-daniel-bruno-corvelo-costa-090325.pdf" target="_blank" rel="noopener">increase investment</a> in post-quantum cryptography.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The U.S. National Security Agency’s CNSA 2.0 <a href="https://media.defense.gov/2025/May/30/2003728741/-1/-1/0/CSA_CNSA_2.0_ALGORITHMS.PDF" target="_blank" rel="noopener">framework</a> calls for quantum-safe systems by 2030, while the National Institute of Standards and Technology plans to phase out elliptic curve cryptography in federal systems in the mid-2030s.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Supporters argue that BIP 360 aligns Bitcoin with a broader shift toward quantum-safe security standards, positioning the network to adapt as computing capabilities advance.</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Thu, 12 Feb 2026 16:58:15 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/bitcoin-advances-toward-quantum-resistance" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
