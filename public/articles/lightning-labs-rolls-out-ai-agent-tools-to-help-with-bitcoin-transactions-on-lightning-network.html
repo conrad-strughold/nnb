@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network
+Lightning Labs released a new toolkit">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$68,887.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Lightning Labs Rolls Out AI Agent Tools to Help With Bitcoin Transactions on Lightning Network</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Lightning Labs released a new toolkit that enables AI agents to operate directly on the Bitcoin Lightning Network.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://bitcoinmagazine.com/tags/lightning-labs">Lightning Labs</a> has released a new open-source toolkit designed to allow AI agents to operate directly on the Bitcoin Lightning Network, providing autonomous systems with a native way to make payments and access services.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The company <a href="https://lightning.engineering/posts/2026-02-11-ln-agent-tools/" target="_blank" rel="noopener">says</a> the tools address a key gap in the emerging AI economy: enabling agents to transact without human intervention.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Michael Levin, Lightning Labs’ Head of Product Growth, explained that the toolkit allows AI systems to run a Lightning node, pay for services, and host paid endpoints without needing identity verification, API keys, or traditional registration.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The repository includes seven modular features, covering tasks such as node management, key isolation, scoped credentials, L402-based payments, paid endpoint hosting, and querying the state of a node.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A central feature of the release is lnget, a command-line HTTP client that works with the L402 payment standard. L402 is based on the internet’s HTTP 402 “Payment Required” status code. Instead of requiring a login or API key, an L402-enabled server responds to a request with a Lightning invoice.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">lnget automatically reads the invoice, pays it through a connected Lightning backend, and retrieves cryptographic proof of payment. The agent can then access the requested resource, and subsequent requests reuse cached credentials.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The tools support several <a href="https://bitcoinmagazine.com/guides/how-does-the-lightning-network-work">Lightning</a> backends. Users can connect directly to a local lnd node via gRPC, use Lightning Node Connect for encrypted tunnel access, or experiment with an embedded Neutrino light wallet.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">This flexibility allows developers to experiment without running a full Lightning node, while maintaining compatibility with production setups.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Lightning Labs frames the launch as a step toward a “machine-payable web.” Traditional financial systems such as credit cards or bank accounts do not work well for autonomous agents, which need instant, programmatic payments often at very small values.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">&nbsp;The combination of lnget on the client side and Lightning Labs’ <a href="https://bitcoinmagazine.com/technical/tradeoffs-of-bitcoin-lightning-implementations">Aperture</a> reverse proxy on the server side enables a full commerce loop: one agent can host a paid service, and another can consume it, with Lightning handling the payment behind the scenes.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The toolkit emphasizes security. Lightning Labs recommends using LND remote signer architecture, which separates private key storage from node operations. The agent can interact with the node without ever directly accessing private keys.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Developers can also use scoped credentials called macaroons, which grant limited permissions such as pay-only, invoice-only, or read-only, reducing risk while allowing agents to transact safely.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Lightning Labs’ release comes as broader efforts to enable AI payments gain traction.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Coinbase recently <a href="https://www.coinbase.com/developer-platform/discover/launches/agentic-wallets" target="_blank" rel="noopener">unveiled</a> Agentic Wallets, allowing agents to hold funds, make payments, and trade tokens using the x402 protocol, while Stripe has previewed machine payments for USDC.</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Fri, 13 Feb 2026 16:49:58 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/lightning-labs-rolls-out-ai-agent-tools" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
