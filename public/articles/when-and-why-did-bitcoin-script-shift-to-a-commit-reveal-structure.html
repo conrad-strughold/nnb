@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - When — and why — did Bitcoin Script shift to a commit–reveal structure?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$69,652.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>When — and why — did Bitcoin Script shift to a commit–reveal structure?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>Re-reading the whitepaper, Section 2 describes ownership as transferring coins directly to the next owner's public key — which maps to P2PK. That's the last standard type where the full spending condition is visible in the output.</p>
+<p>Every format since then does the reverse: commit to a hash, reveal the preimage at spend time. P2PKH started it — hides the pubkey behind a hash, revealing it only at spend time. P2SH, P2WSH, and eventually Taproot all extend the same logic, with Taproot pushing it furthest by hiding an entire Merkle tree of scripts.</p>
+<p>Was this a deliberate design direction, or did each upgrade respond to its own pressures independently? Is there a mailing list thread or BIP discussion where this pattern is explicitly articulated?</p>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>There's a key difference between P2PKH and P2SH (and SegWit, Taproot).
+P2PKH is still using the "bare" Script. It is user-implemented commit-reveal, not a modification of the Script VM system. P2PKH was there right from the start (first P2PKH UTXO appeared on Jan 16 2009): <a href="https://bitcoin.stackexchange.com/questions/73563/how-did-pay-to-pubkey-hash-come-about-what-is-its-history">How did pay-to-pubkey hash come about? What is its history?</a></p>
+<p>Looks like intention was just to reduce the size of addresses, <a href="https://satoshi.nakamotoinstitute.org/posts/bitcointalk/threads/134/" rel="nofollow noreferrer">quoting Satoshi</a>:</p>
+<blockquote>
+<p>To make Bitcoin Addresses short, they are a hash of the public key, not the public key itself.  An attacker would only have to break the hash function, not ECDSA.</p>
+</blockquote>
+<p>It's interesting that nobody in that correspondence mentioned post-quantum security, and they seemed to be more concerned about breaking 160-bit hash with classical attacks. Turns out, even 160-bit P2PKH addresses are probably safe at rest: <a href="https://bitcoin.stackexchange.com/questions/115782/post-quantum-preimage-resistance-of-hash160-addresses">Post-quantum preimage resistance of HASH160 addresses</a> and collision is not really a problem when sole owner of an address would be holding both pubkeys. Collision resistance matters for <a href="https://gitlab.com/bitcoin-cash-node/announcements/-/blob/master/2022-06-09_bitcoin_cash_pay_to_script_hash_p2sh_past_present_and_future_EN.md#322-plausibility-of-a-collision-attack" rel="nofollow noreferrer">multi-party P2SH addresses</a>:</p>
+<blockquote>
+<p>If you are agreeing to lock up funds with somebody else, and they control what public key to use, you are susceptible to collision attacks.</p>
+</blockquote>
+<hr>
+<p>P2SH and others are consensus-implemented commit-reveals which modify Script evaluation. P2SH execution has 2 stages: script authentication (1st VM run: it's just a hashlock in that context) and execution (2nd VM run: consensus "hacks" the VM state to set up the redeem script execution context). More on this <a href="https://gitlab.com/bitcoin-cash-node/announcements/-/blob/master/2022-06-09_bitcoin_cash_pay_to_script_hash_p2sh_past_present_and_future_EN.md" rel="nofollow noreferrer">here.</a></p>
+<p>Why did things go this way? Reading P2SH proposal (<a href="https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki#user-content-Motivation" rel="nofollow noreferrer">BIP-0016</a>) we can see that main motivation was simplifying UX when funding contracts.</p>
+<blockquote>
+<p>The purpose of pay-to-script-hash is to move the responsibility for supplying the conditions to redeem a transaction from the sender of the funds to the redeemer.</p>
+<p>The benefit is allowing a sender to fund any arbitrary transaction, no matter how complicated, using a fixed-length 20-byte hash that is short enough to scan from a QR code or easily copied and pasted.</p>
+<p>...</p>
+<p>The author believes that this BIP will minimize the changes needed to all of the supporting infrastructure that has already been created to send funds to a base58-encoded-20-byte bitcoin addresses, allowing merchants and exchanges and other software to start supporting multisignature transactions sooner.</p>
+</blockquote>
+<hr>
+<p>Since then, Bitcoin (BTC) locked in the "thou shall not hard fork" upgrade philosophy, which heavily influenced the design of later upgrades - where they all had to be designed as soft forks, leading to VM-ception created by SegWit and Taproot.</p>
+<p>It's interesting to compare Script evolution with its forked sibling (Bitcoin Cash, BCH), which upgrades through hard forks and <a href="https://bitcoin.stackexchange.com/questions/41906/any-innovations-in-altcoin-tech-for-bitcoin-s-script-language/115856#115856">has since introduced</a> "check signature from stack", TX introspection opcodes, persistent contract state (through native tokens), VM loops, functions, etc. which enabled public "anyonecanspend" contracts: instead of requiring a signature, the contract requires the spender to construct the TX in a particular way that satisfies the contract requirements.</p>
+<p>Turns out, P2SH complicates these, because P2SH contracts are secret until spent, which conflicts with the "public use" nature of contracts like DEX AMM UTXOs etc. because they become harder to discover. They need to either use a constant address, or they need to announce contract parameters in some OP_RETURN, so spenders can reconstruct the redeem script.</p>
+<p>Because of this, <a href="https://upgradespecs.bitcoincashnode.org/2026-05-15-upgrade/" rel="nofollow noreferrer">the May 2026 upgrade</a> will be removing "standardness" relay rules, so such contracts can be made as "bare" pay-to-script instead of P2SH.</p>
+<p>P2S can work well today because the UX for DeFi applications is different from the old "send to address". With dapps you don't pay to an address. Typically, you access some frontend which finds correct UTXOs and constructs correct outputs for the user, and the user signs just his input through WalletConnect or similar.</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2026-03-12T05:46:44.000Z</span>
+                | <span class="meta-author">By Aaron Zhang</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/130580/when-and-why-did-bitcoin-script-shift-to-a-commit-reveal-structure" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
