@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - `bitcoin-cli importdescriptors` returns "Internal addresses should not have a label" when they do not have a label</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$71,402.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>`bitcoin-cli importdescriptors` returns "Internal addresses should not have a label" when they do not have a label</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>Using bitcoin core v29.2 I use <code>importdescriptors</code> like this in a POST request:</p>
+<pre><code>http://user:password@localhost:48332/wallet/FullyNoded-3f892a938a83d0a79b37415718c0961bbd2dd368f7cb4fa55a4a6de4f2d1d9da
+request: ["id": "4305A6A4-212B-4A4E-8BC9-9449A0BD9B98", "method": "importdescriptors", "params": ["requests": [["desc": "tr(025650b14f8625b1904178493c1622ff4c93686fee8477484af0845c8b2cd9ea5f,and_v(v:multi_a(1,[96d7aac2/48h/1h/0h/3h]tpubDEezkCUbL6Ej2Z54Vrb7nAveezdQdcuY2bDuekM6EPCmEno5pKX2Qv2c9CYGwbfMNDr4QQsWQr8LMj1pNMhEiXUfVzAvqcsGkVT8cpqgEUH/0/0,[fc909fda/48h/1h/0h/3h]tpubDFhkGDGS53dvC7EcRu4bXsyXuBXN6PnVLvTyuvBJop7MceUBsSonGGE98LrqyQGd7ZMebEi2FC8Yqsdd9irs64sReNWtMSJXf8jaMb292t8/0/0),after(1769616990)))#qr3jf3qm", "internal": false, "timestamp": 1769617431, "active": false, "label": "1 of 2", "next_index": 0], ["next_index": 3, "active": true, "internal": false, "desc": "tr(tpubD6NzVbkrYhZ4X5sB74SbziP1KhKZjxkSAywqaU1uJomgKPBb9HPtRkz6M6ZPyH7Ute5WfEexc4bcvYT28VtnZ9FoZx8UMtRZpVQCYjKVxJj,multi_a(1,[96d7aac2/48h/1h/0h/3h]tpubDEezkCUbL6Ej2Z54Vrb7nAveezdQdcuY2bDuekM6EPCmEno5pKX2Qv2c9CYGwbfMNDr4QQsWQr8LMj1pNMhEiXUfVzAvqcsGkVT8cpqgEUH/0/*,[fc909fda/48h/1h/0h/3h]tpubDFhkGDGS53dvC7EcRu4bXsyXuBXN6PnVLvTyuvBJop7MceUBsSonGGE98LrqyQGd7ZMebEi2FC8Yqsdd9irs64sReNWtMSJXf8jaMb292t8/0/*))#wnm4mguh", "range": [0, 1002], "timestamp": 1769617431], ["timestamp": 1769617431, "active": true, "next_index": 0, "desc": "tr(tpubD6NzVbkrYhZ4X5sB74SbziP1KhKZjxkSAywqaU1uJomgKPBb9HPtRkz6M6ZPyH7Ute5WfEexc4bcvYT28VtnZ9FoZx8UMtRZpVQCYjKVxJj,multi_a(1,[96d7aac2/48h/1h/0h/3h]tpubDEezkCUbL6Ej2Z54Vrb7nAveezdQdcuY2bDuekM6EPCmEno5pKX2Qv2c9CYGwbfMNDr4QQsWQr8LMj1pNMhEiXUfVzAvqcsGkVT8cpqgEUH/1/*,[fc909fda/48h/1h/0h/3h]tpubDFhkGDGS53dvC7EcRu4bXsyXuBXN6PnVLvTyuvBJop7MceUBsSonGGE98LrqyQGd7ZMebEi2FC8Yqsdd9irs64sReNWtMSJXf8jaMb292t8/1/*))#6cnm8tlj", "range": [0, 999], "internal": true]]], "jsonrpc": "1.0"]
+</code></pre>
+<p>The internal descriptor has no label field specified so the error is confusing...</p>
+<p>The above POST request returns:</p>
+<pre><code>{
+    error = "&lt;null&gt;";
+    id = "4305A6A4-212B-4A4E-8BC9-9449A0BD9B98";
+    result =     (
+                {
+            error =             {
+                code = "-8";
+                message = "Internal addresses should not have a label";
+            };
+            success = 0;
+        },
+                {
+            success = 1;
+        },
+                {
+            success = 1;
+        }
+    );
+}
+</code></pre>
+<p>Is this a bug or am I doing it wrong?</p>
+    </body></html></div>
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No answers available yet.</p>
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2026-03-12T22:04:53.000Z</span>
+                | <span class="meta-author">By Fontaine</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/130582/bitcoin-cli-importdescriptors-returns-internal-addresses-should-not-have-a-la" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
