@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Breez SDK Launches Passkey Login for Seedless Bitcoin Wallets</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Breez SDK Launches Passkey Login for Seedless Bitcoin Wallets
+Breez SDK now supports Passkey Login, allowing developers to build sel">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$71,645.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Breez SDK Launches Passkey Login for Seedless Bitcoin Wallets</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><a href="https://bitcoinmagazine.com/business/bitcoins-lightning-network-in-every-app-breez-ceos-vision">Breez</a>, a lightning service provider and Bitcoin software lab, has introduced <a href="https://github.com/breez/passkey-login/blob/main/spec.md" target="_blank" rel="noopener">Passkey Login</a> into its Breez SDK. The feature allows developers to build <a href="https://bitcoinmagazine.com/business/top-self-custody-bitcoin-wallets-for-2026">self-custodial wallets</a> that use passkeys for authentication and key derivation, eliminating the traditional seed phrase requirement during normal use.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Seed phrase support remains available for users who prefer it, keeping backwards compatibility with industry standards, but removing the “speed bump” in Bitcoin wallets, which prompts users to back up their 12 words.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Breez explained the rationale behind this new feature in a press release shared with Bitcoin Magazine: “The seed phrase has been a barrier to self-custody since day one. It’s what scares normies away from keeping their own bitcoin, and it’s a legitimate reason why people accept the counterparty risk of exchanges and custodial apps.” Adding that “Passkey Login doesn’t eliminate the tradeoffs of self-custody, but it reframes them around something people already understand and use, namely the same biometric authentication that protects their banking app and their password manager. For most users, that’s a much more intuitive security model than a piece of paper in a drawer.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Passkeys — a fairly new security standard that is gaining broad adoption online — are cryptographic credentials based on the FIDO2 WebAuthn standard, jointly promoted by Apple, Google, Microsoft, and the FIDO Alliance since 2022. Each passkey consists of a unique public-private key pair generated for a specific website or application.<br><br>The private key remains stored in the secure element or similar hardware on the user’s device, such as Apple’s Secure Enclave, Android’s Titan chip, Windows TPM, external security keys like YubiKey or the user’s password manager.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Normal online Passkeys resemble the original Bitcoin wallet.dat file introduced by Satoshi Nakamoto in his early releases of the Bitcoin client, where private keys are stored locally to the user’s device, while public keys are shared with third parties.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">However, the FIDO2 standard implements this private-public key idea in a more standardised and modern way. Websites send a challenge to the user, referencing the user’s known public key for that account. The challenge message is signed by the user’s private key, authenticating their identity in a privacy-preserving way. Each service gets a different public key for the same user, so data compromised on one website does not leak data that can be used to access other websites, nor does it contain any user-identifying data.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">FIDO2 is now widely adopted, it leverages device secure elements, integrates with password managers (e.g., iCloud Keychain, Google Password Manager), browsers, and the World Wide Web Consortium (W3C) WebAuthn API. Authentication occurs via challenge-response signing, with the private key bound to the domain to resist phishing.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Passkeys support biometric unlock (Face ID, fingerprint, PIN) and sync across devices within an ecosystem (e.g., via iCloud or Google)—over a billion activations reported by the FIDO Alliance as of mid-2025, with support on major platforms and many top websites.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Standard passkeys excel at authentication (proving identity to a service) but were missing key functionality needed by the modern Bitcoin industry.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin self-custody typically relies on a single source of entropy (seed phrase) to generate all addresses and keys in a deterministic way, via standards like BIP-39. Users expect those 12 words alone to be enough to recover all balances and accounts on a Bitcoin wallet. The Passkey standard needed to be extended to support this use case.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Breez addresses this by using the <a href="https://www.w3.org/TR/webauthn-3/" target="_blank" rel="noopener">Pseudo-Random Function (PRF) extension in WebAuthn Level 3</a>. PRF enables a passkey to produce a deterministic cryptographic output for any given input during authentication.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">As described in Breez’s announcement materials, “That’s what the PRF extension of WebAuthn solves, and it’s the key ingredient in Passkey Login. PRF is a newer capability, part of the WebAuthn Level 3 spec, that lets your passkey produce a deterministic cryptographic output for any given input. Same passkey, same input, same output. Always. The passkey never leaves your device’s secure enclave.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">If a device is lost, recovery depends on the platform used to store the passkey. Synced passkeys — via iCloud Keychain, Google Password Manager, etc — restore on a new device after regaining access to the associated account.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Breez provides an optional backwards-compatible path: users can export a normal 12-word, BIP-39 mnemonic for their wallet, so they can recover their account in other Bitcoin wallets, following industry standards. The press release adds that “Passkeys also aren’t fully interoperable across platforms yet. If you ever need to move to a platform or wallet that doesn’t support passkeys, you have a standard seed phrase to fall back on.”</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The full technical specification for Passkey Login is public, and a reference app called Glow demonstrates the feature. Breez positions this as a step toward making Bitcoin self-custody more accessible by aligning with familiar biometric authentication used in banking and password managers, while preserving non-custodial control. Developers integrating the Breez SDK can now offer onboarding without the traditional “write down these words” step for supported environments.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The full technical specification for Passkey Login is <a href="https://github.com/breez/passkey-login/blob/main/spec.md" target="_blank" rel="noopener">public</a>, and our reference app <a href="https://glow-app.co" target="_blank" rel="noopener">Glow</a> is already running it, and it’s now available for all the Breez SDK devs to use.&nbsp;&nbsp;</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 18 Mar 2026 14:00:00 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/business/breez-sdk-launches-passkey-login-for-seedless-bitcoin-wallets" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
