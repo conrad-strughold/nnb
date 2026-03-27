@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - The AI Future Is Overhyped. Why Bitcoin Still Matters | Junseth</title>
+    <meta name="description" content=""No innovation will ever change the world more than 2%. Even Bitcoin." Junseth is a Bitcoin OG who's been here since a week after pizza day. He return">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$66,665.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>The AI Future Is Overhyped. Why Bitcoin Still Matters | Junseth</h2>
+            <span class="badge">(A)</span>
+            <audio controls style="width: 100%; margin: 20px 0;"><source src="https://feeds.fountain.fm/UZSKQcrOnhqYS1JopxGg/items/QoJsSQqXjFTE0DC7nxrJ/files/AUDIO---DEFAULT---f21af40e-031b-44e3-94d8-b9260a2bbc9d.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">"No innovation will ever change the world more than 2%. Even Bitcoin." Junseth is a Bitcoin OG who's been here since a week after pizza day. He returns to challenge every narrative the tech world is selling you, from AI replacing all jobs to the metaverse that never existed.   
+Junseth makes the case that the future is being imagined by people who think the best state of the world is living in your bedroom and never coming out, and that the rest of us don't have to elect to live in that world. He explains why AI adoption will be far slower than anyone thinks, why the people predicting the end of jobs are still hiring programmers, and why the Gell-Mann amnesia effect means you shouldn't trust any of the expert timelines.   
+We also get into whether Bitcoin has actually done anything yet, why Bitcoin is boring and that's a good thing, the emergence of political factions and BIP 110, whether AI consciousness and belief in God are diametrically opposed, why the agent economy might reshape the internet, and why if you lose your job you should just go start a trash bin cleaning business.
+THANKS TO OUR SPONSORS:
+ANCHORWATCH
+BLOCKWARE
+LEDN
+BITKEY
+SWAN
+CLUB ORANGE
+FOLLOW:
+Danny Knowles: https://x.com/\_DannyKnowles or https://primal.net/danny
+Junseth: https://x.com/verysmallclaims</p>
+            <div class="meta">
+                <span class="meta-source">What Bitcoin Did</span> |
+                <span class="meta-date">Fri, 27 Mar 2026 11:16:44 GMT</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
