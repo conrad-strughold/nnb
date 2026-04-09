@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Could Be Quantum-Safe Without Protocol Changes, New Proposal Claims</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Could Be Quantum-Safe Without Protocol Changes, New Proposal Claims
+Bitcoin transactions could be resistant to quantum attac">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$72,382.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Could Be Quantum-Safe Without Protocol Changes, New Proposal Claims</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin transactions could be resistant to quantum attacks without changing the network’s core rules, a new proposal contends. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A new research proposal claims it can make Bitcoin transactions resistant to quantum attacks without changing the network’s core rules, a goal that has drawn attention as concerns grow over future cryptographic risks.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">In a paper published on April 9, Avihu Levy of StarkWare <a href="https://github.com/avihu28/Quantum-Safe-Bitcoin-Transactions/" target="_blank" rel="noopener">outlined</a> “Quantum-Safe Bitcoin Transactions Without Softforks,” introducing a scheme called Quantum Safe Bitcoin, or QSB. The design aims to protect transactions from <a href="https://bitcoinmagazine.com/news/googles-quantum-research-harden-bitcoin">threats</a> posed by quantum computers while remaining compatible with the existing Bitcoin protocol.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The proposal targets a known vulnerability in Bitcoin’s current design. Standard transactions rely on ECDSA signatures over the secp256k1 <a href="https://bitcoinmagazine.com/print/the-core-issue-libsecp256k1-bitcoins-cryptographic-heart">curve</a>. In theory, a sufficiently powerful quantum computer running Shor’s algorithm could potentially break this system by solving discrete logarithms, which would allow attackers to forge signatures and spend funds.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">QSB replaces reliance on elliptic curve security with hash-based assumptions. Instead of trusting ECDSA, the scheme uses it as a verification mechanism while shifting security to hash pre-image resistance. This approach draws from <a href="https://bitcoinops.org/en/newsletters/2026/03/13/" target="_blank" rel="noopener">earlier work known as Binohash</a>, which embeds one-time signature schemes into Bitcoin Script.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">JUST IN: Bitcoin developer Avihu Levy introduces "Quantum-Safe Bitcoin Transactions Without Softforks" 👀 <a href="https://t.co/enghEoOq10">pic.twitter.com/enghEoOq10</a></p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">At the core of QSB is a “hash-to-signature” puzzle. The system hashes a transaction-derived public key using RIPEMD-160 and treats the output as a candidate ECDSA signature. Only a small fraction of random hashes meet the strict formatting rules required for valid signatures, creating a proof-of-work condition. The paper estimates the probability of success at about one in ~70.4 trillion attempts.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Because the puzzle depends on hash properties rather than elliptic curve hardness, it remains resistant to Shor’s algorithm. A quantum attacker would gain only a quadratic speedup from Grover’s algorithm, leaving meaningful security margins. The paper estimates about 118-bit second pre-image resistance under a Shor threat model.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The construction works within Bitcoin’s existing scripting limits, including a cap of 201 opcodes and a maximum script size of 10,000 bytes. It uses legacy script structures and avoids any need for consensus changes or soft forks, a feature that may appeal to developers wary of protocol fragmentation.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The transaction process unfolds in three stages, the proposal claims. First, a “pinning” phase searches for transaction parameters that produce a valid hash-to-signature output, binding the transaction to a fixed structure. Next, two digest rounds select subsets of embedded signatures to generate additional proofs tied to the transaction hash. Finally, the transaction is assembled with all required preimages and verification data.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The design introduces tradeoffs. QSB transactions exceed standard relay policy limits, which means they would not propagate across the network under default settings. Instead, they would require direct submission to miners through services such as Slipstream. The scripts also consume significant space and computational resources.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Despite these constraints, the cost of generating a valid transaction appears within reach. The paper estimates total compute expenses between $75 and $150 using cloud GPUs, with the workload scaling across parallel hardware. Early testing reports successful puzzle solutions after several hours using multiple GPUs.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The project remains incomplete. While the paper and script generation tools are finished, parts of the pipeline, including full transaction assembly and broadcast, have not been demonstrated on-chain.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Still, the proposal adds to a growing body of research exploring how Bitcoin could adapt to a <a href="https://bitcoinmagazine.com/news/jefferies-bitcoin-over-quantum-computing">future with quantum computing</a>. By avoiding protocol changes, QSB presents one path that relies on existing rules rather than consensus upgrades, a direction that may shape further debate on long-term network security.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;"><strong>Editorial Disclaimer:&nbsp;</strong>We leverage AI as part of our editorial workflow, including to support research, image generation, and quality assurance processes. All content is directed, reviewed, and approved by our editorial team, who are accountable for accuracy and integrity.&nbsp;<em>AI-generated images use only tools trained on properly license material.</em>&nbsp;In Bitcoin, as in media: Don’t trust. Verify.</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Thu, 09 Apr 2026 20:56:54 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/bitcoin-could-be-quantum-safe" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
