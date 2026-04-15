@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Bitcoin Developers Propose Bitcoin Quantum Migration Plan That Would Freeze Legacy Coins</title>
+    <meta name="description" content="Bitcoin Magazine
+
+Bitcoin Developers Propose Bitcoin Quantum Migration Plan That Would Freeze Legacy Coins
+BIP-361 proposes migrating Bitcoin away fro">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$74,084.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Bitcoin Developers Propose Bitcoin Quantum Migration Plan That Would Freeze Legacy Coins</h2>
+            
+            
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">BIP-361 proposes migrating Bitcoin away from legacy cryptographic signatures to quantum-resistant alternatives through a phased deadline that could eventually make unmigrated coins permanently unspendable.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A new proposal circulating among Bitcoin developers is forcing the network to confront a long-standing theoretical risk: the impact of quantum computing on its cryptographic foundations.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Bitcoin Improvement Proposal 361 (BIP-361), <a href="https://github.com/bitcoin/bips/blob/master/bip-0361.mediawiki" target="_blank" rel="noopener">introduced</a> by a group of researchers including Jameson Lopp, outlines a structured plan to migrate the network away from legacy signature schemes and toward <a href="https://bitcoinmagazine.com/news/presidio-bitcoin-releases-quantum-readiness-paper">quantum-resistant alternatives</a>. If adopted, the proposal would impose a phased deadline that could ultimately render unmigrated coins permanently unspendable.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The proposal aims to reduce Bitcoin’s exposure to a future scenario in which sufficiently advanced quantum computers can break the elliptic curve cryptography that underpins its current system.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“Even if Bitcoin is not a primary initial target of a cryptographically relevant quantum computer, widespread knowledge that such a computer exists and is capable of breaking Bitcoin’s cryptography will damage faith in the network,” the BIP authors wrote. </p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Today, Bitcoin relies on ECDSA and Schnorr signatures to secure transactions. Both remain robust against classical computing but are theoretically vulnerable to Shor’s algorithm, which could allow an attacker to derive private keys from exposed public keys. This risk is not evenly distributed across the network. Older address types, particularly pay-to-public-key outputs and reused addresses, reveal public keys onchain and are considered the most vulnerable.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Estimates cited by the proposal suggest that more than one-third of all bitcoin in circulation falls into this category, including early holdings attributed to <a href="https://bitcoinmagazine.com/tags/satoshi-nakamoto">Satoshi Nakamoto</a>. In a quantum attack scenario, those funds could be compromised, potentially destabilizing the network and redistributing wealth to technologically advanced actors.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">BIP-361 introduces a three-phase transition designed to preempt that outcome. Phase A, expected roughly three years after activation, would prohibit new transactions from sending funds to legacy address types. While users could still move funds out of vulnerable addresses, the restriction would push wallets and services toward adopting quantum-resistant formats.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">Phase B, beginning about two years later, would escalate the transition by invalidating all legacy signatures at the consensus level. At that point, any bitcoin that has not been migrated would become effectively frozen, unable to be spent under network rules.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">A proposed Phase C, still under research, would offer a limited recovery mechanism. This would rely on zero-knowledge proofs tied to seed phrases, allowing users to demonstrate ownership of frozen funds without exposing private keys. The feasibility and timeline of this phase remain uncertain.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">The proposal frames the forced migration as a defensive measure rather than a punitive one. By freezing coins that fail to upgrade, the authors argue the network can eliminate a major attack surface before quantum capabilities emerge.&nbsp;</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">They also note that permanently inaccessible coins would reduce effective supply, a dynamic long discussed within Bitcoin’s economic model.</p><p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">No activation timeline has been set, and BIP-361 remains in draft form.</p>
+            <div class="meta">
+                <span class="meta-source">Bitcoin Magazine</span> |
+                <span class="meta-date">Wed, 15 Apr 2026 16:56:39 +0000</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://bitcoinmagazine.com/news/bitcoin-developers-propose-quantum-plan" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
