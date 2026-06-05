@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - Are chains of 26 unconfirmed transactions prohibited by the wallet in Bitcoin Core 31.0?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$60,854.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>Are chains of 26 unconfirmed transactions prohibited by the wallet in Bitcoin Core 31.0?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I was testing Bitcoin Core 31.0 to see if I could make chains of unconfirmed transactions longer than 25. <a href="https://bitcoincore.org/en/releases/31.0/" rel="nofollow noreferrer">Release notes</a> say:</p>
+<blockquote>
+<p>The mempool no longer enforces ancestor or descendant size/count limits. Instead, two new default policy limits are introduced governing connected components, or clusters, in the mempool, limiting clusters to 64 transactions and up to 101 kB in virtual size. Transactions are considered to be in the same cluster if they are connected to each other via any combination of parent/child relationships in the mempool. These limits can be overridden using command-line arguments; see the extended help (-help-debug) for more information.</p>
+</blockquote>
+<p>Does this only hold for transactions being relayed to my node, and not for transactions my wallet creates? Does the wallet still enforce the 25 txn limit during a transition period until the new mempool policy is more widespread?</p>
+<p>The following script on a newly started Bitocoin Core 31.0 regtest node fails on the last command:</p>
+<pre><code>bitcoin-cli getnetworkinfo
+bitcoin-cli createwallet miner
+ADDR=`bitcoin-cli getnewaddress`
+bitcoin-cli generatetoaddress 101 $ADDR
+# 1 confirmed UTXO
+for i in `seq 0 24`; do
+    bitcoin-cli sendtoaddress $ADDR 1
+done
+# We now have a chain of 25 unconfirmed txs
+# I expected adding one more would work on bitcoin core 31.0
+bitcoin-cli sendtoaddress $ADDR 1
+</code></pre>
+<p>Output looks something like this:</p>
+<pre><code>{
+  "version": 310000,
+  "subversion": "/Satoshi:31.0.0/",
+...
+61000fa3b63cba73ed407258ec8b814c07dd4b5c32e2f89c34ca32716f6338c1
+69644eea749b113a97d0b140511486e2d4acf63cc713078f7180d637849f883c
+8b282b62858ae5fa75983739e4981db77734ff873a7cc759bd51e7ddee93d6c6
+error code: -6
+error message:
+Unconfirmed UTXOs are available, but spending them creates a chain of transactions that will be rejected by the mempool
+</code></pre>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>You can have a chain longer than 25 unconfirmed transactions in the mempool, but the wallet still enforces a 25 transaction chain limit.</p>
+<p>From running <code>bitcoind -help-debug</code>:</p>
+<pre><code>...
+  -limitdescendantcount=&lt;n&gt;
+       Deprecated setting to not accept transactions if any ancestor would have
+       &lt;n&gt; or more in-mempool descendants (default: 25); replaced by
+       cluster limits (see -limitclustercount) and only used by wallet
+       for coin selection
+...
+</code></pre>
+<p>If you want to test the mempool policy you can change <code>-limitdescendantcount</code> to a value larger than 64 and see if the 65th transaction is accepted (should not).</p>
+<p>Without changing the <code>-limitdescendantcoun</code> option you will have to create the transaction chain without using the Bitcoin Core wallet.</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2026-06-05T12:56:33.000Z</span>
+                | <span class="meta-author">By Kalle Rosenbaum</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/130777/are-chains-of-26-unconfirmed-transactions-prohibited-by-the-wallet-in-bitcoin-co" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
