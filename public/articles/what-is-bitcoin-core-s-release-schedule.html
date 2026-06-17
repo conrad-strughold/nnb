@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - What is Bitcoin Core’s release schedule?</title>
+    <meta name="description" content="Bitcoin content">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$65,849.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>What is Bitcoin Core’s release schedule?</h2>
+            
+            
+            
+            
+            <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Question</h3>
+            <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;"><html><head></head><body><p>I'm currently using the 27.1.0 Bitcoin Core client version and I have a question about the next version.
+Will it be the 27.2.0 or the 28.0.0 version ?</p>
+<p>Update : The v28 will be available soon I guess, I saw one recently ! <a href="https://i.sstatic.net/7iw9y2eK.png" rel="nofollow noreferrer"><img src="https://i.sstatic.net/7iw9y2eK.png" alt="enter image description here"></a></p>
+    </body></html></div>
+            
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 1</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>The version numbering scheme is explained at <a href="https://bitcoincore.org/en/lifecycle/#versioning" rel="nofollow noreferrer">https://bitcoincore.org/en/lifecycle/#versioning</a></p>
+<blockquote>
+<h2>Versioning</h2>
+<p>Bitcoin Core releases are versioned as follows:
+MAJOR.MINOR, and release candidates are suffixed with rc1, rc2 etc.</p>
+<h2>Major releases</h2>
+<p>We aim to make a major release every 6-7 months.</p>
+<p>These will be numbered 22.0, 23.0 etc.</p>
+<h2>Maintenance releases</h2>
+<p>We will provide maintenance “minor releases” that
+fix bugs within the major releases. As a general rule we do not
+introduce major new features in a maintenance release (except for
+consensus rules). However, we may add minor features where necessary,
+and we will back-port consensus rule changes such as soft forks.</p>
+<p>Minor releases will be numbered 22.1, 22.2, 23.1, 23.2 etc.</p>
+</blockquote>
+<p>So it depends what bugs are found, if any, that need to be fixed within the major version release cycle.</p>
+    </div>
+                    
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 2</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>Bitcoin Core version numbers are of the form MAJOR.MINOR. The major number goes up when features are added, the minor number goes up when bugs are fixed.</p>
+<p>The latest version as of 2024-Aug-16 is 27.1, which is part of the major series 27.x. The next major version will be 28.0, and is <a href="https://github.com/bitcoin/bitcoin/issues/29891" rel="nofollow noreferrer">scheduled</a> to be released on 2024-Sep-30. It will start the 28.x series.</p>
+<p>If bugs are found that are worth fixing in 27.1, there will be a 27.2. This can happen before or after 28.0 comes out. If so, it will have only the 27.x features and not the 28.x ones.</p>
+    </div>
+                    
+                        <h3 style="font-size: 20px; color: #ddd; margin: 15px 0;">Answer 3</h3>
+                        <div style="font-size: 14px; color: #ddd; margin: 0 0 20px;">
+<p>Bitcoin Core used to schedule new major releases six months after the preceding release, but this led to release times slipping slightly whenever there were more rounds of release candidates than expected.</p>
+<p>Now, Bitcoin Core’s release schedule is fixed to specific times in the year: new major versions are released in April and October.</p>
+<p>As described by other answers, Bitcoin Core’s versions are labeled MAJOR.MINOR, and new features are only released with major versions. Minor versions provide bug fixes and are released as needed.</p>
+    </div>
+                    
+        
+            <div class="meta">
+                <span class="meta-source">Trending Questions - Bitcoin Stack Exchange</span> |
+                <span class="meta-date">2024-08-16T08:35:08.000Z</span>
+                | <span class="meta-author">By user138570</span>
+            </div>
+            <a href="https://bitcoin.stackexchange.com/questions/123960/what-is-bitcoin-core-s-release-schedule" target="_blank" class="source-link">Read Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
