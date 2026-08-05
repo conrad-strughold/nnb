@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nonoise₿itcoin - The Most Bullish Thing About Bitcoin | Alex Thorn</title>
+    <meta name="description" content="“Who is left now that wants to sell at $65K?”    
+Bitcoin has gone through the price pain. Now comes the time pain.   
+Alex Thorn, Head of Firmwide Re">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'><text x='50%' y='50%' font-size='20' text-anchor='middle' dominant-baseline='middle'>₿</text></svg>" type="image/svg+xml">
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #121212; color: #ddd; margin: 0; padding: 0; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { display: flex; justify-content: space-between; align-items: center; background-color: #1f1f1f; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
+        .price-ticker { font-size: 18px; font-weight: bold; color: #ff9800; }
+        .article-content { background-color: #1f1f1f; padding: 15px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); border-radius: 5px; }
+        .article-content h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; color: #fff; margin-bottom: 20px; display: inline; }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: #ddd; margin: 15px 0; }
+        .article-content img { max-width: 100%; height: auto; margin: 10px 0; }
+        .badge { display: inline-block; width: 20px; height: 20px; line-height: 20px; text-align: center; background-color: #333; color: #ff9800; font-size: 12px; border-radius: 50%; margin-left: 10px; vertical-align: middle; }
+        .meta { font-size: 12px; margin-top: 10px; }
+        .meta-source, .meta-author { color: #ff9800; }
+        .meta-date { color: #aaa; }
+        .meta span { margin-right: 5px; }
+        .back-link, .source-link { display: inline-block; margin-top: 20px; color: #ff9800; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .back-link:hover, .source-link:hover { text-decoration: underline; }
+        footer { text-align: center; margin-top: 20px; font-size: 12px; color: #aaa; padding: 10px 0; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>nonoise₿itcoin</h1>
+            <div class="price-ticker">BTC: <span id="bitcoin-price">$64,574.00</span></div>
+        </header>
+        <div class="article-content">
+            <h2>The Most Bullish Thing About Bitcoin | Alex Thorn</h2>
+            <span class="badge">(A)</span>
+            <audio controls style="width: 100%; margin: 20px 0;"><source src="https://feeds.fountain.fm/UZSKQcrOnhqYS1JopxGg/items/GVuSWvFUN6uTpxBbyStF/files/VIDEO---DEFAULT---e822039a-4fe7-40cc-b627-c4eeb79e3f95.mp4/ORIGINAL.mp3" type="audio/mpeg"></audio>
+            
+            <p style="font-size: 14px; color: #ddd; margin: 0 0 10px;">“Who is left now that wants to sell at $65K?”    
+Bitcoin has gone through the price pain. Now comes the time pain.   
+Alex Thorn, Head of Firmwide Research at Galaxy, is back on the show in New York to get into whether Bitcoin has already found its bottom, why sellers may finally be exhausted, and how the next rally could begin before the wider market notices.   
+We discuss the on-chain signals around $58K, the changing shape of Bitcoin’s market cycles, and how the enormous debt funding the AI boom could revive the currency-debasement narrative and put Bitcoin back at the centre of the market.   
+We also get into whether a court can declare dormant Bitcoin “abandoned,” the attempt to claim legal ownership of coins linked to Satoshi, the quantum-computing risk, government control of superintelligent AI, and the last-minute fight to protect self-custody through the CLARITY Act.   
+*Note, this was recorded before the recent Coldcard vulnerability. For more info watch this… https://youtu.be/rf-9rf93OpE
+THANKS TO OUR SPONSORS:
+LEDN
+SWAN
+ANCHORWATCH
+BLOCKWARE
+BITKEY
+CAPE
+FOLLOW:
+Danny Knowles: https://x.com/_DannyKnowles
+Alex Thorn: https://x.com/intangiblecoins</p>
+            <div class="meta">
+                <span class="meta-source">What Bitcoin Did</span> |
+                <span class="meta-date">Wed, 05 Aug 2026 17:00:28 GMT</span>
+                | <span class="meta-author">By undefined</span>
+            </div>
+            <a href="https://fountain.fm/episode/UHYPtYxPDYTlPszlHkIt" target="_blank" class="source-link">Listen to Original</a>
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+        <footer>
+            <p>© 2023 nonoise₿itcoin</p>
+        </footer>
+    </div>
+    <script>
+        async function updateBitcoinPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                document.getElementById('bitcoin-price').textContent = price;
+            } catch (error) {
+                console.error('Error fetching Bitcoin price:', error);
+                document.getElementById('bitcoin-price').textContent = 'Error';
+            }
+        }
+        updateBitcoinPrice();
+        setInterval(updateBitcoinPrice, 30000);
+    </script>
+</body>
+</html>
+    
